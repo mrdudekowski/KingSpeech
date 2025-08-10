@@ -21,6 +21,11 @@ const bindToggle = (btn) => {
   const updateAria = () => btn.setAttribute('aria-pressed', String(root.classList.contains('dark')));
   btn.addEventListener('click', () => {
     const toDark = !root.classList.contains('dark');
+    // Включаем короткий эффект заката при переходе к тёмной теме
+    if (toDark) {
+      root.classList.add('sunset-active');
+      setTimeout(() => root.classList.remove('sunset-active'), 700);
+    }
     applyTheme(toDark ? 'dark' : 'light');
     setStoredTheme(toDark ? 'dark' : 'light');
     updateAria();
