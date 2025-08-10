@@ -62,7 +62,7 @@ body { background: var(--bg); color: var(--text); }
 
 /* Layout helpers */
 .container { max-width: 1280px; margin-inline: auto; padding-inline: 32px; }
-.section { padding-block: clamp(56px, 6vw, 96px); }
+.section { padding-block: clamp(48px, 5vw, 80px); }
 .section-title { margin: 0 0 24px 0; letter-spacing: -0.02em; }
 .section-subtitle { max-width: 60ch; margin-inline: auto; }
 
@@ -90,7 +90,7 @@ body { background: var(--bg); color: var(--text); }
 
 /* Panels/Cards */
 .panel, .card { border-radius: 1rem; background: var(--card); border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,.03); }
-.card { padding: 20px; min-height: 200px; display: grid; gap: 10px; align-content: start; }
+.card { padding: 18px; min-height: 180px; display: grid; gap: 10px; align-content: start; }
 .card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.06); }
 .card-icon { font-size: 28px; }
 .card-title { font-size: 18px; }
@@ -104,13 +104,13 @@ body { background: var(--bg); color: var(--text); }
 .form-hint { margin-top: .25rem; font-size: .75rem; color: color-mix(in srgb, var(--text-muted) 70%, transparent); }
 
 /* Testimonial */
-.testimonial { border-radius: 1rem; background: var(--card); padding: 18px; border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,.03); }
+.testimonial { border-radius: 1rem; background: var(--card); padding: 16px; border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,.03); }
 .testimonial-avatar { height: 3rem; width: 3rem; border-radius: 9999px; object-fit: cover; }
 .testimonial-quote { margin-top: .75rem; color: var(--text); font-size: 15px; line-height: 1.5; }
 .testimonial-name { margin-top: .5rem; font-size: 13px; font-weight: 500; color: var(--text-muted); }
 
 /* FAQ */
-.faq { border-radius: 0.75rem; background: var(--card); padding: 1rem; border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,.03); }
+.faq { border-radius: 0.75rem; background: var(--card); padding: 12px 16px; border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,.03); }
 .faq > summary { cursor: pointer; list-style: none; font-weight: 600; color: var(--text); user-select: none; font-size: 16px; }
 .faq[open] > summary { color: var(--accent); }
 .faq > p { margin-top: .5rem; color: var(--text-muted); }
@@ -158,7 +158,7 @@ html.dark .theme-sun { transform: translate(-50%, 160%); opacity: 0; z-index: 2;
 html.dark .theme-moon { top: auto; bottom: 18px; left: 50%; transform: translate(-50%, 0); opacity: 1; z-index: 5; }
 
 /* Utility panel class for content blocks */
-.panel { padding: 24px; border-radius: 16px; }
+.panel { padding: 20px; border-radius: 16px; }
 
 /* Headings to accent color */
 h1, h2, h3, h4, h5, h6 { color: var(--accent); } 
@@ -190,21 +190,21 @@ h1, h2, h3, h4, h5, h6 { color: var(--accent); }
 .mobile-link--cta { font-weight: 700; color: var(--accent); }
 
 /* Hero */
-.hero { padding-top: clamp(88px, 10vw, 120px); }
-@media (min-width: 640px) { .hero { padding-top: 8rem; } }
+.hero { padding-top: clamp(80px, 8vw, 104px); }
+@media (min-width: 768px) { .hero__grid { grid-template-columns: 1.1fr 0.9fr; } }
 .hero__grid { display: grid; gap: 2.5rem; align-items: center; column-gap: clamp(24px, 4vw, 48px); }
 @media (min-width: 768px) { .hero__grid { grid-template-columns: 1fr 1fr; } }
-.hero__content { display: grid; gap: 1rem; }
-.hero__title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; line-height: 1.15; max-width: 16ch; }
-.hero__subtitle { color: var(--text-muted); font-size: clamp(16px, 1.6vw, 18px); max-width: 60ch; }
-.hero__actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 8px; }
-.hero__bullets { display: flex; flex-wrap: wrap; gap: 20px; font-size: 0.95rem; color: color-mix(in srgb, var(--text) 70%, transparent); list-style: none; margin: 0; padding: 0; }
+.hero__content { display: grid; gap: 12px; }
+.hero__title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; line-height: 1.15; max-width: 16ch; margin: 0 0 6px 0; letter-spacing: -0.01em; }
+.hero__subtitle { color: var(--text-muted); font-size: clamp(16px, 1.6vw, 18px); max-width: 60ch; margin: 0 0 10px 0; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px; }
+.hero__bullets { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.95rem; color: color-mix(in srgb, var(--text) 70%, transparent); list-style: none; margin: 0; padding: 0; }
 .bullet { display: inline-flex; align-items: center; gap: 8px; }
 .hero__media { align-self: center; }
 
 /* Media frame */
-.media-frame { border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,.15); border: 1px solid var(--border); }
-.media-frame img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 16/10; max-height: 420px; }
+.media-frame { border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,.15); border: 1px solid var(--border); }
+.media-frame img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 4/3; max-height: 380px; }
 
 /* About */
 .about__grid { display: grid; gap: 2.5rem; align-items: center; }
@@ -220,19 +220,19 @@ h1, h2, h3, h4, h5, h6 { color: var(--accent); }
 .text-center { text-align: center; }
 
 /* Cards grid */
-.cards { display: grid; gap: 1.25rem; }
+.cards { display: grid; gap: 16px; }
 @media (min-width: 640px) { .cards { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 @media (min-width: 1024px) { .cards { grid-template-columns: repeat(4, minmax(0,1fr)); } }
 
 /* Testimonials */
-.testimonials { display: grid; gap: 20px; margin-top: 1.5rem; }
+.testimonials { display: grid; gap: 16px; margin-top: 1.5rem; }
 @media (min-width: 768px) { .testimonials { grid-template-columns: repeat(3, minmax(0,1fr)); } }
 
 /* FAQ */
-.faq__list { max-width: 900px; margin: 1.5rem auto 0; display: grid; gap: 1rem; }
+.faq__list { max-width: 900px; margin: 1.5rem auto 0; display: grid; gap: 12px; }
 
 /* Contact grid */
-.contact__grid { display: grid; gap: 2.5rem; align-items: start; column-gap: clamp(24px, 4vw, 40px); }
+.contact__grid { display: grid; row-gap: 24px; align-items: start; column-gap: clamp(24px, 4vw, 40px); }
 @media (min-width: 1024px) { .contact__grid { grid-template-columns: 1fr 1fr; } }
 .contact__side { display: grid; gap: 1.25rem; }
 .panel__title { font-size: 1.125rem; font-weight: 700; color: var(--text); margin-bottom: .75rem; }
