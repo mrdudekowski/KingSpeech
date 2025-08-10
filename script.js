@@ -21,7 +21,7 @@ const bindToggle = (btn) => {
   const updateAria = () => btn.setAttribute('aria-pressed', String(root.classList.contains('dark')));
   btn.addEventListener('click', () => {
     const toDark = !root.classList.contains('dark');
-    // Включаем короткий эффект заката при переходе к тёмной теме
+    // Короткий эффект заката при переходе к тёмной теме (визуальная обратная связь)
     if (toDark) {
       root.classList.add('sunset-active');
       setTimeout(() => root.classList.remove('sunset-active'), 700);
@@ -39,7 +39,7 @@ const bindToggle = (btn) => {
 bindToggle(document.getElementById('themeToggle'));
 bindToggle(document.getElementById('themeToggleMobile'));
 
-// Автоматическая проверка контраста и коррекция цвета текста
+// Автоматическая проверка контраста и коррекция цвета текста (WCAG AA)
 const clamp01 = (n) => Math.min(1, Math.max(0, n));
 const srgbToLinear = (c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
 const parseRGB = (css) => {
@@ -63,7 +63,7 @@ const contrastRatio = (fg, bg) => {
 };
 const getComputedBackground = (el) => {
   const rootDark = document.documentElement.classList.contains('dark');
-  const fallback = parseRGB(getComputedStyle(document.documentElement).backgroundColor) || parseRGB(rootDark ? 'rgb(11,15,25)' : 'rgb(255,248,243)');
+  const fallback = parseRGB(getComputedStyle(document.documentElement).backgroundColor) || parseRGB(rootDark ? 'rgb(18,18,18)' : 'rgb(255,255,255)');
   let node = el;
   while (node && node !== document.documentElement) {
     const bg = getComputedStyle(node).backgroundColor;
@@ -89,7 +89,7 @@ const ensureReadable = (el) => {
   const largeText = fontSize >= 18 || (isBold && fontSize >= 16);
   const threshold = largeText ? 3 : 4.5;
   if (ratio >= threshold) return;
-  // Выбираем светлый или тёмный текст в зависимости от фона
+  // Выбираем светлый или тёмный текст в зависимости от фона (быстрое исправление контраста)
   const bgLum = relLuminance(bg);
   const target = bgLum < 0.35 ? 'rgb(230,237,245)' : 'rgb(31,41,55)';
   el.style.color = target;
@@ -125,20 +125,28 @@ const recheckAfterTheme = () => setTimeout(scanContrast, 750);
   btn.addEventListener('click', recheckAfterTheme);
 });
 
-// Мобильное меню
+// Мобильное меню — исправлено: используем модификатор .is-open (CSS) и aria-hidden
 const mobileBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
-const primaryMenu = document.getElementById('primary-menu');
 if (mobileBtn && mobileMenu) {
+  const setMenuState = (open) => {
+    mobileBtn.setAttribute('aria-expanded', String(open));
+    mobileMenu.classList.toggle('is-open', open);
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+  };
+  setMenuState(false);
   mobileBtn.addEventListener('click', () => {
     const expanded = mobileBtn.getAttribute('aria-expanded') === 'true';
-    mobileBtn.setAttribute('aria-expanded', String(!expanded));
-    mobileMenu.classList.toggle('hidden');
+    setMenuState(!expanded);
   });
   // Закрывать меню при выборе ссылки
   mobileMenu.querySelectorAll('a').forEach((link) =>
-    link.addEventListener('click', () => mobileMenu.classList.add('hidden'))
+    link.addEventListener('click', () => setMenuState(false))
   );
+  // Esc закрывает меню
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenuState(false);
+  });
 }
 
 // Плавная прокрутка
@@ -168,13 +176,12 @@ const observer = new IntersectionObserver(
 );
 animated.forEach((el) => observer.observe(el));
 
-// Кнопка «наверх»
+// Кнопка «наверх» — исправлено: используем атрибут hidden вместо класса
 const toTopBtn = document.getElementById('toTop');
 if (toTopBtn) {
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 600) toTopBtn.classList.remove('hidden');
-    else toTopBtn.classList.add('hidden');
-  });
+  const updateToTop = () => { toTopBtn.hidden = !(window.scrollY > 600); };
+  window.addEventListener('scroll', updateToTop);
+  updateToTop();
   toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
