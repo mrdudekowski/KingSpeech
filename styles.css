@@ -40,12 +40,28 @@ html.dark {
 /* Smooth transitions */
 * { transition: color .3s ease, background-color .3s ease, border-color .3s ease; }
 
+/* Base typography */
+html { font-size: 16px; }
+@media (min-width: 768px) { html { font-size: 17px; } }
+@media (min-width: 1280px) { html { font-size: 18px; } }
+body { line-height: 1.6; }
+
+/* Headings scale */
+.section-title { font-size: clamp(28px, 3.2vw, 40px); }
+.hero__title { font-size: clamp(40px, 6vw, 64px); }
+.hero__subtitle { font-size: clamp(18px, 1.8vw, 20px); }
+.card-title { font-size: 20px; }
+.card-text, .testimonial-quote, .faq > p { font-size: 16px; }
+
+/* Buttons */
+.btn { font-size: 16px; padding: 14px 20px; }
+
 /* Page */
 html { background: var(--bg); }
 body { background: var(--bg); color: var(--text); }
 
 /* Layout helpers */
-.container { max-width: 1200px; margin-inline: auto; padding-inline: 24px; }
+.container { max-width: 1280px; margin-inline: auto; padding-inline: 32px; }
 .section { padding-block: clamp(56px, 6vw, 96px); }
 .section-title { margin: 0 0 24px 0; letter-spacing: -0.02em; }
 .section-subtitle { max-width: 60ch; margin-inline: auto; }
