@@ -90,8 +90,8 @@
 .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent); }
 .theme-sky { position: relative; height: 100%; width: 100%; }
 /* Тонкая линия горизонта — ПЕРЕДНИЙ ПЛАН */
-.theme-horizon { position: absolute; left: 6px; right: 6px; bottom: 12px; height: 2px; background: rgba(0,0,0,.22); border-radius: 2px; z-index: 4; }
-.dark .theme-horizon { background: rgba(255,255,255,.28); }
+.theme-horizon { position: absolute; left: 2px; right: 2px; bottom: 12px; height: 3px; background: #3a3a3a; border-radius: 2px; z-index: 4; }
+.dark .theme-horizon { background: #cbd5e1; }
 /* Закрашенная земля: полоска снизу, ниже светил */
 .theme-ground { position: absolute; left: 6px; right: 6px; bottom: 6px; height: 10px; border-radius: 6px; background: linear-gradient(180deg, rgba(255,161,81,.55), rgba(200,120,40,.75)); z-index: 2; }
 .dark .theme-ground { background: linear-gradient(180deg, #1b2540, #0f1a33); }
