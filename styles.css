@@ -306,8 +306,9 @@ html.dark .contact-cta{ background: var(--card); }
 /* Carousel (testimonials) */
 .carousel{ position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; }
 .carousel__track{ display: grid; grid-auto-flow: column; grid-auto-columns: min(85vw, 360px); gap: 16px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; padding: 6px; border-radius: 12px; }
-.carousel__track::-webkit-scrollbar{ height: 8px; }
-.carousel__track::-webkit-scrollbar-thumb{ background: color-mix(in srgb, var(--text) 15%, transparent); border-radius: 9999px; }
+.carousel__track::-webkit-scrollbar{ height: 10px; }
+.carousel__track::-webkit-scrollbar-track{ background: color-mix(in srgb, var(--text) 6%, transparent); border-radius: 9999px; }
+.carousel__track::-webkit-scrollbar-thumb{ background: color-mix(in srgb, var(--text) 20%, transparent); border-radius: 9999px; }
 .carousel__track > *{ scroll-snap-align: start; }
 .carousel__btn{ height: 40px; width: 40px; border-radius: 9999px; border: 1px solid var(--border); background: var(--card); color: var(--text); display: grid; place-items: center; box-shadow: var(--shadow-sm); }
 .carousel__btn:hover{ color: var(--accent); border-color: color-mix(in srgb, var(--accent) 50%, var(--border)); }

@@ -254,67 +254,27 @@ const so = new IntersectionObserver(entries => {
 }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
 sections.forEach(s => s && so.observe(s)); 
 
-// Testimonials carousel: buttons + drag scroll
+// Testimonials carousel: drag scroll only (no buttons, no autoplay)
 (() => {
   const rootEl = document.getElementById('testimonialsCarousel');
   if (!rootEl) return;
   const track = rootEl.querySelector('.carousel__track');
-  const prev = rootEl.querySelector('.carousel__btn--prev');
-  const next = rootEl.querySelector('.carousel__btn--next');
-  if (!track || !prev || !next) return;
-
-  const getCardWidth = () => (track.firstElementChild ? track.firstElementChild.getBoundingClientRect().width + 16 : 300);
-  const scrollByCard = (dir) => { track.scrollBy({ left: dir * getCardWidth(), behavior: 'smooth' }); };
-
-  prev.addEventListener('click', () => { pauseAutoplayTemporarily(); scrollByCard(-1); });
-  next.addEventListener('click', () => { pauseAutoplayTemporarily(); scrollByCard(1); });
+  if (!track) return;
 
   // keyboard support when track is focused
   track.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') { e.preventDefault(); pauseAutoplayTemporarily(); scrollByCard(1); }
-    if (e.key === 'ArrowLeft')  { e.preventDefault(); pauseAutoplayTemporarily(); scrollByCard(-1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); track.scrollBy({ left: 80, behavior: 'smooth' }); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); track.scrollBy({ left: -80, behavior: 'smooth' }); }
   });
 
   // drag to scroll
   let isDown = false, startX = 0, startScroll = 0;
-  const onDown = (x) => { isDown = true; startX = x; startScroll = track.scrollLeft; track.classList.add('is-dragging'); pauseAutoplay(); };
+  const onDown = (x) => { isDown = true; startX = x; startScroll = track.scrollLeft; track.classList.add('is-dragging'); };
   const onMove = (x) => { if (!isDown) return; const dx = x - startX; track.scrollLeft = startScroll - dx; };
-  const onUp = () => { if (!isDown) return; isDown = false; track.classList.remove('is-dragging'); resumeAutoplayDelayed(); };
+  const onUp = () => { if (!isDown) return; isDown = false; track.classList.remove('is-dragging'); };
 
   track.addEventListener('pointerdown', (e) => { track.setPointerCapture(e.pointerId); onDown(e.clientX); });
   track.addEventListener('pointermove', (e) => onMove(e.clientX));
   track.addEventListener('pointerup', onUp);
   track.addEventListener('pointercancel', onUp);
-
-  // autoplay (slow and smooth)
-  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let paused = false;
-  let rafId = null; let lastTs = 0; const SPEED_PX_PER_SEC = 24; // медленно и плавно
-
-  function loop(ts){
-    if (!lastTs) lastTs = ts;
-    const dt = (ts - lastTs) / 1000; // seconds
-    lastTs = ts;
-    if (!paused){
-      track.scrollLeft += SPEED_PX_PER_SEC * dt;
-      // циклический переход в начало
-      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1){
-        track.scrollLeft = 0;
-      }
-    }
-    rafId = requestAnimationFrame(loop);
-  }
-  function startAutoplay(){ if (!prefersReduced && rafId === null){ rafId = requestAnimationFrame(loop); } }
-  function pauseAutoplay(){ paused = true; }
-  function resumeAutoplay(){ paused = false; }
-  let resumeTimer = null;
-  function resumeAutoplayDelayed(ms=1500){ clearTimeout(resumeTimer); resumeTimer = setTimeout(resumeAutoplay, ms); }
-  function pauseAutoplayTemporarily(ms=1500){ pauseAutoplay(); resumeAutoplayDelayed(ms); }
-
-  track.addEventListener('mouseenter', pauseAutoplay);
-  track.addEventListener('mouseleave', () => resumeAutoplayDelayed(800));
-  rootEl.addEventListener('focusin', pauseAutoplay);
-  rootEl.addEventListener('focusout', () => resumeAutoplayDelayed(800));
-
-  startAutoplay();
 })(); 
