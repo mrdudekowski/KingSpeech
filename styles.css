@@ -100,7 +100,7 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 }
 .nav__toggle { display: inline-flex; align-items: center; justify-content: center; height: 40px; width: 40px; border-radius: 8px; color: var(--text-muted); background: transparent; border: 0; cursor: pointer; }
 .nav__toggle:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent); }
-.nav__list { display: none; align-items: center; gap: 24px; }
+.nav__list { display: none; align-items: center; gap: 24px; list-style: none; margin: 0; padding: 0; }
 .nav__link { color: var(--text-muted); text-decoration: none; position: relative; }
 .nav__link:hover { color: var(--accent); }
 .nav__link.is-active{ color: var(--accent); }
@@ -110,7 +110,7 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 /* Mobile menu */
 .nav__mobile { display: none; padding: 12px 0; }
 .nav__mobile.is-open { display: block; }
-.mobile-link { display: block; padding: 10px 12px; color: var(--text); text-decoration: none; border-radius: 8px; }
+.mobile-link { display: block; padding: 10px 12px; color: var(--text); text-decoration: none; border-radius: 8px; list-style: none; }
 .mobile-link:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
 .mobile-link--cta { font-weight: 700; color: var(--accent); }
 
