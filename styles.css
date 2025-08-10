@@ -252,3 +252,39 @@ h1, h2, h3, h4, h5, h6 { color: var(--accent); }
 
 /* To top */
 .to-top { position: fixed; right: 20px; bottom: 20px; height: 40px; width: 40px; border-radius: 9999px; background: var(--accent); color: #fff; border: 0; box-shadow: 0 10px 25px -5px rgba(255,122,0,.35), 0 8px 10px -6px rgba(255,122,0,.25); display: grid; place-items: center; } 
+
+/* --- Refinements pass --- */
+
+/* Mobile header height */
+@media (max-width: 767px){ .nav{ height:64px; } }
+
+/* Nav active link */
+.nav__link{ position: relative; }
+.nav__link.is-active{ color: var(--accent); }
+.nav__link.is-active::after{ content:""; position:absolute; left:0; right:0; bottom:-10px; height:2px; background: var(--accent); border-radius:1px; }
+
+/* Focus visible for links/buttons */
+:focus-visible{ outline: 3px solid rgba(255,122,0,.3); outline-offset: 2px; border-radius: 6px; }
+
+/* Hero media adjustments on wide */
+@media (min-width: 1024px){
+  .media-frame img{ aspect-ratio: 16/9; max-height: 460px; }
+}
+.hero__subtitle{ margin-bottom: 12px; }
+
+/* Cards/Testimonial hover */
+.card{ transition: transform .15s ease, box-shadow .15s ease; }
+.card:hover{ transform: translateY(-2px); box-shadow: 0 12px 28px rgba(16,24,40,.12); }
+.testimonial{ transition: transform .15s ease, box-shadow .15s ease; }
+.testimonial:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(16,24,40,.10); }
+
+/* FAQ icons */
+.faq > summary{ position: relative; padding-right: 28px; }
+.faq > summary::after{ content:"+"; position:absolute; right: 8px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-weight: 800; }
+.faq[open] > summary::after{ content:"–"; color: var(--accent); }
+
+/* Form width constraint on large screens */
+@media (min-width: 1024px){ .form{ max-width: 560px; } }
+
+/* Buttons tighten layout inside hero */
+.hero .btn{ padding-block: 13px; } 

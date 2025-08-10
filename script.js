@@ -235,4 +235,18 @@ if (form) {
       form.reset();
     }
   });
-} 
+}
+
+// Active nav link on scroll
+const sections = ['home','about','method','testimonials','faq','contact']
+  .map(id => document.getElementById(id));
+const navLinks = Array.from(document.querySelectorAll('.nav__link'));
+function setActive(id){
+  navLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
+}
+const so = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) setActive(e.target.id);
+  });
+}, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+sections.forEach(s => s && so.observe(s)); 
