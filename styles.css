@@ -60,14 +60,17 @@
 @media (prefers-reduced-motion: reduce) { [data-animate] { transition: none; } } 
 
 /* Theme toggle */
-.theme-toggle { height: 40px; width: 64px; border-radius: 9999px; background: linear-gradient(180deg, #fef3c7 0%, #fde68a 60%, #f59e0b 100%); display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid rgba(0,0,0,.06); position: relative; overflow: hidden; }
-.dark .theme-toggle { background: linear-gradient(180deg, #0b1020 0%, #0f172a 70%, #111827 100%); border-color: #111827; }
+.theme-toggle { height: 40px; width: 64px; border-radius: 9999px; background: linear-gradient(180deg, #fef3c7 0%, #fde68a 60%, #f59e0b 100%); display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid rgba(0,0,0,.06); position: relative; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,.04); }
+.dark .theme-toggle { background: linear-gradient(180deg, #0b1020 0%, #0f172a 70%, #111827 100%); border-color: #0f172a; box-shadow: 0 0 0 1px rgba(255,255,255,.14); }
+.theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent); }
 .theme-sky { position: relative; height: 100%; width: 100%; }
-.theme-horizon { position: absolute; left: 0; right: 0; bottom: 10px; height: 2px; background: rgba(0,0,0,.15); border-radius: 2px; }
-.dark .theme-horizon { background: rgba(255,255,255,.15); }
+.theme-horizon { position: absolute; left: 8px; right: 8px; bottom: 10px; height: 2px; background: rgba(0,0,0,.2); border-radius: 2px; }
+.dark .theme-horizon { background: rgba(255,255,255,.25); }
 .theme-sun, .theme-moon { position: absolute; height: 22px; width: 22px; color: #fff; transition: transform .5s ease, opacity .5s ease; }
 .theme-sun { bottom: 9px; left: 10px; color: #fff59d; filter: drop-shadow(0 0 6px rgba(255, 200, 0, .8)); }
 .theme-moon { top: 6px; right: 10px; color: #c7d2fe; opacity: 0; transform: translateY(-200%); }
 /* Анимация: при тёмной теме солнце «заходит», луна «опускается» */
 .dark .theme-sun { transform: translateY(200%); opacity: .2; }
-.dark .theme-moon { transform: translateY(0%); opacity: 1; } 
+.dark .theme-moon { transform: translateY(0%); opacity: 1; }
+/* Немного расстояния слева в меню */
+#primary-menu > li:first-child { margin-right: .25rem; } 
