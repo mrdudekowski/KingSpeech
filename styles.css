@@ -92,7 +92,7 @@ body { background: #fff7f2; transition: background-color .6s ease, background .6
 .dark .section.bg-gray-50 { background: rgba(15, 23, 42, 0.4); }
 
 /* Theme toggle — также плавно меняет фон */
-.theme-toggle { height: 40px; width: 40px; border-radius: 9999px; background: linear-gradient(180deg, #fef3c7 0%, #fde68a 60%, #f59e0b 100%); display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid rgba(0,0,0,.06); position: relative; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,.06); transition: background .6s ease, border-color .6s ease; }
+.theme-toggle { height: 40px; width: 40px; border-radius: 9999px; background: linear-gradient(180deg, #cfefff 0%, #9ad9ff 60%, #62b6ff 100%); display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid rgba(0,0,0,.06); position: relative; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,.06); transition: background .6s ease, border-color .6s ease; }
 .dark .theme-toggle { background: linear-gradient(180deg, #0b1020 0%, #0f172a 70%, #111827 100%); border-color: #0f172a; box-shadow: 0 0 0 1px rgba(255,255,255,.12); }
 .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent); }
 .theme-sky { position: relative; height: 100%; width: 100%; }
@@ -102,14 +102,14 @@ body { background: #fff7f2; transition: background-color .6s ease, background .6
 .theme-ground { position: absolute; left: 0; right: 0; bottom: 0; top: 16px; border-radius: 9999px; background: linear-gradient(180deg, #7ed957 0%, #4caf50 60%, #2e7d32 100%); border-top: 3px solid #356b2b; z-index: 2; transition: background .6s ease, border-color .6s ease; }
 .dark .theme-ground { background: linear-gradient(180deg, #18361f 0%, #0f2a17 60%, #0a1e11 100%); border-top-color: #2f5a27; }
 
-/* Светила над горизонтом */
-.theme-sun, .theme-moon { position: absolute; height: 20px; width: 20px; color: #fff; transition: transform .6s ease, opacity .6s ease, filter .6s ease; z-index: 5; }
-.theme-sun { bottom: 18px; left: 50%; transform: translate(-50%, 0); color: #ffd43b; filter: drop-shadow(0 0 6px rgba(255,210,64,.9)); }
-.theme-sun circle { stroke: #fff; stroke-width: 1.2px; }
-.theme-moon { top: 10px; left: 50%; transform: translate(-50%, -220%); color: #e2e8ff; opacity: 0; }
-/* Закат/восход */
-.dark .theme-sun { transform: translate(-50%, 120%); opacity: .3; filter: drop-shadow(0 0 2px rgba(255,210,64,.4)); }
-.dark .theme-moon { transform: translate(-50%, 0%); opacity: 1; }
+/* Светила над горизонтом (в светлой теме) */
+.theme-sun, .theme-moon { position: absolute; height: 20px; width: 20px; color: #fff; transition: transform .6s ease, opacity .6s ease, filter .6s ease, z-index .3s ease; z-index: 5; }
+.theme-sun { bottom: 18px; left: 50%; transform: translate(-50%, 0); color: #ffd43b; filter: drop-shadow(0 0 8px rgba(255,210,64,.9)); }
+.theme-sun circle { stroke: #fff; stroke-width: 1.6px; }
+.theme-moon { top: 10px; left: 50%; transform: translate(-50%, -220%); color: #f1f5ff; opacity: 0; filter: drop-shadow(0 0 6px rgba(200,220,255,.6)); }
+/* Тёмный режим: солнце за горизонтом (невидимо, ниже и позади), луна в позиции солнца */
+.dark .theme-sun { z-index: 1; transform: translate(-50%, 160%); opacity: 0; filter: none; }
+.dark .theme-moon { top: auto; bottom: 18px; left: 50%; transform: translate(-50%, 0); opacity: 1; }
 /* Небольшой отступ у первого пункта меню */
 #primary-menu > li:first-child { margin-right: .25rem; } 
 
