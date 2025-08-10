@@ -3,7 +3,7 @@
   --accent: #FF7A00;
   --accent-600: #E56F00;
   --accent-700: #CC5A00;
-  --bg: #FFF8F3; /* светлая подложка */
+  --bg: #FFFFFF; /* светлая подложка (вернули белый фон) */
   --text: #1F2937; /* slate-800 */
   --muted: #475569; /* slate-600 */
   --card: #FFFFFF;

@@ -39,6 +39,92 @@ const bindToggle = (btn) => {
 bindToggle(document.getElementById('themeToggle'));
 bindToggle(document.getElementById('themeToggleMobile'));
 
+// Автоматическая проверка контраста и коррекция цвета текста
+const clamp01 = (n) => Math.min(1, Math.max(0, n));
+const srgbToLinear = (c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+const parseRGB = (css) => {
+  if (!css) return null;
+  const m = css.match(/rgba?\(([^)]+)\)/i);
+  if (!m) return null;
+  const parts = m[1].split(',').map((p) => parseFloat(p.trim()));
+  return { r: parts[0], g: parts[1], b: parts[2], a: parts[3] ?? 1 };
+};
+const relLuminance = ({ r, g, b }) => {
+  const R = srgbToLinear(clamp01(r / 255));
+  const G = srgbToLinear(clamp01(g / 255));
+  const B = srgbToLinear(clamp01(b / 255));
+  return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+};
+const contrastRatio = (fg, bg) => {
+  const L1 = relLuminance(fg);
+  const L2 = relLuminance(bg);
+  const [hi, lo] = L1 > L2 ? [L1, L2] : [L2, L1];
+  return (hi + 0.05) / (lo + 0.05);
+};
+const getComputedBackground = (el) => {
+  const rootDark = document.documentElement.classList.contains('dark');
+  const fallback = parseRGB(getComputedStyle(document.documentElement).backgroundColor) || parseRGB(rootDark ? 'rgb(11,15,25)' : 'rgb(255,248,243)');
+  let node = el;
+  while (node && node !== document.documentElement) {
+    const bg = getComputedStyle(node).backgroundColor;
+    const p = parseRGB(bg);
+    if (p && p.a > 0) return p;
+    node = node.parentElement;
+  }
+  // html background
+  const htmlBg = parseRGB(getComputedStyle(document.documentElement).backgroundColor);
+  return htmlBg || fallback;
+};
+const ensureReadable = (el) => {
+  if (!el || !el.isConnected) return;
+  const style = getComputedStyle(el);
+  if (style.visibility === 'hidden' || style.display === 'none') return;
+  if (!el.textContent || !el.textContent.trim()) return;
+  const color = parseRGB(style.color);
+  if (!color) return;
+  const bg = getComputedBackground(el);
+  const ratio = contrastRatio(color, bg);
+  const fontSize = parseFloat(style.fontSize || '16');
+  const isBold = parseInt(style.fontWeight || '400', 10) >= 600;
+  const largeText = fontSize >= 18 || (isBold && fontSize >= 16);
+  const threshold = largeText ? 3 : 4.5;
+  if (ratio >= threshold) return;
+  // Выбираем светлый или тёмный текст в зависимости от фона
+  const bgLum = relLuminance(bg);
+  const target = bgLum < 0.35 ? 'rgb(230,237,245)' : 'rgb(31,41,55)';
+  el.style.color = target;
+};
+const scanContrast = () => {
+  const candidates = document.querySelectorAll('p,span,li,a,small,div,button,label,summary,h1,h2,h3,h4,h5,h6');
+  candidates.forEach(ensureReadable);
+};
+
+// Запуск при загрузке
+window.addEventListener('DOMContentLoaded', () => {
+  scanContrast();
+  // Наблюдаем за динамическими изменениями
+  const mo = new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      m.addedNodes && m.addedNodes.forEach((n) => {
+        if (n.nodeType === 1) {
+          ensureReadable(n);
+          n.querySelectorAll && n.querySelectorAll('*').forEach(ensureReadable);
+        }
+      });
+      if (m.target && m.target.nodeType === 1) ensureReadable(m.target);
+    }
+  });
+  mo.observe(document.body, { childList: true, subtree: true, characterData: true });
+});
+
+// Перепроверяем после смены темы (после анимации заката)
+const recheckAfterTheme = () => setTimeout(scanContrast, 750);
+['themeToggle', 'themeToggleMobile'].forEach((id) => {
+  const btn = document.getElementById(id);
+  if (!btn) return;
+  btn.addEventListener('click', recheckAfterTheme);
+});
+
 // Мобильное меню
 const mobileBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
