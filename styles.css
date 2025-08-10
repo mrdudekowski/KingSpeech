@@ -54,7 +54,12 @@ body { line-height: 1.6; }
 .card-text, .testimonial-quote, .faq > p { font-size: 16px; }
 
 /* Buttons */
-.btn { font-size: 16px; padding: 14px 20px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; padding: 14px 20px; font-weight: 700; outline: none; text-decoration: none; border:1px solid transparent; }
+.btn:focus-visible { box-shadow: 0 0 0 3px rgba(255,122,0,.18); }
+.btn--primary { background: var(--accent); color: #fff; box-shadow: var(--shadow); }
+.btn--primary:hover { background: var(--accent-600); }
+.btn--ghost { color: var(--accent); background: rgba(255,122,0,.10); border-color: rgba(255,122,0,.25); }
+.btn--ghost:hover { background: rgba(255,122,0,.14); }
 
 /* Page */
 html { background: var(--bg); }
@@ -279,9 +284,9 @@ h1, h2, h3, h4, h5, h6 { color: var(--accent); }
 .testimonial:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(16,24,40,.10); }
 
 /* FAQ icons */
-.faq > summary{ position: relative; padding-right: 28px; }
-.faq > summary::after{ content:"+"; position:absolute; right: 8px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-weight: 800; }
-.faq[open] > summary::after{ content:"–"; color: var(--accent); }
+.faq > summary{ position: relative; padding-right: 0; }
+.faq > summary::after{ content: none; }
+.faq[open] > summary::after{ content: none; }
 
 /* Form width constraint on large screens */
 @media (min-width: 1024px){ .form{ max-width: 560px; } }
@@ -291,3 +296,14 @@ h1, h2, h3, h4, h5, h6 { color: var(--accent); }
 
 /* Ensure subtitle sits right under section title */
 .section-subtitle{ max-width: 60ch; margin: 8px auto 24px; color: var(--text-muted); text-align: center; } 
+
+/* Remove underlines in buttons */
+.btn, .btn:link, .btn:visited { text-decoration: none; }
+
+/* FAQ: remove plus icons and extra padding */
+.faq > summary{ position: relative; padding-right: 0; }
+.faq > summary::after{ content: none; }
+.faq[open] > summary::after{ content: none; }
+
+/* Contact layout: left form wider than right column */
+@media (min-width: 1024px){ .contact__grid{ grid-template-columns: 1.5fr 1fr; } } 
