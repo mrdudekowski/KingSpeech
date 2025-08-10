@@ -89,20 +89,16 @@
 .dark .theme-toggle { background: linear-gradient(180deg, #0b1020 0%, #0f172a 70%, #111827 100%); border-color: #0f172a; box-shadow: 0 0 0 1px rgba(255,255,255,.12); }
 .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent); }
 .theme-sky { position: relative; height: 100%; width: 100%; }
-/* Тонкая линия горизонта — ПЕРЕДНИЙ ПЛАН */
-.theme-horizon { position: absolute; left: 2px; right: 2px; bottom: 12px; height: 3px; background: #3a3a3a; border-radius: 2px; z-index: 4; }
-.dark .theme-horizon { background: #cbd5e1; }
-/* Закрашенная земля: область от нижнего края до линии горизонта */
-.theme-ground { position: absolute; left: 2px; right: 2px; bottom: 2px; top: 14px; border-radius: 8px; background: #d08a3b; z-index: 2; }
-.dark .theme-ground { background: #0f1a33; }
-/* Светила под горизонтом по z-index (чтобы «заходили» за линию) */
-.theme-sun, .theme-moon { position: absolute; height: 22px; width: 22px; color: #fff; transition: transform .5s ease, opacity .5s ease; z-index: 3; }
-/* Солнце — снизу по центру */
-.theme-sun { bottom: 10px; left: 50%; transform: translate(-50%, 0); color: #fff59d; filter: drop-shadow(0 0 6px rgba(255,200,0,.8)); }
-/* Луна — сверху по центру */
-.theme-moon { top: 6px; left: 50%; transform: translate(-50%, -200%); color: #c7d2fe; opacity: 0; }
-/* Анимация: при тёмной теме солнце опускается за горизонт (линию), луна опускается сверху */
-.dark .theme-sun { transform: translate(-50%, 120%); opacity: .2; }
+/* Горизонт интегрирован в землю (используем border-top у .theme-ground) */
+.theme-horizon { display: none; }
+/* Закрашенная земля: область от нижнего края до линии горизонта (единое целое с горизонтом) */
+.theme-ground { position: absolute; left: 2px; right: 2px; bottom: 2px; top: 16px; border-radius: 10px; background: linear-gradient(180deg, #7ed957 0%, #4caf50 60%, #2e7d32 100%); border-top: 3px solid #356b2b; z-index: 2; }
+.dark .theme-ground { background: linear-gradient(180deg, #18361f 0%, #0f2a17 60%, #0a1e11 100%); border-top-color: #2f5a27; }
+/* Светила подняты выше, не касаются верха */
+.theme-sun, .theme-moon { position: absolute; height: 20px; width: 20px; color: #fff; transition: transform .5s ease, opacity .5s ease; z-index: 3; }
+.theme-sun { bottom: 16px; left: 50%; transform: translate(-50%, 0); color: #ffe98a; filter: drop-shadow(0 0 6px rgba(255,200,0,.8)); }
+.theme-moon { top: 9px; left: 50%; transform: translate(-50%, -220%); color: #d1d9ff; opacity: 0; }
+.dark .theme-sun { transform: translate(-50%, 140%); opacity: .2; }
 .dark .theme-moon { transform: translate(-50%, 0%); opacity: 1; }
 /* Небольшой отступ у первого пункта меню */
 #primary-menu > li:first-child { margin-right: .25rem; } 
