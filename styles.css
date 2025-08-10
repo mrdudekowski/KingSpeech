@@ -288,3 +288,6 @@ h1, h2, h3, h4, h5, h6 { color: var(--accent); }
 
 /* Buttons tighten layout inside hero */
 .hero .btn{ padding-block: 13px; } 
+
+/* Ensure subtitle sits right under section title */
+.section-subtitle{ max-width: 60ch; margin: 8px auto 24px; color: var(--text-muted); text-align: center; } 
