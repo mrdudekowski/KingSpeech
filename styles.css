@@ -1,24 +1,25 @@
-/* Design System — Fresh Palette Reset (WCAG‑focused)
-   - Повышен контраст текста и фонов
-   - Обновлены акцентные цвета для AA‑контраста с белым текстом
-   - Добавлены токены on-accent и состояния hover/active */
+/* Design System — Brand Palette (WCAG‑focused)
+   Новая палитра:
+   - Accent: #FF7A00 (CTA, заголовки, hover)
+   - Light: bg #FFFFFF, surface #F5F5F5, text #1A1A1A/#555555
+   - Dark:  bg #121212, surface #1E1E1E, text #FFFFFF/#CCCCCC */
 :root {
   /* Light theme tokens */
-  --bg: #ffffff;                 /* page background */
-  --surface: #f6f7fb;            /* subtle section background */
-  --surface-2: #eef2f9;          /* stronger section bg */
-  --card: #ffffff;               /* cards/panels/forms */
-  --border: #e6eaf3;             /* soft border */
-  --text: #0f172a;               /* primary text */
-  --text-muted: #475569;         /* secondary text */
-  --link: #0f172a;               /* body links (underlined) */
-  --link-hover: #111827;
+  --bg: #FFFFFF;                 /* page background */
+  --surface: #F5F5F5;            /* subtle section background */
+  --surface-2: #F0F0F0;          /* stronger section bg */
+  --card: #FFFFFF;               /* cards/panels/forms */
+  --border: #EAEAEA;             /* soft border */
+  --text: #1A1A1A;               /* primary text */
+  --text-muted: #555555;         /* secondary text */
+  --link: #1A1A1A;               /* base link color */
+  --link-hover: #FF7A00;         /* hover to accent */
 
-  /* Brand accent tuned for AA with white text (contrast ≈ 4.6+) */
-  --accent: #b54708;             /* orange-700 */
-  --accent-600: #a23f07;         /* hover: a bit darker */
-  --accent-700: #8a3606;         /* active */
-  --on-accent: #ffffff;          /* text on accent backgrounds */
+  /* Brand accent (fixed across themes) */
+  --accent: #FF7A00;             /* primary brand */
+  --accent-600: #E56F00;         /* hover */
+  --accent-700: #CC5F00;         /* active */
+  --on-accent: #FFFFFF;          /* text on accent backgrounds */
 
   /* Header backdrop */
   --header-bg: color-mix(in srgb, var(--bg) 88%, transparent);
@@ -29,29 +30,27 @@
 }
 
 html.dark {
-  /* Dark theme tokens — смена на глубокий серый по рекомендации (#121212 family)
-     Дает более нейтральную палитру и лучшую читаемость */
+  /* Dark theme tokens */
   --bg: #121212;
-  --surface: #181a1f;
-  --surface-2: #1f232a;
-  --card: #16191f;
-  --border: #2a2f38;
-  --text: #e6eaf0;               /* primary text */
-  --text-muted: #b3bdc9;         /* secondary text */
-  --link: #e6eaf0;
-  --link-hover: #ffffff;
-  /* На тёмной теме оставляем оранжевый, но чуть теплее */
-  --accent: #ff8a1f;             /* contrast vs dark bg is high; buttons still use white text */
-  --accent-600: #ff7a00;         /* hover */
-  --accent-700: #e56700;         /* active */
-  --on-accent: #ffffff;
+  --surface: #1E1E1E;
+  --surface-2: #232323;
+  --card: #1A1A1A;
+  --border: #2A2A2A;
+  --text: #FFFFFF;               /* primary text */
+  --text-muted: #CCCCCC;         /* secondary text */
+  --link: #FFFFFF;
+  --link-hover: #FF7A00;
+  --accent: #FF7A00;             /* keep brand accent the same */
+  --accent-600: #E56F00;
+  --accent-700: #CC5F00;
+  --on-accent: #FFFFFF;
   --header-bg: color-mix(in srgb, var(--bg) 80%, transparent);
 }
 
-/* Smooth transitions */
-* { transition: color .25s ease, background-color .25s ease, border-color .25s ease, box-shadow .25s ease, transform .15s ease; }
+/* Smooth transitions 0.35s for theme switch */
+* { transition: color .35s ease, background-color .35s ease, border-color .35s ease, box-shadow .35s ease, transform .18s ease; }
 
-/* Base typography (увеличен базовый размер для лучшей читаемости) */
+/* Base typography */
 html { font-size: 17px; }
 @media (min-width: 640px) { html { font-size: 18px; } }
 body { line-height: 1.65; }
@@ -63,13 +62,12 @@ body { line-height: 1.65; }
 .card-title { font-size: 20px; }
 .card-text, .testimonial-quote, .faq > p { font-size: 16px; }
 
-/* Utility: hide/show (для мобильного меню и кнопки наверх) */
+/* Utility: hide/show */
 .hidden { display: none !important; }
 
-/* Buttons — современный вид, градиент, тени и press‑эффект.
-   Контраст текста на кнопке обеспечен переменной --on-accent */
+/* Buttons */
 .btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; padding: 14px 20px; font-weight: 700; outline: none; text-decoration: none; border:1px solid transparent; }
-.btn:focus-visible { box-shadow: 0 0 0 3px rgba(181,71,8,.25); }
+.btn:focus-visible { box-shadow: 0 0 0 3px rgba(255,122,0,.25); }
 .btn--primary { background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 94%, white) 0%, var(--accent) 70%, var(--accent-600) 100%); color: var(--on-accent); box-shadow: var(--shadow); }
 .btn--primary:hover { background: linear-gradient(180deg, var(--accent-600) 0%, var(--accent-700) 100%); transform: translateY(-1px); }
 .btn--primary:active { transform: translateY(0); filter: saturate(0.98); }
@@ -87,7 +85,7 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 .section-title { margin: 0 0 24px 0; letter-spacing: -0.02em; }
 .section-subtitle { max-width: 60ch; margin-inline: auto; }
 
-/* Header — сделан фиксированным с блюром и тенью для лучшей читаемости навигации */
+/* Header */
 .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 40; background: var(--header-bg); backdrop-filter: saturate(180%) blur(8px); border-bottom: 1px solid var(--border); box-shadow: 0 2px 10px rgba(16,24,40,.06); }
 .nav { height: 72px; display: flex; align-items: center; }
 .nav__bar { display: flex; align-items: center; justify-content: space-between; width: 100%; }
@@ -97,7 +95,6 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 .nav__list { display: none; align-items: center; gap: 24px; }
 .nav__link { color: var(--text-muted); text-decoration: none; position: relative; }
 .nav__link:hover { color: var(--accent); }
-/* Активный пункт меню — подчёркивание как подсветка */
 .nav__link.is-active{ color: var(--accent); }
 .nav__link.is-active::after{ content:""; position:absolute; left:0; right:0; bottom:-10px; height:2px; background: var(--accent); border-radius:1px; }
 @media (min-width: 640px) { .nav__list { display: flex; } .nav__toggle { display: none; } }
@@ -122,12 +119,12 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 .bullet { display: inline-flex; align-items: center; gap: 8px; }
 .hero__media { align-self: center; }
 
-/* Media frame: добавлена мягкая тень и рамка для глубины */
+/* Media frame */
 .media-frame { border-radius: 16px; overflow: hidden; box-shadow: 0 12px 30px rgba(16,24,40,.18); border: 1px solid var(--border); }
 .media-frame img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 4/3; max-height: 420px; }
 @media (min-width: 1024px){ .media-frame img{ aspect-ratio: 16/9; max-height: 480px; } }
 
-/* About — фото крупнее и круглая форма для лучшего акцента */
+/* About */
 .about__grid { display: grid; gap: 2.5rem; align-items: center; }
 @media (min-width: 768px) { .about__grid { grid-template-columns: 2fr 3fr; } }
 .about__photo img { width: 100%; height: auto; border-radius: 9999px; box-shadow: 0 10px 28px rgba(16,24,40,.25); object-fit: cover; }
@@ -140,21 +137,19 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 .section-subtitle { color: var(--text-muted); margin: 0 0 2rem 0; }
 .text-center { text-align: center; }
 
-/* Cards grid */
+/* Cards */
 .cards { display: grid; gap: 16px; }
 @media (min-width: 640px) { .cards { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 @media (min-width: 1024px) { .cards { grid-template-columns: repeat(4, minmax(0,1fr)); } }
-
-/* Cards — цветовое кодирование и микроанимация */
 .panel, .card { border-radius: 1rem; background: var(--card); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
 .card { padding: 18px; min-height: 180px; display: grid; gap: 10px; align-content: start; position: relative; }
-.card::after { content:""; position:absolute; inset: -1px -1px auto -1px; height: 4px; border-radius: 1rem 1rem 0 0; background: linear-gradient(90deg, #b54708, #ff8a1f); opacity: .85; }
+.card::after { content:""; position:absolute; inset: -1px -1px auto -1px; height: 4px; border-radius: 1rem 1rem 0 0; background: linear-gradient(90deg, #FF7A00, #CC5F00); opacity: .85; }
 .card:hover { box-shadow: 0 12px 28px rgba(16,24,40,.12); transform: translateY(-2px); }
 .card-icon { font-size: 30px; }
 .card-title { font-size: 18px; }
 .card-text { font-size: 15px; }
 
-/* Testimonials — более выразительные карточки */
+/* Testimonials */
 .testimonials { display: grid; gap: 16px; margin-top: 1.5rem; }
 @media (min-width: 768px) { .testimonials { grid-template-columns: repeat(3, minmax(0,1fr)); } }
 .testimonial { border-radius: 1rem; background: var(--card); padding: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform .15s ease, box-shadow .15s ease; }
@@ -163,11 +158,11 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 .testimonial-quote { margin-top: .75rem; color: var(--text); font-size: 16px; line-height: 1.55; }
 .testimonial-name { margin-top: .5rem; font-size: 13px; font-weight: 600; color: var(--text-muted); }
 
-/* FAQ — визуальные индикаторы раскрытия + мягкая анимация */
+/* FAQ */
 .faq__list { max-width: 900px; margin: 1.5rem auto 0; display: grid; gap: 12px; }
 .faq { border-radius: 0.75rem; background: var(--card); padding: 12px 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; }
 .faq > summary { cursor: pointer; list-style: none; font-weight: 700; color: var(--text); user-select: none; font-size: 16px; display: flex; align-items: center; gap: 10px; }
-.faq > summary::before{ content:"\25B6"; /* ▶ */ display:inline-block; transform: rotate(0deg); color: var(--accent); transition: transform .25s ease; }
+.faq > summary::before{ content:"\25B6"; transform: rotate(0deg); color: var(--accent); transition: transform .25s ease; }
 .faq[open] > summary::before{ transform: rotate(90deg); }
 .faq > p { margin-top: .5rem; color: var(--text-muted); }
 
@@ -181,7 +176,7 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 /* Screen-reader only utility */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
-/* Check styled list items (about section) */
+/* Check styled list items */
 .li-check { position: relative; padding-left: 1.4rem; }
 .li-check::before { content: "✔"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
 
@@ -190,7 +185,7 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 [data-animate].visible { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) { [data-animate] { transition: none; } }
 
-/* Theme Toggle styles preserved (colors adapt by tokens elsewhere) */
+/* Theme Toggle styles */
 .theme-toggle { height: 40px; width: 40px; border-radius: 9999px; background: linear-gradient(180deg, #cfefff 0%, #9ad9ff 60%, #62b6ff 100%); display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid rgba(0,0,0,.06); position: relative; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,.06); }
 html.dark .theme-toggle { background: linear-gradient(180deg, #0b1020 0%, #0f172a 70%, #111827 100%); border-color: color-mix(in srgb, var(--border) 80%, transparent); }
 .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent); }
@@ -219,90 +214,11 @@ html.dark .theme-ground { background: linear-gradient(180deg, #18361f 0%, #0f2a1
 html.dark .theme-sun { transform: translate(-50%, 160%); opacity: 0; z-index: 2; filter: none; }
 html.dark .theme-moon { top: auto; bottom: 18px; left: 50%; transform: translate(-50%, 0); opacity: 1; z-index: 5; }
 
-/* Utility panel class for content blocks */
+/* Panel utility */
 .panel { padding: 20px; border-radius: 16px; }
 
-/* Headings to accent color for визуальная иерархия,
-   при этом текстовые блоки остаются нейтральными для лучшего чтения */
+/* Headings in brand accent per guideline */
 h1, h2, h3, h4, h5, h6 { color: var(--accent); }
-
-/* Layout additions for semantic classes */
-
-/* Breakpoints */
-@media (min-width: 640px) { :root { --bp-sm: 1; } }
-@media (min-width: 768px) { :root { --bp-md: 1; } }
-@media (min-width: 1024px) { :root { --bp-lg: 1; } }
-
-/* Header / Nav */
-.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 40; background: var(--header-bg); backdrop-filter: saturate(180%) blur(8px); border-bottom: 1px solid var(--border); box-shadow: 0 2px 10px rgba(16,24,40,.06); }
-.nav { height: 72px; display: flex; align-items: center; }
-.nav__bar { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-.nav__brand img { height: 32px; width: auto; display: block; }
-.nav__toggle { display: inline-flex; align-items: center; justify-content: center; height: 40px; width: 40px; border-radius: 8px; color: var(--text-muted); background: transparent; border: 0; cursor: pointer; }
-.nav__toggle:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent); }
-.nav__list { display: none; align-items: center; gap: 24px; }
-.nav__link { color: var(--text-muted); text-decoration: none; }
-.nav__link:hover { color: var(--accent); }
-@media (min-width: 640px) { .nav__list { display: flex; } .nav__toggle { display: none; } }
-
-/* Mobile menu */
-.nav__mobile { display: none; padding: 12px 0; }
-.nav__mobile.is-open { display: block; }
-.mobile-link { display: block; padding: 10px 12px; color: var(--text); text-decoration: none; border-radius: 8px; }
-.mobile-link:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
-.mobile-link--cta { font-weight: 700; color: var(--accent); }
-
-/* Hero */
-.hero { padding-top: clamp(80px, 8vw, 104px); }
-@media (min-width: 768px) { .hero__grid { grid-template-columns: 1.1fr 0.9fr; } }
-.hero__grid { display: grid; gap: 2.5rem; align-items: center; column-gap: clamp(24px, 4vw, 48px); }
-@media (min-width: 768px) { .hero__grid { grid-template-columns: 1fr 1fr; } }
-.hero__content { display: grid; gap: 12px; }
-.hero__title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; line-height: 1.15; max-width: 16ch; margin: 0 0 6px 0; letter-spacing: -0.01em; }
-.hero__subtitle { color: var(--text-muted); font-size: clamp(16px, 1.6vw, 18px); max-width: 60ch; margin: 0 0 10px 0; }
-.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px; }
-.hero__bullets { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.95rem; color: color-mix(in srgb, var(--text) 70%, transparent); list-style: none; margin: 0; padding: 0; }
-.bullet { display: inline-flex; align-items: center; gap: 8px; }
-.hero__media { align-self: center; }
-
-/* Media frame */
-.media-frame { border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,.15); border: 1px solid var(--border); }
-.media-frame img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 4/3; max-height: 380px; }
-
-/* About */
-.about__grid { display: grid; gap: 2.5rem; align-items: center; }
-@media (min-width: 768px) { .about__grid { grid-template-columns: 2fr 3fr; } }
-.about__photo img { width: 100%; height: auto; border-radius: 20px; box-shadow: 0 6px 20px rgba(0,0,0,.2); object-fit: cover; }
-.about__content { display: grid; gap: 16px; }
-.about__list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
-.text-muted { color: var(--text-muted); }
-
-/* Section alt */
-.section--alt { background: var(--surface); }
-.section-subtitle { color: var(--text-muted); margin: 0 0 2rem 0; }
-.text-center { text-align: center; }
-
-/* Cards grid */
-.cards { display: grid; gap: 16px; }
-@media (min-width: 640px) { .cards { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (min-width: 1024px) { .cards { grid-template-columns: repeat(4, minmax(0,1fr)); } }
-
-/* Testimonials */
-.testimonials { display: grid; gap: 16px; margin-top: 1.5rem; }
-@media (min-width: 768px) { .testimonials { grid-template-columns: repeat(3, minmax(0,1fr)); } }
-
-/* FAQ */
-.faq__list { max-width: 900px; margin: 1.5rem auto 0; display: grid; gap: 12px; }
-
-/* Contact grid */
-.contact__grid { display: grid; row-gap: 24px; align-items: start; column-gap: clamp(24px, 4vw, 40px); }
-@media (min-width: 1024px) { .contact__grid { grid-template-columns: 1fr 1fr; } }
-.contact__side { display: grid; gap: 1.25rem; }
-.panel__title { font-size: 1.125rem; font-weight: 700; color: var(--text); margin-bottom: .75rem; }
-.panel__links { display: grid; gap: .5rem; }
-.panel__list { list-style: disc; padding-left: 1.25rem; color: var(--text-muted); display: grid; gap: .35rem; }
-.form { display: grid; gap: 16px; }
-.btn--block { width: 100%; }
 
 /* Footer */
 .footer { border-top: 1px solid var(--border); padding: 2.5rem 0; padding-block: 40px; background: var(--surface-2); }
@@ -321,49 +237,42 @@ h1, h2, h3, h4, h5, h6 { color: var(--accent); }
 .to-top { position: fixed; right: 20px; bottom: 20px; height: 44px; width: 44px; border-radius: 9999px; background: var(--accent); color: #fff; border: 0; box-shadow: var(--shadow); display: grid; place-items: center; }
 .to-top:hover { transform: translateY(-1px); }
 
-/* Focus visible for links/buttons */
-:focus-visible{ outline: 3px solid rgba(181,71,8,.28); outline-offset: 2px; border-radius: 6px; }
+/* Focus visible */
+:focus-visible{ outline: 3px solid rgba(255,122,0,.28); outline-offset: 2px; border-radius: 6px; }
 
-/* Hero media adjustments on wide */
-@media (min-width: 1024px){
-  .media-frame img{ aspect-ratio: 16/9; max-height: 460px; }
-}
+/* Fine-tuning */
+@media (min-width: 1024px){ .media-frame img{ aspect-ratio: 16/9; max-height: 460px; } }
 .hero__subtitle{ margin-bottom: 12px; }
-
-/* Cards/Testimonial hover */
 .card{ transition: transform .15s ease, box-shadow .15s ease; }
 .card:hover{ transform: translateY(-2px); box-shadow: 0 12px 28px rgba(16,24,40,.12); }
 .testimonial{ transition: transform .15s ease, box-shadow .15s ease; }
 .testimonial:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(16,24,40,.10); }
-
-/* FAQ icons */
-.faq > summary{ position: relative; padding-right: 0; }
-.faq > summary::after{ content: none; }
-.faq[open] > summary::after{ content: none; }
-
-/* Form width constraint on large screens */
+/* Form width on large screens */
 @media (min-width: 1024px){ .form{ max-width: 560px; } }
-
-/* Buttons tighten layout inside hero */
 .hero .btn{ padding-block: 13px; } 
-
-/* Ensure subtitle sits right under section title */
 .section-subtitle{ max-width: 60ch; margin: 8px auto 24px; color: var(--text-muted); text-align: center; } 
-
-/* Remove underlines in buttons */
 .btn, .btn:link, .btn:visited { text-decoration: none; }
-
-/* FAQ: remove plus icons and extra padding */
-.faq > summary{ position: relative; padding-right: 0; }
-.faq > summary::after{ content: none; }
-.faq[open] > summary::after{ content: none; }
-
-/* Contact layout: left form wider than right column */
-@media (min-width: 1024px){ .contact__grid{ grid-template-columns: 1.5fr 1fr; } } 
-
-/* Соответствие классам, которые выставляет JS при ошибке (аналог Tailwind) */
+/* Validation helper classes */
 .ring-2.ring-red-400 { box-shadow: 0 0 0 2px rgba(239,68,68,.55) !important; }
 .border-red-300 { border-color: rgba(252,165,165,1) !important; }
 .text-green-600 { color: #16a34a !important; }
 .text-red-600 { color: #dc2626 !important; }
 .border-gray-200 { border-color: #e5e7eb !important; } 
+
+/* Contact gradient form box */
+.contact__formBox{ background: linear-gradient(180deg, color-mix(in srgb, #FF7A00 6%, var(--card)) 0%, var(--card) 60%); border: 1px solid var(--border); box-shadow: var(--shadow); }
+
+/* Upsized inputs and stronger focus ring per spec */
+.form__input{ border-radius: 12px; padding: 1rem 1.1rem; }
+.form__input:focus{ outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,122,0,.30); }
+
+/* Contact CTA buttons */
+.contact__buttons{ display: grid; gap: .65rem; }
+.contact-cta{ background:#FFFFFF; color: var(--accent); border: 2px solid var(--accent); border-radius: 10px; padding: 10px 12px; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; transition: transform .15s ease, background-color .2s ease, color .2s ease, border-color .2s ease; }
+html.dark .contact-cta{ background: var(--card); }
+.contact-cta:hover{ background: var(--accent); color: #fff; border-color: var(--accent-600); transform: translateY(-1px) scale(1.03); }
+.contact-cta svg{ flex: 0 0 auto; }
+
+/* Fade/slide in for panels already driven by [data-animate], kept here */
+[data-animate].visible .contact__formBox{ animation: formPop .35s cubic-bezier(.16,1,.3,1) both; }
+@keyframes formPop{ from{ transform: translateY(12px) scale(.98); opacity: .0 } to{ transform: translateY(0) scale(1); opacity: 1 } } 
