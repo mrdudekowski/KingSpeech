@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -56,9 +56,9 @@
     </script>
   </head>
 
-  <body class="text-gray-700 bg-white antialiased selection:bg-accent/15 selection:text-accent">
+  <body class="text-gray-700 bg-white antialiased selection:bg-accent/20 selection:text-white dark:bg-gray-950 dark:text-gray-200">
     <!-- Навигация -->
-    <header class="fixed top-0 inset-x-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/90 border-b border-gray-100">
+    <header class="fixed top-0 inset-x-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/90 border-b border-gray-100 dark:bg-gray-900/80 dark:border-gray-800">
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <a href="#home" class="flex items-center gap-2" aria-label="На главный экран">
@@ -72,7 +72,7 @@
           <button id="mobileMenuBtn" class="inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:text-accent hover:bg-accent/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:hidden" aria-label="Открыть меню" aria-controls="primary-menu" aria-expanded="false">
             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
-          <ul id="primary-menu" class="hidden sm:flex items-center gap-6" role="menu">
+          <ul id="primary-menu" class="hidden sm:flex items-center gap-6 dark:text-gray-200" role="menu">
             <!-- Ссылки навигации: текст легко менять -->
             <li><a href="#about" class="nav-link">О преподавателе</a></li>
             <li><a href="#method" class="nav-link">Методика</a></li>
@@ -155,7 +155,7 @@
       </section>
 
       <!-- Методика обучения -->
-      <section id="method" class="section bg-gray-50">
+      <section id="method" class="section bg-gray-50 dark:bg-gray-900/40">
         <div class="container">
           <h2 class="section-title text-center" data-animate>Методика обучения</h2>
           <p class="mx-auto max-w-2xl text-center text-gray-600 mb-10" data-animate>Короткие и динамичные уроки, разговорная практика и понятные результаты.</p>
@@ -211,7 +211,7 @@
       </section>
 
       <!-- FAQ -->
-      <section id="faq" class="section bg-gray-50">
+      <section id="faq" class="section bg-gray-50 dark:bg-gray-900/40">
         <div class="container">
           <h2 class="section-title text-center" data-animate>FAQ</h2>
           <div class="mx-auto max-w-3xl mt-6 space-y-4" data-animate>

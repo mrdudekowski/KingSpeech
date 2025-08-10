@@ -1,10 +1,11 @@
 /* Цвета и небольшие утилиты. Меняйте --accent при необходимости */
-:root { --accent: #FF7A00; }
+:root { --accent: #FF7A00; --bg-dark: #0b0f19; --card-dark: #0f172a; --muted-dark: #94a3b8; }
 
 /***** Базовые удобные класс-слои (используются в HTML) *****/
 .container { max-width: 80rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
 .section { padding: 4rem 0; }
 .section-title { font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem); font-weight: 800; color: #0f172a; }
+:root .dark .section-title, .dark .section-title { color: #e5e7eb; }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 0.75rem; padding: 0.75rem 1.25rem; font-weight: 600; transition: all .2s ease; outline: none; }
 .btn:focus-visible { box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 80%, transparent); }
@@ -24,7 +25,8 @@
 .form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent); }
 .form-hint { margin-top: .25rem; font-size: .75rem; color: #9ca3af; }
 
-.card { border-radius: 1rem; background: #fff; padding: 1.5rem; box-shadow: 0 1px 2px rgba(0,0,0,.03); border: 1px solid #f3f4f6; transition: box-shadow .2s ease; }
+.card { border-radius: 1rem; background: #fff; padding: 1.5rem; box-shadow: 0 1px 2px rgba(0,0,0,.03); border: 1px solid #f3f4f6; transition: box-shadow .2s ease, background .2s ease, border-color .2s ease; }
+.dark .card { background: var(--card-dark); border-color: #0b1220; }
 .card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.06); }
 .card-icon { font-size: 1.25rem; }
 .card-title { margin-top: .75rem; font-size: 1.125rem; font-weight: 600; color: #111827; }
@@ -33,12 +35,14 @@
 .li-check { position: relative; padding-left: 1.5rem; }
 .li-check::before { content: '✔'; position: absolute; left: 0; top: 0; color: var(--accent); }
 
-.testimonial { border-radius: 1rem; background: #fff; padding: 1.5rem; border: 1px solid #f3f4f6; box-shadow: 0 1px 2px rgba(0,0,0,.03); }
+.testimonial { border-radius: 1rem; background: #fff; padding: 1.5rem; border: 1px solid #f3f4f6; box-shadow: 0 1px 2px rgba(0,0,0,.03); transition: background .2s ease, border-color .2s ease; }
+.dark .testimonial { background: var(--card-dark); border-color: #0b1220; }
 .testimonial-avatar { height: 3rem; width: 3rem; border-radius: 9999px; object-fit: cover; }
 .testimonial-quote { margin-top: .75rem; color: #374151; }
 .testimonial-name { margin-top: .5rem; font-size: .875rem; font-weight: 500; color: #6b7280; }
 
-.faq { border-radius: 0.75rem; background: #fff; padding: 1rem; border: 1px solid #f3f4f6; box-shadow: 0 1px 2px rgba(0,0,0,.03); }
+.faq { border-radius: 0.75rem; background: #fff; padding: 1rem; border: 1px solid #f3f4f6; box-shadow: 0 1px 2px rgba(0,0,0,.03); transition: background .2s ease, border-color .2s ease; }
+.dark .faq { background: var(--card-dark); border-color: #0b1220; }
 .faq > summary { cursor: pointer; list-style: none; font-weight: 600; color: #111827; user-select: none; }
 .faq[open] > summary { color: var(--accent); }
 .faq > p { margin-top: .5rem; color: #4b5563; }
