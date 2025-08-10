@@ -92,9 +92,9 @@
 /* Тонкая линия горизонта — ПЕРЕДНИЙ ПЛАН */
 .theme-horizon { position: absolute; left: 2px; right: 2px; bottom: 12px; height: 3px; background: #3a3a3a; border-radius: 2px; z-index: 4; }
 .dark .theme-horizon { background: #cbd5e1; }
-/* Закрашенная земля: полоска снизу, ниже светил */
-.theme-ground { position: absolute; left: 6px; right: 6px; bottom: 6px; height: 10px; border-radius: 6px; background: linear-gradient(180deg, rgba(255,161,81,.55), rgba(200,120,40,.75)); z-index: 2; }
-.dark .theme-ground { background: linear-gradient(180deg, #1b2540, #0f1a33); }
+/* Закрашенная земля: область от нижнего края до линии горизонта */
+.theme-ground { position: absolute; left: 2px; right: 2px; bottom: 2px; top: 14px; border-radius: 8px; background: #d08a3b; z-index: 2; }
+.dark .theme-ground { background: #0f1a33; }
 /* Светила под горизонтом по z-index (чтобы «заходили» за линию) */
 .theme-sun, .theme-moon { position: absolute; height: 22px; width: 22px; color: #fff; transition: transform .5s ease, opacity .5s ease; z-index: 3; }
 /* Солнце — снизу по центру */
