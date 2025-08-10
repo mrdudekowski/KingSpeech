@@ -266,23 +266,55 @@ sections.forEach(s => s && so.observe(s));
   const getCardWidth = () => (track.firstElementChild ? track.firstElementChild.getBoundingClientRect().width + 16 : 300);
   const scrollByCard = (dir) => { track.scrollBy({ left: dir * getCardWidth(), behavior: 'smooth' }); };
 
-  prev.addEventListener('click', () => scrollByCard(-1));
-  next.addEventListener('click', () => scrollByCard(1));
+  prev.addEventListener('click', () => { pauseAutoplayTemporarily(); scrollByCard(-1); });
+  next.addEventListener('click', () => { pauseAutoplayTemporarily(); scrollByCard(1); });
 
   // keyboard support when track is focused
   track.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') { e.preventDefault(); scrollByCard(1); }
-    if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollByCard(-1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); pauseAutoplayTemporarily(); scrollByCard(1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); pauseAutoplayTemporarily(); scrollByCard(-1); }
   });
 
   // drag to scroll
   let isDown = false, startX = 0, startScroll = 0;
-  const onDown = (x) => { isDown = true; startX = x; startScroll = track.scrollLeft; track.classList.add('is-dragging'); };
+  const onDown = (x) => { isDown = true; startX = x; startScroll = track.scrollLeft; track.classList.add('is-dragging'); pauseAutoplay(); };
   const onMove = (x) => { if (!isDown) return; const dx = x - startX; track.scrollLeft = startScroll - dx; };
-  const onUp = () => { isDown = false; track.classList.remove('is-dragging'); };
+  const onUp = () => { if (!isDown) return; isDown = false; track.classList.remove('is-dragging'); resumeAutoplayDelayed(); };
 
   track.addEventListener('pointerdown', (e) => { track.setPointerCapture(e.pointerId); onDown(e.clientX); });
   track.addEventListener('pointermove', (e) => onMove(e.clientX));
   track.addEventListener('pointerup', onUp);
   track.addEventListener('pointercancel', onUp);
+
+  // autoplay (slow and smooth)
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let paused = false;
+  let rafId = null; let lastTs = 0; const SPEED_PX_PER_SEC = 24; // медленно и плавно
+
+  function loop(ts){
+    if (!lastTs) lastTs = ts;
+    const dt = (ts - lastTs) / 1000; // seconds
+    lastTs = ts;
+    if (!paused){
+      track.scrollLeft += SPEED_PX_PER_SEC * dt;
+      // циклический переход в начало
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1){
+        track.scrollLeft = 0;
+      }
+    }
+    rafId = requestAnimationFrame(loop);
+  }
+  function startAutoplay(){ if (!prefersReduced && rafId === null){ rafId = requestAnimationFrame(loop); } }
+  function pauseAutoplay(){ paused = true; }
+  function resumeAutoplay(){ paused = false; }
+  let resumeTimer = null;
+  function resumeAutoplayDelayed(ms=1500){ clearTimeout(resumeTimer); resumeTimer = setTimeout(resumeAutoplay, ms); }
+  function pauseAutoplayTemporarily(ms=1500){ pauseAutoplay(); resumeAutoplayDelayed(ms); }
+
+  track.addEventListener('mouseenter', pauseAutoplay);
+  track.addEventListener('mouseleave', () => resumeAutoplayDelayed(800));
+  rootEl.addEventListener('focusin', pauseAutoplay);
+  rootEl.addEventListener('focusout', () => resumeAutoplayDelayed(800));
+
+  startAutoplay();
 })(); 
