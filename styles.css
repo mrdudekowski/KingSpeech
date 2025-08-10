@@ -84,40 +84,34 @@
 
 @media (prefers-reduced-motion: reduce) { [data-animate] { transition: none; } }
 
-/* Theme toggle — круглый, с анимацией заката/восхода */
-.theme-toggle { height: 40px; width: 40px; border-radius: 9999px; background: linear-gradient(180deg, #fef3c7 0%, #fde68a 60%, #f59e0b 100%); display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid rgba(0,0,0,.06); position: relative; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,.06); }
+/* Анимации плавного перехода день/ночь для основных фонов */
+body { background: #fff7f2; transition: background-color .6s ease, background .6s ease, color .3s ease; }
+.dark body, .dark { background: #0b0f19; }
+.site-header { background: rgba(255, 247, 242, 0.9); border-bottom-color: #ffe3d1; transition: background-color .6s ease, background .6s ease, border-color .6s ease; }
+.section.bg-gray-50 { background: #fff1e6; transition: background-color .6s ease, background .6s ease; }
+.dark .section.bg-gray-50 { background: rgba(15, 23, 42, 0.4); }
+
+/* Theme toggle — также плавно меняет фон */
+.theme-toggle { height: 40px; width: 40px; border-radius: 9999px; background: linear-gradient(180deg, #fef3c7 0%, #fde68a 60%, #f59e0b 100%); display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid rgba(0,0,0,.06); position: relative; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,.06); transition: background .6s ease, border-color .6s ease; }
 .dark .theme-toggle { background: linear-gradient(180deg, #0b1020 0%, #0f172a 70%, #111827 100%); border-color: #0f172a; box-shadow: 0 0 0 1px rgba(255,255,255,.12); }
 .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent); }
 .theme-sky { position: relative; height: 100%; width: 100%; }
 /* Горизонт интегрирован в землю (используем border-top у .theme-ground) */
 .theme-horizon { display: none; }
 /* Закрашенная земля: область от нижнего края до линии горизонта (единое целое с горизонтом) */
-.theme-ground { position: absolute; left: 0; right: 0; bottom: 0; top: 16px; border-radius: 9999px; background: linear-gradient(180deg, #7ed957 0%, #4caf50 60%, #2e7d32 100%); border-top: 3px solid #356b2b; z-index: 2; }
+.theme-ground { position: absolute; left: 0; right: 0; bottom: 0; top: 16px; border-radius: 9999px; background: linear-gradient(180deg, #7ed957 0%, #4caf50 60%, #2e7d32 100%); border-top: 3px solid #356b2b; z-index: 2; transition: background .6s ease, border-color .6s ease; }
 .dark .theme-ground { background: linear-gradient(180deg, #18361f 0%, #0f2a17 60%, #0a1e11 100%); border-top-color: #2f5a27; }
-/* Светила подняты выше, не касаются верха; рендерятся ЗА землёй */
-.theme-sun, .theme-moon { position: absolute; height: 20px; width: 20px; color: #fff; transition: transform .5s ease, opacity .5s ease; z-index: 1; }
-.theme-sun { bottom: 18px; left: 50%; transform: translate(-50%, 0); color: #ffe98a; filter: drop-shadow(0 0 4px rgba(255,200,0,.6)); }
-.theme-moon { top: 10px; left: 50%; transform: translate(-50%, -220%); color: #d1d9ff; opacity: 0; }
-/* Закат/восход: солнце уходит за горизонт, но не касается нижнего края */
-.dark .theme-sun { transform: translate(-50%, 95%); opacity: .2; filter: none; }
+
+/* Светила над горизонтом */
+.theme-sun, .theme-moon { position: absolute; height: 20px; width: 20px; color: #fff; transition: transform .6s ease, opacity .6s ease, filter .6s ease; z-index: 5; }
+.theme-sun { bottom: 18px; left: 50%; transform: translate(-50%, 0); color: #ffd43b; filter: drop-shadow(0 0 6px rgba(255,210,64,.9)); }
+.theme-sun circle { stroke: #fff; stroke-width: 1.2px; }
+.theme-moon { top: 10px; left: 50%; transform: translate(-50%, -220%); color: #e2e8ff; opacity: 0; }
+/* Закат/восход */
+.dark .theme-sun { transform: translate(-50%, 120%); opacity: .3; filter: drop-shadow(0 0 2px rgba(255,210,64,.4)); }
 .dark .theme-moon { transform: translate(-50%, 0%); opacity: 1; }
 /* Небольшой отступ у первого пункта меню */
 #primary-menu > li:first-child { margin-right: .25rem; } 
-
-/* Общий фон: персиковый в светлой теме, тёмно‑синий в тёмной */
-body { background: #fff7f2; }
-.dark body, .dark { background: #0b0f19; }
-/* Хедер на светлой — полупрозрачный персиковый */
-.site-header { background: rgba(255, 247, 242, 0.9); border-bottom-color: #ffe3d1; }
-/* На тёмной — остаётся как было через utility классы */
-
-/* Светлые секции (bg-gray-50) слегка персиковые */
-.section.bg-gray-50 { background: #fff1e6; }
-.dark .section.bg-gray-50 { background: rgba(15, 23, 42, 0.4); }
-
-/* Корректируем цвета текста на фоне */
-body, .nav-link, .card-text, .testimonial-quote, .contact-link { color: #374151; }
-.dark body { color: #e5e7eb; }
 
 /* Интерактив: hover на светлом — чуть темнее, на тёмном — ярче */
 .nav-link:hover { color: #d46600; }
