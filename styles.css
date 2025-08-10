@@ -92,7 +92,7 @@
 /* Горизонт интегрирован в землю (используем border-top у .theme-ground) */
 .theme-horizon { display: none; }
 /* Закрашенная земля: область от нижнего края до линии горизонта (единое целое с горизонтом) */
-.theme-ground { position: absolute; left: 2px; right: 2px; bottom: 2px; top: 16px; border-radius: 10px; background: linear-gradient(180deg, #7ed957 0%, #4caf50 60%, #2e7d32 100%); border-top: 3px solid #356b2b; z-index: 2; }
+.theme-ground { position: absolute; left: 0; right: 0; bottom: 0; top: 16px; border-radius: 9999px; background: linear-gradient(180deg, #7ed957 0%, #4caf50 60%, #2e7d32 100%); border-top: 3px solid #356b2b; z-index: 2; }
 .dark .theme-ground { background: linear-gradient(180deg, #18361f 0%, #0f2a17 60%, #0a1e11 100%); border-top-color: #2f5a27; }
 /* Светила подняты выше, не касаются верха; рендерятся ЗА землёй */
 .theme-sun, .theme-moon { position: absolute; height: 20px; width: 20px; color: #fff; transition: transform .5s ease, opacity .5s ease; z-index: 1; }
