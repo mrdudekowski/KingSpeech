@@ -317,3 +317,12 @@ html.dark .contact-cta{ background: var(--card); }
 /* Disable text selection inside testimonials */
 .testimonial, .testimonial * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 .testimonial-avatar { -webkit-user-drag: none; user-select: none; } 
+
+/* Subtle icon system */
+.icon{ display:inline-block; vertical-align:middle; color: currentColor; }
+.icon--btn{ margin-inline-end: 8px; }
+
+/* Inputs with leading icons */
+.form__group{ position: relative; }
+.input__icon{ position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+.form__input{ padding-left: 42px; } 
