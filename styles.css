@@ -134,7 +134,7 @@ html.dark { background: var(--bg-dark); }
 /* Анимации плавного перехода день/ночь для основных фонов */
 body { background: inherit; color: var(--text); transition: background-color .6s ease, background .6s ease, color .3s ease; }
 .dark body, .dark { background: inherit; }
-.site-header { background: color-mix(in srgb, var(--bg) 90%, transparent); border-bottom-color: var(--border); transition: background-color .6s ease, background .6s ease, border-color .6s ease; }
+.site-header { background: color-mix(in srgb, var(--bg) 88%, transparent); border-bottom-color: var(--border); transition: background-color .6s ease, background .6s ease, border-color .6s ease; }
 .section.bg-gray-50 { background: var(--surface); transition: background-color .6s ease, background .6s ease; }
 .dark .section.bg-gray-50 { background: var(--surface); }
 
