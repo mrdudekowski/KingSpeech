@@ -96,10 +96,27 @@ body { background: #fff7f2; transition: background-color .6s ease, background .6
 .dark .theme-toggle { background: linear-gradient(180deg, #0b1020 0%, #0f172a 70%, #111827 100%); border-color: #0f172a; box-shadow: 0 0 0 1px rgba(255,255,255,.12); }
 .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent); }
 .theme-sky { position: relative; height: 100%; width: 100%; }
+/* Звёзды (ночь): нежное мерцание точек */
+.theme-stars { position: absolute; inset: 0; border-radius: 9999px; pointer-events: none; background:
+  radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.9) 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 65% 25%, rgba(255,255,255,.8) 50%, transparent 51%),
+  radial-gradient(1.8px 1.8px at 40% 60%, rgba(255,255,255,.85) 50%, transparent 51%),
+  radial-gradient(1.2px 1.2px at 75% 55%, rgba(255,255,255,.9) 50%, transparent 51%),
+  radial-gradient(1.6px 1.6px at 55% 80%, rgba(255,255,255,.75) 50%, transparent 51%);
+opacity: 0; filter: brightness(1); transition: opacity .8s ease, filter 1.2s ease; z-index: 3; }
+@keyframes twinkle { 0%,100%{ filter: brightness(1) } 50%{ filter: brightness(1.6) } }
+.dark .theme-stars { opacity: .9; animation: twinkle 2.8s ease-in-out infinite; }
+
+/* Закат: тёплый градиент неба, мелькает перед выключением света */
+.theme-sunset { position: absolute; inset: 0; border-radius: 9999px; pointer-events: none; background:
+  linear-gradient(180deg, rgba(255,174,94,.0) 0%, rgba(255,174,94,.25) 45%, rgba(255,118,28,.35) 70%, rgba(255,118,28,.0) 100%);
+opacity: 0; transition: opacity .6s ease; z-index: 2; }
+/* Показываем закат в момент тёмной темы, пока солнце уходит */
+.dark .theme-sunset { opacity: .9; }
 /* Горизонт интегрирован в землю (используем border-top у .theme-ground) */
 .theme-horizon { display: none; }
 /* Закрашенная земля: область от нижнего края до линии горизонта (единое целое с горизонтом) */
-.theme-ground { position: absolute; left: 0; right: 0; bottom: 0; top: 16px; border-radius: 9999px; background: linear-gradient(180deg, #7ed957 0%, #4caf50 60%, #2e7d32 100%); border-top: 3px solid #356b2b; z-index: 2; transition: background .6s ease, border-color .6s ease; }
+.theme-ground { position: absolute; left: 0; right: 0; bottom: 0; top: 16px; border-radius: 9999px; background: linear-gradient(180deg, #7ed957 0%, #4caf50 60%, #2e7d32 100%); border-top: 3px solid #356b2b; z-index: 4; transition: background .6s ease, border-color .6s ease; }
 .dark .theme-ground { background: linear-gradient(180deg, #18361f 0%, #0f2a17 60%, #0a1e11 100%); border-top-color: #2f5a27; }
 
 /* Светила над горизонтом (в светлой теме) */
@@ -107,8 +124,8 @@ body { background: #fff7f2; transition: background-color .6s ease, background .6
 .theme-sun { bottom: 18px; left: 50%; transform: translate(-50%, 0); color: #ffd43b; filter: drop-shadow(0 0 8px rgba(255,210,64,.9)); }
 .theme-sun circle { stroke: #fff; stroke-width: 1.6px; }
 .theme-moon { top: 10px; left: 50%; transform: translate(-50%, -220%); color: #f1f5ff; opacity: 0; filter: drop-shadow(0 0 6px rgba(200,220,255,.6)); }
-/* Тёмный режим: солнце за горизонтом (невидимо, ниже и позади), луна в позиции солнца */
-.dark .theme-sun { z-index: 1; transform: translate(-50%, 160%); opacity: 0; filter: none; }
+/* Тёмный режим: солнце уходит за горизонт (позади земли), луна в позиции солнца */
+.dark .theme-sun { z-index: 2; transform: translate(-50%, 160%); opacity: 0; filter: none; }
 .dark .theme-moon { top: auto; bottom: 18px; left: 50%; transform: translate(-50%, 0); opacity: 1; }
 /* Небольшой отступ у первого пункта меню */
 #primary-menu > li:first-child { margin-right: .25rem; } 
