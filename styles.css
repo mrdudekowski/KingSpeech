@@ -94,11 +94,12 @@
 /* Закрашенная земля: область от нижнего края до линии горизонта (единое целое с горизонтом) */
 .theme-ground { position: absolute; left: 2px; right: 2px; bottom: 2px; top: 16px; border-radius: 10px; background: linear-gradient(180deg, #7ed957 0%, #4caf50 60%, #2e7d32 100%); border-top: 3px solid #356b2b; z-index: 2; }
 .dark .theme-ground { background: linear-gradient(180deg, #18361f 0%, #0f2a17 60%, #0a1e11 100%); border-top-color: #2f5a27; }
-/* Светила подняты выше, не касаются верха */
-.theme-sun, .theme-moon { position: absolute; height: 20px; width: 20px; color: #fff; transition: transform .5s ease, opacity .5s ease; z-index: 3; }
-.theme-sun { bottom: 16px; left: 50%; transform: translate(-50%, 0); color: #ffe98a; filter: drop-shadow(0 0 6px rgba(255,200,0,.8)); }
-.theme-moon { top: 9px; left: 50%; transform: translate(-50%, -220%); color: #d1d9ff; opacity: 0; }
-.dark .theme-sun { transform: translate(-50%, 140%); opacity: .2; }
+/* Светила подняты выше, не касаются верха; рендерятся ЗА землёй */
+.theme-sun, .theme-moon { position: absolute; height: 20px; width: 20px; color: #fff; transition: transform .5s ease, opacity .5s ease; z-index: 1; }
+.theme-sun { bottom: 18px; left: 50%; transform: translate(-50%, 0); color: #ffe98a; filter: drop-shadow(0 0 4px rgba(255,200,0,.6)); }
+.theme-moon { top: 10px; left: 50%; transform: translate(-50%, -220%); color: #d1d9ff; opacity: 0; }
+/* Закат/восход: солнце уходит за горизонт, но не касается нижнего края */
+.dark .theme-sun { transform: translate(-50%, 95%); opacity: .2; filter: none; }
 .dark .theme-moon { transform: translate(-50%, 0%); opacity: 1; }
 /* Небольшой отступ у первого пункта меню */
 #primary-menu > li:first-child { margin-right: .25rem; } 
