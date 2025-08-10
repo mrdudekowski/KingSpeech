@@ -20,6 +20,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Baseline CSP to mitigate XSS on static hosting (server headers are preferred) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta name="referrer" content="no-referrer">
+
     <!-- Стили: обновлённая палитра и компоненты с упором на WCAG AA -->
     <link rel="stylesheet" href="styles.css" />
     <link rel="preload" as="image" href="Vector_clean_KingSpeech.png" />
@@ -190,22 +194,30 @@
       <section id="testimonials" class="section">
         <div class="container">
           <h2 class="section-title text-center" data-animate>Отзывы учеников</h2>
-          <div class="testimonials">
-            <figure class="testimonial" data-animate>
-              <img class="testimonial-avatar" src="https://unavatar.io/github/yyx990803" alt="Аватар ученика" />
-              <blockquote class="testimonial-quote">«Говорю свободнее уже через месяц. Уроки проходят легко и с юмором!»</blockquote>
-              <figcaption class="testimonial-name">Мария, B1 → B2</figcaption>
-            </figure>
-            <figure class="testimonial" data-animate>
-              <img class="testimonial-avatar" src="https://unavatar.io/twitter/kentcdodds" alt="Аватар ученика" />
-              <blockquote class="testimonial-quote">«Подготовился к собеседованию на английском и получил оффер.»</blockquote>
-              <figcaption class="testimonial-name">Игорь, разговорный</figcaption>
-            </figure>
-            <figure class="testimonial" data-animate>
-              <img class="testimonial-avatar" src="https://unavatar.io/twitter/dan_abramov" alt="Аватар ученика" />
-              <blockquote class="testimonial-quote">«Ребёнок ждёт каждый урок. Много практики и внимания к интересам.»</blockquote>
-              <figcaption class="testimonial-name">Елена, мама ученицы</figcaption>
-            </figure>
+          <div id="testimonialsCarousel" class="carousel" data-animate>
+            <button class="carousel__btn carousel__btn--prev" aria-label="Листать влево" data-dir="-1">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <div class="carousel__track" role="region" aria-label="Лента отзывов" tabindex="0">
+              <figure class="testimonial">
+                <img class="testimonial-avatar" src="https://unavatar.io/github/yyx990803" alt="Аватар ученика" />
+                <blockquote class="testimonial-quote">«Говорю свободнее уже через месяц. Уроки проходят легко и с юмором!»</blockquote>
+                <figcaption class="testimonial-name">Мария, B1 → B2</figcaption>
+              </figure>
+              <figure class="testimonial">
+                <img class="testimonial-avatar" src="https://unavatar.io/twitter/kentcdodds" alt="Аватар ученика" />
+                <blockquote class="testimonial-quote">«Подготовился к собеседованию на английском и получил оффер.»</blockquote>
+                <figcaption class="testimonial-name">Игорь, разговорный</figcaption>
+              </figure>
+              <figure class="testimonial">
+                <img class="testimonial-avatar" src="https://unavatar.io/twitter/dan_abramov" alt="Аватар ученика" />
+                <blockquote class="testimonial-quote">«Ребёнок ждёт каждый урок. Много практики и внимания к интересам.»</blockquote>
+                <figcaption class="testimonial-name">Елена, мама ученицы</figcaption>
+              </figure>
+            </div>
+            <button class="carousel__btn carousel__btn--next" aria-label="Листать вправо" data-dir="1">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
           </div>
         </div>
       </section>

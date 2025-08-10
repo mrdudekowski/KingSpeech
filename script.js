@@ -253,3 +253,36 @@ const so = new IntersectionObserver(entries => {
   });
 }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
 sections.forEach(s => s && so.observe(s)); 
+
+// Testimonials carousel: buttons + drag scroll
+(() => {
+  const rootEl = document.getElementById('testimonialsCarousel');
+  if (!rootEl) return;
+  const track = rootEl.querySelector('.carousel__track');
+  const prev = rootEl.querySelector('.carousel__btn--prev');
+  const next = rootEl.querySelector('.carousel__btn--next');
+  if (!track || !prev || !next) return;
+
+  const getCardWidth = () => (track.firstElementChild ? track.firstElementChild.getBoundingClientRect().width + 16 : 300);
+  const scrollByCard = (dir) => { track.scrollBy({ left: dir * getCardWidth(), behavior: 'smooth' }); };
+
+  prev.addEventListener('click', () => scrollByCard(-1));
+  next.addEventListener('click', () => scrollByCard(1));
+
+  // keyboard support when track is focused
+  track.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); scrollByCard(1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollByCard(-1); }
+  });
+
+  // drag to scroll
+  let isDown = false, startX = 0, startScroll = 0;
+  const onDown = (x) => { isDown = true; startX = x; startScroll = track.scrollLeft; track.classList.add('is-dragging'); };
+  const onMove = (x) => { if (!isDown) return; const dx = x - startX; track.scrollLeft = startScroll - dx; };
+  const onUp = () => { isDown = false; track.classList.remove('is-dragging'); };
+
+  track.addEventListener('pointerdown', (e) => { track.setPointerCapture(e.pointerId); onDown(e.clientX); });
+  track.addEventListener('pointermove', (e) => onMove(e.clientX));
+  track.addEventListener('pointerup', onUp);
+  track.addEventListener('pointercancel', onUp);
+})(); 
