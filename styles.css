@@ -312,3 +312,7 @@ html.dark .contact-cta{ background: var(--card); }
 .carousel__btn{ height: 40px; width: 40px; border-radius: 9999px; border: 1px solid var(--border); background: var(--card); color: var(--text); display: grid; place-items: center; box-shadow: var(--shadow-sm); }
 .carousel__btn:hover{ color: var(--accent); border-color: color-mix(in srgb, var(--accent) 50%, var(--border)); }
 @media (min-width: 1024px){ .carousel__track{ grid-auto-columns: 420px; } } 
+
+/* Disable text selection inside testimonials */
+.testimonial, .testimonial * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+.testimonial-avatar { -webkit-user-drag: none; user-select: none; } 
