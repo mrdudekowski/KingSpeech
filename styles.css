@@ -89,18 +89,39 @@
 .dark .theme-toggle { background: linear-gradient(180deg, #0b1020 0%, #0f172a 70%, #111827 100%); border-color: #0f172a; box-shadow: 0 0 0 1px rgba(255,255,255,.12); }
 .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent); }
 .theme-sky { position: relative; height: 100%; width: 100%; }
-.theme-horizon { position: absolute; left: 6px; right: 6px; bottom: 11px; height: 2px; background: rgba(0,0,0,.22); border-radius: 2px; z-index: 5; }
+/* Тонкая линия горизонта */
+.theme-horizon { position: absolute; left: 6px; right: 6px; bottom: 12px; height: 2px; background: rgba(0,0,0,.22); border-radius: 2px; z-index: 6; }
 .dark .theme-horizon { background: rgba(255,255,255,.28); }
-/* Земля — передний план, перекрывает светила */
-.theme-ground { position: absolute; left: 3px; right: 3px; bottom: 3px; height: 16px; border-radius: 9999px 9999px 6px 6px; background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.28)); z-index: 6; box-shadow: inset 0 2px 6px rgba(0,0,0,.2); }
-.dark .theme-ground { background: linear-gradient(180deg, #0b1220, #0a0f1a); box-shadow: inset 0 2px 6px rgba(255,255,255,.06); }
-.theme-sun, .theme-moon { position: absolute; height: 22px; width: 22px; color: #fff; transition: transform .5s ease, opacity .5s ease; z-index: 4; }
+/* Закрашенная земля: узкая полоска снизу, НЕ перекрывает светила */
+.theme-ground { position: absolute; left: 6px; right: 6px; bottom: 6px; height: 10px; border-radius: 6px; background: linear-gradient(180deg, rgba(255,161,81,.55), rgba(200,120,40,.75)); z-index: 5; }
+.dark .theme-ground { background: linear-gradient(180deg, #1b2540, #0f1a33); }
+.theme-sun, .theme-moon { position: absolute; height: 22px; width: 22px; color: #fff; transition: transform .5s ease, opacity .5s ease; z-index: 8; }
 /* Солнце — снизу по центру */
 .theme-sun { bottom: 8px; left: 50%; transform: translate(-50%, 0); color: #fff59d; filter: drop-shadow(0 0 6px rgba(255,200,0,.8)); }
 /* Луна — сверху по центру */
 .theme-moon { top: 6px; left: 50%; transform: translate(-50%, -200%); color: #c7d2fe; opacity: 0; }
-/* Анимация: при тёмной теме солнце «заходит», луна «опускается» */
+/* Анимация: при тёмной теме солнце опускается, луна опускается сверху (обе над горизонтом) */
 .dark .theme-sun { transform: translate(-50%, 200%); opacity: .2; }
 .dark .theme-moon { transform: translate(-50%, 0%); opacity: 1; }
 /* Небольшой отступ у первого пункта меню */
 #primary-menu > li:first-child { margin-right: .25rem; } 
+
+/* Общий фон: персиковый в светлой теме, тёмно‑синий в тёмной */
+body { background: #fff7f2; }
+.dark body, .dark { background: #0b0f19; }
+/* Хедер на светлой — полупрозрачный персиковый */
+.site-header { background: rgba(255, 247, 242, 0.9); border-bottom-color: #ffe3d1; }
+/* На тёмной — остаётся как было через utility классы */
+
+/* Светлые секции (bg-gray-50) слегка персиковые */
+.section.bg-gray-50 { background: #fff1e6; }
+.dark .section.bg-gray-50 { background: rgba(15, 23, 42, 0.4); }
+
+/* Корректируем цвета текста на фоне */
+body, .nav-link, .card-text, .testimonial-quote, .contact-link { color: #374151; }
+.dark body { color: #e5e7eb; }
+
+/* Интерактив: hover на светлом — чуть темнее, на тёмном — ярче */
+.nav-link:hover { color: #d46600; }
+.btn--primary { background: #ff7a00; }
+.btn--primary:hover { background: #e86f00; } 
