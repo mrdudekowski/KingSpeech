@@ -4,13 +4,15 @@
   --accent-600: #E56F00;
   --accent-700: #CC5A00;
   --bg: #FFF8F3; /* светлая подложка */
+  --bg-secondary: #FFF1E6;
   --text: #1F2937; /* slate-800 */
-  --muted: #475569; /* slate-600 */
+  --text-secondary: #475569; /* slate-600 */
   --card: #FFFFFF;
   --card-title: #0F172A;
   --card-text: #475569;
   --border: #FFE1D2;
   --surface: #FFF1E6;
+  --primary: #FF7A00;
   --bg-dark: #0b0f19; /* не меняем по требованию */
   /* Brand statuses */
   --success: #22c55e; --success-700: #15803d; --success-bg: rgba(34,197,94,.12);
@@ -21,6 +23,7 @@
 
 .dark { 
   --text: #E6EDF5; 
+  --text-secondary: #9FB0C0; 
   --muted: #9FB0C0; 
   --card: #0F172A;
   --card-title: #E5E7EB;
@@ -30,12 +33,16 @@
   --accent: #FF7A00;
   --accent-600: #FF8C1A;
   --accent-700: #E67E00;
+  --primary: #FF7A00;
   /* statuses keep same hues but look darker on dark bg */
   --success-bg: rgba(34,197,94,.16);
   --warning-bg: rgba(245,158,11,.18);
   --error-bg: rgba(239,68,68,.18);
   --info-bg: rgba(56,189,248,.18);
 }
+
+/* Smooth theme transitions */
+* { transition: color .3s ease, background-color .3s ease, border-color .3s ease; }
 
 /* Блоки */
 .container { max-width: 80rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
@@ -89,8 +96,8 @@
 .li-check::before { content: '✔'; position: absolute; left: 0; top: 0; color: var(--accent); }
 
 /* Отзывы */
-.testimonial { border-radius: 1rem; background: #fff; padding: 1.5rem; border: 1px solid #f3f4f6; box-shadow: 0 1px 2px rgba(0,0,0,.03); transition: background .2s ease, border-color .2s ease; }
-.dark .testimonial { background: var(--card-dark); border-color: #0b1220; }
+.testimonial { border-radius: 1rem; background: var(--card); padding: 1.5rem; border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,.03); transition: background .2s ease, border-color .2s ease; }
+.dark .testimonial { background: var(--card); border-color: var(--border); }
 .testimonial-avatar { height: 3rem; width: 3rem; border-radius: 9999px; object-fit: cover; }
 .testimonial-quote { margin-top: .75rem; color: #374151; }
 .testimonial-name { margin-top: .5rem; font-size: .875rem; font-weight: 500; color: #6b7280; }
@@ -98,16 +105,16 @@
 .dark .testimonial-name { color: #94a3b8; }
 
 /* FAQ */
-.faq { border-radius: 0.75rem; background: #fff; padding: 1rem; border: 1px solid #f3f4f6; box-shadow: 0 1px 2px rgba(0,0,0,.03); transition: background .2s ease, border-color .2s ease; }
-.dark .faq { background: var(--card-dark); border-color: #0b1220; }
-.faq > summary { cursor: pointer; list-style: none; font-weight: 600; color: #111827; user-select: none; }
+.faq { border-radius: 0.75rem; background: var(--card); padding: 1rem; border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,.03); transition: background .2s ease, border-color .2s ease; }
+.dark .faq { background: var(--card); border-color: var(--border); }
+.faq > summary { cursor: pointer; list-style: none; font-weight: 600; color: var(--card-title); user-select: none; }
 .faq[open] > summary { color: var(--accent); }
-.dark .faq > summary { color: #e5e7eb; }
-.faq > p { margin-top: .5rem; color: #4b5563; }
-.dark .faq > p { color: #cbd5e1; }
+.dark .faq > summary { color: var(--card-title); }
+.faq > p { margin-top: .5rem; color: var(--card-text); }
+.dark .faq > p { color: var(--card-text); }
 
 /* Ссылки контактов */
-.contact-link { display: inline-flex; align-items: center; gap: .75rem; color: #374151; }
+.contact-link { display: inline-flex; align-items: center; gap: .75rem; color: var(--text); }
 .contact-link:hover { color: var(--accent); }
 .dark .contact-link { color: #e2e8f0; }
 
@@ -161,7 +168,7 @@ opacity: 0; transition: opacity .6s ease; z-index: 2; }
 .theme-sun, .theme-moon { z-index: 2; }
 /* Позиции */
 .theme-sun { bottom: 18px; left: 50%; transform: translate(-50%, 120%); color: #ffd43b; filter: drop-shadow(0 0 8px rgba(255,210,64,.9)); opacity: 0; }
-.theme-sun circle { stroke: #fff; stroke-width: 1.6px; }
+.theme-sun circle { stroke: #f8fafc; stroke-width: 1.6px; }
 .theme-moon { top: 10px; left: 50%; transform: translate(-50%, -220%); color: #f1f5ff; opacity: 0; filter: drop-shadow(0 0 6px rgba(200,220,255,.6)); }
 /* Днём: солнце выходит из‑за горизонта */
 :root:not(.dark) .theme-sun { transform: translate(-50%, 0); opacity: 1; z-index: 5; }
@@ -171,10 +178,76 @@ opacity: 0; transition: opacity .6s ease; z-index: 2; }
 /* Небольшой отступ у первого пункта меню */
 #primary-menu > li:first-child { margin-right: .25rem; } 
 
+/* Общий фон: персиковый в светлой теме, тёмно‑синий в тёмной */
+body, .nav-link, .card-text, .testimonial-quote, .contact-link { color: var(--text); }
+.dark body { color: var(--text); }
+
 /* Интерактив: hover на светлом — чуть темнее, на тёмном — ярче */
-.nav-link:hover { color: #d46600; }
-.btn--primary { background: #ff7a00; }
-.btn--primary:hover { background: #e86f00; } 
+.nav-link { color: var(--text-secondary); transition: color .2s; }
+.nav-link:hover { color: var(--accent); }
+.dark .nav-link { color: var(--text); }
+
+/* Мобильное меню */
+.mobile-link { display: block; padding: 0.5rem 0.75rem; color: var(--text-secondary); border-radius: 0.375rem; }
+.mobile-link:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.dark .mobile-link { color: var(--text); }
+
+/* Формы */
+.form-label { display: block; font-size: .875rem; font-weight: 500; color: var(--text-secondary); margin-bottom: .25rem; }
+.form-input { width: 100%; border-radius: 0.75rem; border: 1px solid var(--border); background: var(--card); padding: 0.75rem 1rem; color: var(--text); box-shadow: 0 1px 1px rgba(0,0,0,.02); }
+.form-input::placeholder { color: #9ca3af; }
+.form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent); }
+.form-hint { margin-top: .25rem; font-size: .75rem; color: #9ca3af; }
+.dark .form-label { color: var(--text); }
+.dark .form-input { background: var(--card); border-color: var(--border); color: var(--text); }
+.dark .form-input::placeholder { color: #64748b; }
+.dark .form-hint { color: #94a3b8; }
+
+/* Карточки */
+.card { border-radius: 1rem; background: var(--card); padding: 1.5rem; box-shadow: 0 1px 2px rgba(0,0,0,.03); border: 1px solid var(--border); transition: box-shadow .2s ease, background .2s ease, border-color .2s ease; }
+.dark .card { background: var(--card); border-color: var(--border); }
+.card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.06); }
+.card-icon { font-size: 1.25rem; }
+.card-title { margin-top: .75rem; font-size: 1.125rem; font-weight: 600; color: var(--card-title); }
+.card-text { margin-top: .5rem; color: var(--card-text); }
+.dark .card-title { color: var(--card-title); }
+.dark .card-text { color: var(--card-text); }
+
+/* Списки */
+.li-check { position: relative; padding-left: 1.5rem; }
+.li-check::before { content: '✔'; position: absolute; left: 0; top: 0; color: var(--accent); }
+
+/* Отзывы */
+.testimonial { border-radius: 1rem; background: var(--card); padding: 1.5rem; border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,.03); transition: background .2s ease, border-color .2s ease; }
+.dark .testimonial { background: var(--card); border-color: var(--border); }
+.testimonial-avatar { height: 3rem; width: 3rem; border-radius: 9999px; object-fit: cover; }
+.testimonial-quote { margin-top: .75rem; color: var(--text-secondary); }
+.testimonial-name { margin-top: .5rem; font-size: .875rem; font-weight: 500; color: #6b7280; }
+.dark .testimonial-quote { color: var(--card-text); }
+.dark .testimonial-name { color: #94a3b8; }
+
+/* FAQ */
+.faq { border-radius: 0.75rem; background: var(--card); padding: 1rem; border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,.03); transition: background .2s ease, border-color .2s ease; }
+.dark .faq { background: var(--card); border-color: var(--border); }
+.faq > summary { cursor: pointer; list-style: none; font-weight: 600; color: var(--card-title); user-select: none; }
+.faq[open] > summary { color: var(--accent); }
+.dark .faq > summary { color: var(--card-title); }
+.faq > p { margin-top: .5rem; color: var(--card-text); }
+.dark .faq > p { color: var(--card-text); }
+
+/* Ссылки контактов */
+.contact-link { display: inline-flex; align-items: center; gap: .75rem; color: var(--text); }
+.contact-link:hover { color: var(--accent); }
+.dark .contact-link { color: #e2e8f0; }
+
+/* Декор */
+.i-dot { display: inline-block; height: .5rem; width: .5rem; border-radius: 9999px; background: color-mix(in srgb, var(--accent) 60%, transparent); }
+
+/* Анимации появления */
+[data-animate] { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+[data-animate].visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) { [data-animate] { transition: none; } }
 
 /* Status utilities (badges, alerts, text) */
 .badge { display:inline-flex; align-items:center; gap:.35rem; padding:.25rem .5rem; border-radius:.5rem; font-weight:600; font-size:.75rem; line-height:1; }
