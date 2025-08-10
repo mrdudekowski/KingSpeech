@@ -2,7 +2,7 @@
 const yearSpan = document.getElementById('year');
 if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-// Тема (toggle + сохранение)
+// Тема (toggle + хранение + автоопределение по prefers-color-scheme)
 const root = document.documentElement;
 const getStoredTheme = () => localStorage.getItem('theme');
 const setStoredTheme = (t) => localStorage.setItem('theme', t);
@@ -10,10 +10,15 @@ const applyTheme = (t) => {
   if (t === 'dark') root.classList.add('dark');
   else root.classList.remove('dark');
 };
-// Инициализация темы
+// Инициализация темы: если нет сохранённого, берём системную
 (() => {
   const saved = getStoredTheme();
-  if (saved) applyTheme(saved);
+  if (saved) {
+    applyTheme(saved);
+  } else {
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(prefersDark ? 'dark' : 'light');
+  }
 })();
 
 const bindToggle = (btn) => {
@@ -21,7 +26,6 @@ const bindToggle = (btn) => {
   const updateAria = () => btn.setAttribute('aria-pressed', String(root.classList.contains('dark')));
   btn.addEventListener('click', () => {
     const toDark = !root.classList.contains('dark');
-    // Короткий эффект заката при переходе к тёмной теме (визуальная обратная связь)
     if (toDark) {
       root.classList.add('sunset-active');
       setTimeout(() => root.classList.remove('sunset-active'), 700);
@@ -39,7 +43,7 @@ const bindToggle = (btn) => {
 bindToggle(document.getElementById('themeToggle'));
 bindToggle(document.getElementById('themeToggleMobile'));
 
-// Автоматическая проверка контраста и коррекция цвета текста (WCAG AA)
+// Автоматическая проверка контраста и коррекция текста (WCAG AA)
 const clamp01 = (n) => Math.min(1, Math.max(0, n));
 const srgbToLinear = (c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
 const parseRGB = (css) => {
@@ -71,7 +75,6 @@ const getComputedBackground = (el) => {
     if (p && p.a > 0) return p;
     node = node.parentElement;
   }
-  // html background
   const htmlBg = parseRGB(getComputedStyle(document.documentElement).backgroundColor);
   return htmlBg || fallback;
 };
@@ -89,7 +92,6 @@ const ensureReadable = (el) => {
   const largeText = fontSize >= 18 || (isBold && fontSize >= 16);
   const threshold = largeText ? 3 : 4.5;
   if (ratio >= threshold) return;
-  // Выбираем светлый или тёмный текст в зависимости от фона (быстрое исправление контраста)
   const bgLum = relLuminance(bg);
   const target = bgLum < 0.35 ? 'rgb(230,237,245)' : 'rgb(31,41,55)';
   el.style.color = target;
@@ -99,10 +101,8 @@ const scanContrast = () => {
   candidates.forEach(ensureReadable);
 };
 
-// Запуск при загрузке
 window.addEventListener('DOMContentLoaded', () => {
   scanContrast();
-  // Наблюдаем за динамическими изменениями
   const mo = new MutationObserver((mutations) => {
     for (const m of mutations) {
       m.addedNodes && m.addedNodes.forEach((n) => {
@@ -117,7 +117,6 @@ window.addEventListener('DOMContentLoaded', () => {
   mo.observe(document.body, { childList: true, subtree: true, characterData: true });
 });
 
-// Перепроверяем после смены темы (после анимации заката)
 const recheckAfterTheme = () => setTimeout(scanContrast, 750);
 ['themeToggle', 'themeToggleMobile'].forEach((id) => {
   const btn = document.getElementById(id);
@@ -125,7 +124,7 @@ const recheckAfterTheme = () => setTimeout(scanContrast, 750);
   btn.addEventListener('click', recheckAfterTheme);
 });
 
-// Мобильное меню — исправлено: используем модификатор .is-open (CSS) и aria-hidden
+// Мобильное меню
 const mobileBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 if (mobileBtn && mobileMenu) {
@@ -139,11 +138,9 @@ if (mobileBtn && mobileMenu) {
     const expanded = mobileBtn.getAttribute('aria-expanded') === 'true';
     setMenuState(!expanded);
   });
-  // Закрывать меню при выборе ссылки
   mobileMenu.querySelectorAll('a').forEach((link) =>
     link.addEventListener('click', () => setMenuState(false))
   );
-  // Esc закрывает меню
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') setMenuState(false);
   });
@@ -176,7 +173,7 @@ const observer = new IntersectionObserver(
 );
 animated.forEach((el) => observer.observe(el));
 
-// Кнопка «наверх» — исправлено: используем атрибут hidden вместо класса
+// Кнопка «наверх»
 const toTopBtn = document.getElementById('toTop');
 if (toTopBtn) {
   const updateToTop = () => { toTopBtn.hidden = !(window.scrollY > 600); };
@@ -230,7 +227,6 @@ if (form) {
       submitBtn.disabled = true;
       submitBtn.textContent = 'Отправка…';
 
-      // Имитация отправки. Здесь можно подключить ваш бэкенд/форм‑сервис.
       await new Promise((res) => setTimeout(res, 800));
 
       if (message) {
