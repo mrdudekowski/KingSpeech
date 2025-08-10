@@ -73,6 +73,16 @@
             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
           <ul id="primary-menu" class="hidden sm:flex items-center gap-6 dark:text-gray-200" role="menu">
+            <li>
+              <button id="themeToggle" tabindex="0" aria-label="Переключить тему" aria-pressed="true" class="theme-toggle" title="Переключить тему">
+                <span class="sr-only">Переключить тему</span>
+                <span class="theme-sky">
+                  <span class="theme-horizon"></span>
+                  <svg class="theme-sun" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>
+                  <svg class="theme-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"/></svg>
+                </span>
+              </button>
+            </li>
             <!-- Ссылки навигации: текст легко менять -->
             <li><a href="#about" class="nav-link">О преподавателе</a></li>
             <li><a href="#method" class="nav-link">Методика</a></li>
@@ -83,6 +93,14 @@
         </div>
         <!-- Мобильное меню -->
         <div id="mobileMenu" class="sm:hidden hidden pb-4" role="menu">
+          <button id="themeToggleMobile" tabindex="0" aria-label="Переключить тему" aria-pressed="true" class="theme-toggle ml-3 mb-2" title="Переключить тему">
+            <span class="sr-only">Переключить тему</span>
+            <span class="theme-sky">
+              <span class="theme-horizon"></span>
+              <svg class="theme-sun" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>
+              <svg class="theme-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"/></svg>
+            </span>
+          </button>
           <a href="#about" class="mobile-link">О преподавателе</a>
           <a href="#method" class="mobile-link">Методика</a>
           <a href="#testimonials" class="mobile-link">Отзывы</a>

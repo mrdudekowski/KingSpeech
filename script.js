@@ -2,6 +2,38 @@
 const yearSpan = document.getElementById('year');
 if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
+// Тема (toggle + сохранение)
+const root = document.documentElement;
+const getStoredTheme = () => localStorage.getItem('theme');
+const setStoredTheme = (t) => localStorage.setItem('theme', t);
+const applyTheme = (t) => {
+  if (t === 'dark') root.classList.add('dark');
+  else root.classList.remove('dark');
+};
+// Инициализация темы
+(() => {
+  const saved = getStoredTheme();
+  if (saved) applyTheme(saved);
+})();
+
+const bindToggle = (btn) => {
+  if (!btn) return;
+  const updateAria = () => btn.setAttribute('aria-pressed', String(root.classList.contains('dark')));
+  btn.addEventListener('click', () => {
+    const toDark = !root.classList.contains('dark');
+    applyTheme(toDark ? 'dark' : 'light');
+    setStoredTheme(toDark ? 'dark' : 'light');
+    updateAria();
+  });
+  btn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+  });
+  updateAria();
+};
+
+bindToggle(document.getElementById('themeToggle'));
+bindToggle(document.getElementById('themeToggleMobile'));
+
 // Мобильное меню
 const mobileBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
