@@ -47,7 +47,7 @@ body { background: var(--bg); color: var(--text); }
 /* Layout helpers */
 .container { max-width: 80rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
 .section { padding: 4rem 0; }
-.section-title { font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem); font-weight: 800; color: var(--text); }
+.section-title { font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem); font-weight: 800; color: var(--accent); }
 
 /* Header */
 .site-header { background: var(--header-bg); border-bottom: 1px solid var(--border); }
@@ -141,4 +141,7 @@ html.dark .theme-sun { transform: translate(-50%, 160%); opacity: 0; z-index: 2;
 html.dark .theme-moon { top: auto; bottom: 18px; left: 50%; transform: translate(-50%, 0); opacity: 1; z-index: 5; }
 
 /* Utility panel class for content blocks */
-.panel { padding: 1.5rem; } 
+.panel { padding: 1.5rem; }
+
+/* Headings to accent color */
+h1, h2, h3, h4, h5, h6 { color: var(--accent); } 
