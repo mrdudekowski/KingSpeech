@@ -12,6 +12,7 @@ const applyTheme = (t) => {
 };
 // Инициализация темы: если нет сохранённого, берём системную
 (() => {
+  // Theme already pre-applied in <head> to prevent flashes; ensure ARIA state only
   const saved = getStoredTheme();
   if (saved) {
     applyTheme(saved);
@@ -19,6 +20,8 @@ const applyTheme = (t) => {
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     applyTheme(prefersDark ? 'dark' : 'light');
   }
+  // Re-enable transitions after first paint
+  requestAnimationFrame(() => document.documentElement.classList.remove('no-transitions'));
 })();
 
 const bindToggle = (btn) => {

@@ -24,6 +24,9 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
     <meta name="referrer" content="no-referrer">
 
+    <!-- Pre-init theme before CSS to avoid FOUC/flashes -->
+    <script>(function(){try{var d=document.documentElement;d.classList.add('no-transitions');var saved=localStorage.getItem('theme');var isDark=saved?saved==='dark':(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(isDark){d.classList.add('dark');}else{d.classList.remove('dark');}}catch(e){}})();</script>
+
     <!-- Стили: обновлённая палитра и компоненты с упором на WCAG AA -->
     <link rel="stylesheet" href="styles.css" />
     <link rel="preload" as="image" href="Vector_clean_KingSpeech.png" />

@@ -49,11 +49,15 @@ html.dark {
 
 /* Smooth transitions 0.35s for theme switch */
 * { transition: color .35s ease, background-color .35s ease, border-color .35s ease, box-shadow .35s ease, transform .18s ease; }
+.no-transitions *, .no-transitions { transition: none !important; }
 
 /* Base typography */
 html { font-size: 17px; }
 @media (min-width: 640px) { html { font-size: 18px; } }
 body { line-height: 1.65; }
+
+/* Ensure UA knows supported schemes to render default form controls correctly */
+:root { color-scheme: light dark; }
 
 /* Headings scale */
 .section-title { font-size: clamp(28px, 3.2vw, 40px); }
