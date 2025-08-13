@@ -367,14 +367,21 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
 
 /* Carousel (testimonials) */
 .carousel{ position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; }
-.carousel__track{ display: grid; grid-auto-flow: column; grid-auto-columns: min(85vw, 360px); gap: 16px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; padding: 6px; border-radius: 12px; }
+.carousel__track{ display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 16px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; padding: 6px; border-radius: 12px; }
+@media (min-width: 640px){ .carousel__track{ grid-auto-columns: calc((100% - 16px)/2); } }
+@media (min-width: 1024px){ .carousel__track{ grid-auto-columns: calc((100% - 32px)/3); } }
 .carousel__track::-webkit-scrollbar{ height: 10px; }
 .carousel__track::-webkit-scrollbar-track{ background: color-mix(in srgb, var(--text) 6%, transparent); border-radius: 9999px; }
 .carousel__track::-webkit-scrollbar-thumb{ background: color-mix(in srgb, var(--text) 20%, transparent); border-radius: 9999px; }
 .carousel__track > *{ scroll-snap-align: start; }
 .carousel__btn{ height: 40px; width: 40px; border-radius: 9999px; border: 1px solid var(--border); background: var(--card); color: var(--text); display: grid; place-items: center; box-shadow: var(--shadow-sm); transition: color var(--dur-xs) var(--ease), border-color var(--dur-xs) var(--ease); }
 .carousel__btn:hover{ color: var(--accent); border-color: color-mix(in srgb, var(--accent) 50%, var(--border)); }
-@media (min-width: 1024px){ .carousel__track{ grid-auto-columns: 420px; } }
+
+/* Testimonials text clamp + more button */
+.testimonial-quote{ display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.testimonial.is-expanded .testimonial-quote{ -webkit-line-clamp: unset; display: block; }
+.testimonial-more{ appearance: none; border: 0; background: transparent; color: var(--accent); font-weight: 700; cursor: pointer; padding: 6px 0 0; }
+.testimonial-more:hover{ text-decoration: underline; }
 
 /* Disable text selection inside testimonials */
 .testimonial, .testimonial * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
