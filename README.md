@@ -60,6 +60,3 @@ KingSpeech/
 - Сборка не требуется; правки в `KingSpeech/` сразу видны в браузере.
 - Цель — держать код простым, читаемым и без лишних зависимостей.
 
-
-
-<img width="1899" height="981" alt="image" src="https://github.com/user-attachments/assets/f348a0dd-ac69-4dcd-a3c4-dd7205a4ea18" />
