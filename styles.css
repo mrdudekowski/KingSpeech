@@ -34,6 +34,13 @@
   --dur-xs: .18s;
   --dur-s: .25s;
   --dur-m: .35s;
+  --dur-bg-slow: 40s;
+
+  /* Background accents (light, warm) */
+  --bg-accent-1: #ffede0; /* warm peach */
+  --bg-accent-2: #ffe8d6; /* warm sand */
+  --bg-accent-3: #fff1e6; /* warm cream */
+  --bg-noise: rgba(0,0,0,0.025);
 }
 
 html.dark {
@@ -52,6 +59,12 @@ html.dark {
   --accent-700: #CC5F00;
   --on-accent: #FFFFFF;
   --header-bg: color-mix(in srgb, var(--bg) 80%, transparent);
+
+  /* Background accents (dark, cool) */
+  --bg-accent-1: #0b1020;
+  --bg-accent-2: #101826;
+  --bg-accent-3: #0f1a12;
+  --bg-noise: rgba(255,255,255,0.02);
 }
 
 /* Remove global transitions; add only where needed */
@@ -350,3 +363,54 @@ html.dark .contact-cta{ background: var(--card); }
 .form__group{ position: relative; }
 .input__icon{ position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
 .form__input{ padding-left: 42px; } 
+
+/* Page background layer: Aurora + Noise (integrated) */
+.page-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.page-content { position: relative; z-index: 1; }
+
+/* Base warm gradient for light theme; darker base for dark theme */
+.bg-aurora-noise { background: linear-gradient(180deg, color-mix(in srgb, var(--bg-accent-2) 60%, var(--bg)) 0%, var(--bg) 100%); }
+html.dark .bg-aurora-noise { background: radial-gradient(120% 90% at 50% 30%, color-mix(in srgb, #0b1020 50%, var(--bg)) 0%, var(--bg) 100%); }
+
+/* Aurora blobs — light theme (warm) */
+html:not(.dark) .bg-aurora::before,
+html:not(.dark) .bg-aurora::after { content: ""; position: absolute; inset: -20% -10% -10% -20%; filter: blur(32px); opacity: .50; transform: translate3d(0,0,0); }
+html:not(.dark) .bg-aurora::before { background:
+  radial-gradient(45% 55% at 22% 30%, color-mix(in srgb, #ff8fab 42%, transparent) 0%, transparent 60%),
+  radial-gradient(50% 60% at 78% 38%, color-mix(in srgb, #ff9d66 40%, transparent) 0%, transparent 60%);
+  animation: aurora1 var(--dur-bg-slow) var(--ease) infinite alternate;
+}
+html:not(.dark) .bg-aurora::after { background:
+  radial-gradient(50% 60% at 40% 78%, color-mix(in srgb, #f472b6 36%, transparent) 0%, transparent 60%),
+  radial-gradient(40% 50% at 70% 70%, color-mix(in srgb, #a78bfa 34%, transparent) 0%, transparent 60%);
+  animation: aurora2 calc(var(--dur-bg-slow) * 1.2) var(--ease) infinite alternate;
+}
+
+/* Aurora blobs — dark theme (original) */
+html.dark .bg-aurora::before,
+html.dark .bg-aurora::after { content: ""; position: absolute; inset: -20% -10% -10% -20%; filter: blur(32px); opacity: .55; transform: translate3d(0,0,0); }
+html.dark .bg-aurora::before { background:
+  radial-gradient(45% 55% at 20% 30%, color-mix(in srgb, #60a5fa 45%, transparent) 0%, transparent 60%),
+  radial-gradient(50% 60% at 80% 40%, color-mix(in srgb, #f59e0b 45%, transparent) 0%, transparent 60%);
+  animation: aurora1 var(--dur-bg-slow) var(--ease) infinite alternate;
+}
+html.dark .bg-aurora::after { background:
+  radial-gradient(50% 60% at 40% 80%, color-mix(in srgb, #22c55e 38%, transparent) 0%, transparent 60%),
+  radial-gradient(40% 50% at 70% 70%, color-mix(in srgb, #a78bfa 40%, transparent) 0%, transparent 60%);
+  animation: aurora2 calc(var(--dur-bg-slow) * 1.2) var(--ease) infinite alternate;
+}
+
+@keyframes aurora1 { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-2%) scale(1.05); } }
+@keyframes aurora2 { 0% { transform: translateX(0) scale(1); } 100% { transform: translateX(2%) scale(1.04); } }
+
+/* Subtle noise overlay over base gradient */
+.bg-aurora-noise::after { content: ""; position: absolute; inset: 0; background:
+  radial-gradient(1px 1px at 20% 30%, var(--bg-noise) 50%, transparent 51%),
+  radial-gradient(1px 1px at 65% 25%, var(--bg-noise) 50%, transparent 51%),
+  radial-gradient(1px 1px at 40% 60%, var(--bg-noise) 50%, transparent 51%);
+}
+
+/* Reduced motion: freeze background */
+@media (prefers-reduced-motion: reduce) {
+  .bg-aurora::before, .bg-aurora::after { animation: none !important; }
+} 
