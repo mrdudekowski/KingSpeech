@@ -42,9 +42,33 @@
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121212" />
 
     <!-- Structured data (Organization/Person) -->
-    <script type="application/ld+json" src="schema-org.json"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "KingSpeech",
+        "url": "https://mrdudekowski.github.io/KingSpeech/",
+        "logo": "Vector_clean_KingSpeech.png",
+        "sameAs": [
+          "https://t.me/",
+          "https://wa.me/"
+        ]
+      }
+    </script>
     <!-- Structured data (FAQPage) -->
-    <script type="application/ld+json" src="schema-faq.json"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "Как проходит бесплатное занятие?", "acceptedAnswer": {"@type": "Answer", "text": "Знакомство, определение целей и уровня, мини‑урок с практикой. После — персональный план обучения."}},
+          {"@type": "Question", "name": "Сколько длится урок?", "acceptedAnswer": {"@type": "Answer", "text": "Как правило, 50 минут индивидуально и 60 минут в группе. По договорённости возможен другой формат."}},
+          {"@type": "Question", "name": "Какие материалы используются?", "acceptedAnswer": {"@type": "Answer", "text": "Современные учебники, интерактивные платформы, видео/подкасты, карточки слов и собственные разработки."}},
+          {"@type": "Question", "name": "С какого уровня можно начинать?", "acceptedAnswer": {"@type": "Answer", "text": "С любого: от нуля до продвинутого. План строится под ваши задачи."}},
+          {"@type": "Question", "name": "Есть ли домашние задания?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Они помогают закрепить материал, но всегда остаются посильными и интересными."}}
+        ]
+      }
+    </script>
   </head>
   <body>
     <div class="page-bg bg-aurora bg-aurora-noise"></div>
@@ -129,7 +153,7 @@
                 <div class="media-frame">
                   <picture>
                     <source type="image/webp" srcset="assets/hero/hero-a-plus.webp 1x" />
-                    <img src="assets/hero/hero-a-plus.webp" alt="Иллюстрация онлайн‑занятий по английскому" decoding="async" fetchpriority="high" width="800" height="600" sizes="(min-width: 1024px) 640px, (min-width: 768px) 560px, 92vw" srcset="assets/hero/hero-a-plus.webp 560w, assets/hero/hero-a-plus.webp 800w" />
+                    <img src="assets/hero/hero-a-plus.webp" alt="Иллюстрация онлайн‑занятий по английскому" decoding="async" fetchpriority="high" width="800" height="600" sizes="(min-width: 1280px) 640px, (min-width: 768px) 560px, 92vw" srcset="assets/hero/hero-a-plus.webp 560w, assets/hero/hero-a-plus.webp 800w" />
                   </picture>
                 </div>
               </div>

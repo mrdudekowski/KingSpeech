@@ -108,7 +108,7 @@ body { line-height: 1.65; }
 
 /* Page */
 html { background: var(--bg); }
-body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 
 /* Layout helpers */
 .container { max-width: 1280px; margin-inline: auto; padding-inline: 32px; }
