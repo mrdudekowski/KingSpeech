@@ -1,0 +1,165 @@
+/* Background demos — standalone styles (no impact on main site) */
+:root {
+	--bg: #ffffff;
+	--text: #111827;
+	--accent: #FF7A00;
+	--bg-accent-1: #ffede0; /* warm peach */
+	--bg-accent-2: #ffe8d6; /* warm sand (was cool blue) */
+	--bg-accent-3: #fff1e6; /* warm cream */
+	--bg-grid: rgba(17, 24, 39, 0.06);
+	--vignette: rgba(0, 0, 0, 0.12);
+	--noise: rgba(0, 0, 0, 0.025);
+	--ease-bg: cubic-bezier(.16,1,.3,1);
+	--dur-bg-slow: 40s;
+}
+html.dark {
+	--bg: #0f1115;
+	--text: #f9fafb;
+	--bg-accent-1: #0b1020;
+	--bg-accent-2: #101826;
+	--bg-accent-3: #0f1a12;
+	--bg-grid: rgba(249, 250, 251, 0.06);
+	--vignette: rgba(0, 0, 0, 0.35);
+	--noise: rgba(255, 255, 255, 0.02);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+
+/* Content always above background */
+.page-content { position: relative; z-index: 1; min-height: 100vh; }
+.page-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+/* Demo layout */
+.container { max-width: 1080px; margin: 0 auto; padding: 32px; }
+.header { display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; }
+.title { font-size: clamp(24px, 3vw, 36px); margin: 24px 0; color: var(--accent); }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.card { background: color-mix(in srgb, var(--bg) 85%, transparent); border: 1px solid color-mix(in srgb, var(--text) 10%, transparent); border-radius: 14px; padding: 16px; backdrop-filter: blur(6px); }
+
+.controls { position: fixed; top: 16px; right: 16px; z-index: 2; display: flex; gap: 8px; }
+.btn { appearance: none; border: 1px solid color-mix(in srgb, var(--text) 16%, transparent); background: color-mix(in srgb, var(--bg) 75%, transparent); color: var(--text); border-radius: 10px; padding: 8px 12px; font-weight: 600; cursor: pointer; }
+.btn:hover { border-color: color-mix(in srgb, var(--accent) 60%, transparent); color: var(--accent); }
+
+/* Variant A: Mesh gradient + subtle noise */
+.bg-mesh-noise { background:
+	radial-gradient(40% 50% at 10% 10%, color-mix(in srgb, var(--accent) 14%, transparent) 0%, transparent 60%),
+	radial-gradient(35% 45% at 85% 15%, color-mix(in srgb, #7c3aed 16%, transparent) 0%, transparent 60%),
+	radial-gradient(50% 55% at 20% 85%, color-mix(in srgb, #06b6d4 16%, transparent) 0%, transparent 60%),
+	radial-gradient(45% 50% at 85% 80%, color-mix(in srgb, #22c55e 12%, transparent) 0%, transparent 60%),
+	linear-gradient(180deg, color-mix(in srgb, var(--bg-accent-1) 80%, var(--bg)) 0%, var(--bg) 100%);
+	animation: meshDrift var(--dur-bg-slow) var(--ease-bg) infinite alternate;
+}
+.bg-mesh-noise::after { content:""; position: absolute; inset: 0; background:
+	radial-gradient(1px 1px at 10% 20%, var(--noise) 50%, transparent 51%),
+	radial-gradient(1px 1px at 30% 80%, var(--noise) 50%, transparent 51%),
+	radial-gradient(1px 1px at 60% 40%, var(--noise) 50%, transparent 51%),
+	radial-gradient(1px 1px at 80% 70%, var(--noise) 50%, transparent 51%);
+	mix-blend-mode: overlay;
+}
+@keyframes meshDrift { to { background-position: 2% 1%, -1% 1%, 1% -1%, -2% -1%, 0 0; } }
+
+/* Variant B: Aurora blobs + noise */
+/* Light theme: warm aurora (replace yellow with warm peach/coral/rose) */
+html:not(.dark) .bg-aurora::before, html:not(.dark) .bg-aurora::after { content:""; position: absolute; inset: -20% -10% -10% -20%; filter: blur(32px); opacity: .50; transform: translate3d(0,0,0); }
+html:not(.dark) .bg-aurora::before { background:
+	radial-gradient(45% 55% at 22% 30%, color-mix(in srgb, #ff8fab 42%, transparent) 0%, transparent 60%),
+	radial-gradient(50% 60% at 78% 38%, color-mix(in srgb, #ff9d66 40%, transparent) 0%, transparent 60%);
+	animation: aurora1 50s var(--ease-bg) infinite alternate;
+}
+html:not(.dark) .bg-aurora::after { background:
+	radial-gradient(50% 60% at 40% 78%, color-mix(in srgb, #f472b6 36%, transparent) 0%, transparent 60%),
+	radial-gradient(40% 50% at 70% 70%, color-mix(in srgb, #a78bfa 34%, transparent) 0%, transparent 60%);
+	animation: aurora2 60s var(--ease-bg) infinite alternate;
+}
+/* Slightly warmer base gradient in light */
+.bg-aurora-noise { background: linear-gradient(180deg, color-mix(in srgb, var(--bg-accent-2) 60%, var(--bg)) 0%, var(--bg) 100%); }
+.bg-aurora-noise::after { content:""; position:absolute; inset:0; background: radial-gradient(1px 1px at 20% 30%, var(--noise) 50%, transparent 51%), radial-gradient(1px 1px at 65% 25%, var(--noise) 50%, transparent 51%), radial-gradient(1px 1px at 40% 60%, var(--noise) 50%, transparent 51%); }
+
+/* Dark theme: original aurora palette */
+html.dark .bg-aurora::before, html.dark .bg-aurora::after { content:""; position: absolute; inset: -20% -10% -10% -20%; filter: blur(32px); opacity: .55; transform: translate3d(0,0,0); }
+html.dark .bg-aurora::before { background:
+	radial-gradient(45% 55% at 20% 30%, color-mix(in srgb, #60a5fa 45%, transparent) 0%, transparent 60%),
+	radial-gradient(50% 60% at 80% 40%, color-mix(in srgb, #f59e0b 45%, transparent) 0%, transparent 60%);
+	animation: aurora1 50s var(--ease-bg) infinite alternate;
+}
+html.dark .bg-aurora::after { background:
+	radial-gradient(50% 60% at 40% 80%, color-mix(in srgb, #22c55e 38%, transparent) 0%, transparent 60%),
+	radial-gradient(40% 50% at 70% 70%, color-mix(in srgb, #a78bfa 40%, transparent) 0%, transparent 60%);
+	animation: aurora2 60s var(--ease-bg) infinite alternate;
+}
+@keyframes aurora1 { 0%{ transform: translateY(0) scale(1); } 100%{ transform: translateY(-2%) scale(1.05); } }
+@keyframes aurora2 { 0%{ transform: translateX(0) scale(1); } 100%{ transform: translateX(2%) scale(1.04); } }
+
+/* Variant D+E: Soft grid + vignette */
+.bg-grid-vignette { background:
+	repeating-linear-gradient(0deg, transparent 0 23px, var(--bg-grid) 24px 24px),
+	repeating-linear-gradient(90deg, transparent 0 23px, var(--bg-grid) 24px 24px),
+	linear-gradient(180deg, color-mix(in srgb, var(--bg-accent-3) 50%, var(--bg)) 0%, var(--bg) 100%);
+	mask-image: radial-gradient(120% 80% at 50% 40%, #000 60%, transparent 100%);
+}
+.bg-grid-vignette::after { content:""; position:absolute; inset:0; background: radial-gradient(100% 100% at 50% 50%, transparent 60%, var(--vignette) 100%); }
+
+/* Variant F: Starfield */
+.bg-starfield { background: radial-gradient(120% 90% at 50% 30%, color-mix(in srgb, #0b1020 50%, var(--bg)) 0%, var(--bg) 100%); }
+.bg-starfield::before { content:""; position:absolute; inset:0; background:
+	radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.8) 50%, transparent 51%),
+	radial-gradient(1.5px 1.5px at 65% 25%, rgba(255,255,255,.75) 50%, transparent 51%),
+	radial-gradient(1.2px 1.2px at 45% 70%, rgba(255,255,255,.65) 50%, transparent 51%),
+	radial-gradient(1px 1px at 75% 55%, rgba(255,255,255,.8) 50%, transparent 51%),
+	radial-gradient(1.6px 1.6px at 55% 80%, rgba(255,255,255,.7) 50%, transparent 51%);
+	animation: twinkle 3s ease-in-out infinite;
+	opacity: .7;
+}
+@keyframes twinkle { 0%, 100% { filter: brightness(1) } 50% { filter: brightness(1.4) } }
+
+/* Variant B2: Aurora (Onlook‑style warm) + noise */
+.bg-aurora-onlook { position: relative; background: linear-gradient(180deg, color-mix(in srgb, var(--bg-accent-2) 65%, var(--bg)) 0%, var(--bg) 100%); }
+.bg-aurora-onlook::before, .bg-aurora-onlook::after { content:""; position:absolute; inset:-22% -12% -12% -22%; filter: blur(36px); opacity:.52; transform: translate3d(0,0,0); }
+/* Light: warm coral/rose/lilac, no harsh yellows */
+html:not(.dark) .bg-aurora-onlook::before { background:
+	radial-gradient(48% 58% at 24% 32%, color-mix(in srgb, #ff8fab 44%, transparent) 0%, transparent 60%),
+	radial-gradient(52% 60% at 78% 40%, color-mix(in srgb, #ff9d66 34%, transparent) 0%, transparent 60%);
+	animation: aurora1 var(--dur-bg-slow) var(--ease-bg) infinite alternate;
+}
+html:not(.dark) .bg-aurora-onlook::after { background:
+	radial-gradient(52% 62% at 42% 78%, color-mix(in srgb, #f472b6 30%, transparent) 0%, transparent 60%),
+	radial-gradient(44% 54% at 70% 70%, color-mix(in srgb, #a78bfa 32%, transparent) 0%, transparent 60%);
+	animation: aurora2 calc(var(--dur-bg-slow) * 1.2) var(--ease-bg) infinite alternate;
+}
+/* Extra layer for depth */
+.bg-aurora-onlook .l3 { position:absolute; inset:-18% -10% -10% -18%; filter: blur(28px); opacity:.35; background:
+	radial-gradient(36% 46% at 15% 60%, color-mix(in srgb, #ffb3a3 28%, transparent) 0%, transparent 60%),
+	radial-gradient(38% 48% at 85% 60%, color-mix(in srgb, #fca5a5 26%, transparent) 0%, transparent 60%);
+	animation: aurora3 calc(var(--dur-bg-slow) * 1.35) var(--ease-bg) infinite alternate;
+}
+/* Dark: keep original cool aurora with slight warmth */
+html.dark .bg-aurora-onlook::before { background:
+	radial-gradient(48% 58% at 22% 30%, color-mix(in srgb, #60a5fa 46%, transparent) 0%, transparent 60%),
+	radial-gradient(52% 60% at 80% 38%, color-mix(in srgb, #a78bfa 40%, transparent) 0%, transparent 60%);
+	animation: aurora1 var(--dur-bg-slow) var(--ease-bg) infinite alternate;
+}
+html.dark .bg-aurora-onlook::after { background:
+	radial-gradient(52% 62% at 40% 78%, color-mix(in srgb, #22c55e 30%, transparent) 0%, transparent 60%),
+	radial-gradient(44% 54% at 70% 70%, color-mix(in srgb, #f472b6 26%, transparent) 0%, transparent 60%);
+	animation: aurora2 calc(var(--dur-bg-slow) * 1.2) var(--ease-bg) infinite alternate;
+}
+html.dark .bg-aurora-onlook .l3 { background:
+	radial-gradient(36% 46% at 15% 60%, color-mix(in srgb, #1f2a44 40%, transparent) 0%, transparent 60%),
+	radial-gradient(38% 48% at 85% 60%, color-mix(in srgb, #2a1f3d 36%, transparent) 0%, transparent 60%);
+}
+/* Noise overlay */
+.bg-aurora-onlook .noise { position:absolute; inset:0; pointer-events:none; background:
+	radial-gradient(1px 1px at 20% 30%, var(--noise) 50%, transparent 51%),
+	radial-gradient(1px 1px at 65% 25%, var(--noise) 50%, transparent 51%),
+	radial-gradient(1px 1px at 40% 60%, var(--noise) 50%, transparent 51%),
+	radial-gradient(1px 1px at 80% 70%, var(--noise) 50%, transparent 51%);
+}
+@keyframes aurora3 { 0%{ transform: translate(0,0) scale(1);} 100%{ transform: translate(-1.5%, 1.5%) scale(1.03);} }
+
+/* PRM: stop animations */
+@media (prefers-reduced-motion: reduce) {
+	.bg-mesh-noise, .bg-aurora::before, .bg-aurora::after, .bg-starfield::before { animation: none !important; }
+	.bg-aurora-onlook::before, .bg-aurora-onlook::after, .bg-aurora-onlook .l3 { animation: none !important; }
+}

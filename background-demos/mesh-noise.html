@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>BG Demo — Mesh + Noise</title>
+	<link rel="stylesheet" href="backgrounds.css"/>
+</head>
+<body>
+	<div class="page-bg bg-mesh-noise"></div>
+	<div class="controls">
+		<button class="btn" id="theme">Switch theme</button>
+	</div>
+	<div class="page-content">
+		<header class="header">
+			<h1 class="title">Mesh + Noise</h1>
+		</header>
+		<main class="container">
+			<div class="grid">
+				<div class="card">Карточка №1 — текст поверх фона</div>
+				<div class="card">Карточка №2 — тени и блюр выше фона</div>
+				<div class="card">Карточка №3 — проверка читабельности</div>
+				<div class="card">Карточка №4</div>
+			</div>
+		</main>
+	</div>
+	<script>
+		const btn = document.getElementById('theme');
+		btn.addEventListener('click', ()=>{
+			document.documentElement.classList.toggle('dark');
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>BG Demo — Grid + Vignette</title>
+	<link rel="stylesheet" href="backgrounds.css"/>
+</head>
+<body>
+	<div class="page-bg bg-grid-vignette"></div>
+	<div class="controls">
+		<button class="btn" id="theme">Switch theme</button>
+	</div>
+	<div class="page-content">
+		<header class="header">
+			<h1 class="title">Soft Grid + Vignette</h1>
+		</header>
+		<main class="container">
+			<div class="grid">
+				<div class="card">Карточка №1 — строгий вариант</div>
+				<div class="card">Карточка №2 — больше подходит светлой теме</div>
+				<div class="card">Карточка №3</div>
+				<div class="card">Карточка №4</div>
+			</div>
+		</main>
+	</div>
+	<script>
+		const btn = document.getElementById('theme');
+		btn.addEventListener('click', ()=>{
+			document.documentElement.classList.toggle('dark');
+		});
+	</script>
+</body>
+</html>
