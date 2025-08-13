@@ -21,6 +21,9 @@
   --accent-700: #CC5F00;         /* active */
   --on-accent: #FFFFFF;          /* text on accent backgrounds */
 
+  /* Heading color per theme */
+  --heading: var(--text);
+
   /* Header backdrop */
   --header-bg: color-mix(in srgb, var(--bg) 88%, transparent);
 
@@ -65,6 +68,9 @@ html.dark {
   --bg-accent-2: #101826;
   --bg-accent-3: #0f1a12;
   --bg-noise: rgba(255,255,255,0.02);
+
+  /* Headings in dark use accent */
+  --heading: var(--accent);
 }
 
 /* Remove global transitions; add only where needed */
@@ -266,15 +272,16 @@ html.dark .theme-moon { top: auto; bottom: 18px; left: 50%; transform: translate
 .panel { padding: 20px; border-radius: 16px; }
 
 /* Headings in brand accent per guideline */
- h1, h2, h3, h4, h5, h6 { color: var(--accent); }
-html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 { color: var(--accent); }
-.section-title { color: var(--accent); }
-html.dark .section-title { color: var(--accent); }
+.section-title, h1, h2, h3, h4, h5, h6 { color: var(--heading); }
+.section-title { letter-spacing: -.02em; }
 .footer__title { color: var(--text); }
 
 /* Brand/links explicit */
 .nav__link, .footer__link, .contact-cta { color: inherit; }
 html.dark .nav__link, html.dark .footer__link, html.dark .contact-cta { color: inherit; }
+
+/* Contact CTA: reduce overload in light theme (text dark, border accent) */
+html:not(.dark) .contact-cta { color: var(--text); }
 
 /* Utility to opt-out auto-contrast adjustments */
 .no-contrast { color: inherit !important; }
