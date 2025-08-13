@@ -10,14 +10,14 @@ const applyTheme = (t) => {
   if (t === 'dark') root.classList.add('dark');
   else root.classList.remove('dark');
 };
-// Инициализация темы: если нет сохранённого, берём системную
+// Инициализация темы: если нет сохранённого, по умолчанию тёмная
 (() => {
   const saved = getStoredTheme();
   if (saved) {
     applyTheme(saved);
   } else {
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    applyTheme(prefersDark ? 'dark' : 'light');
+    applyTheme('dark');
+    setStoredTheme('dark');
   }
   requestAnimationFrame(() => document.documentElement.classList.remove('no-transitions'));
 })();
