@@ -205,8 +205,13 @@ animated.forEach((el) => observer.observe(el));
 // Кнопка «наверх»
 const toTopBtn = document.getElementById('toTop');
 if (toTopBtn) {
+  const showAfter = 400;
   let ticking = false;
-  const updateToTop = () => { toTopBtn.hidden = !(window.scrollY > 600); ticking = false; };
+  const updateToTop = () => {
+    const shouldShow = window.scrollY > showAfter;
+    toTopBtn.classList.toggle('is-visible', shouldShow);
+    ticking = false;
+  };
   window.addEventListener('scroll', () => {
     if (!ticking) {
       window.requestAnimationFrame(updateToTop);
