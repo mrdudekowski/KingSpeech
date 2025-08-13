@@ -202,9 +202,9 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 .testimonial { border-radius: 1rem; background: var(--card); padding: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform var(--dur-xxs) var(--ease), box-shadow var(--dur-xxs) var(--ease); display: grid; grid-template-columns: 64px 1fr; align-items: start; gap: 12px; cursor: pointer; }
 .testimonial:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(16,24,40,.10); }
 .testimonial-avatar { height: 64px; width: 64px; border-radius: 9999px; object-fit: cover; grid-column: 1; grid-row: 1 / span 2; }
-.testimonial-body { grid-column: 2; display: grid; grid-template-rows: auto 1fr; gap: 6px; min-width: 0; align-items: start; }
-.testimonial-text { overflow: hidden; transition: max-height var(--dur-s) var(--ease); width: 100%; min-width: 0; }
-.testimonial-quote { margin-top: 0; color: var(--text); font-size: 16px; line-height: 1.55; display: block; white-space: normal; word-break: normal; overflow-wrap: anywhere; hyphens: auto; }
+.testimonial-body { grid-column: 2; display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 6px; min-width: 0; align-items: start; width: 100%; }
+.testimonial-text { overflow: hidden; transition: max-height var(--dur-s) var(--ease); width: auto; min-width: 0; grid-column: 1 / -1; }
+.testimonial-quote { margin: 0; color: var(--text); font-size: 16px; line-height: 1.55; display: block; white-space: normal; word-break: normal; overflow-wrap: anywhere; hyphens: auto; }
 .testimonial-name { margin-top: .25rem; font-size: 13px; font-weight: 600; color: var(--text-muted); }
 
 /* Modal for full review */
@@ -439,7 +439,7 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
 
 /* Testimonial collapse */
 .testimonial { position: relative; }
-.testimonial.is-collapsed .testimonial-quote { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; }
+.testimonial.is-collapsed .testimonial-quote { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
 .testimonial .testimonial-toggle { margin-top: 4px; align-self: flex-start; background: transparent; border: 0; color: var(--accent); cursor: pointer; padding: 4px; border-radius: 8px; transition: transform var(--dur-xs) var(--ease), color var(--dur-xs) var(--ease); position: relative; z-index: 1; }
 .testimonial .testimonial-toggle:focus-visible{ box-shadow: 0 0 0 3px rgba(255,122,0,.25); }
 .testimonial .testimonial-toggle svg{ width: 18px; height: 18px; transform: rotate(0deg); transition: transform var(--dur-xs) var(--ease); }
