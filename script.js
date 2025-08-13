@@ -120,11 +120,11 @@ const ensureReadable = (el) => {
   el.setAttribute('data-autocontrast-applied', '1');
 };
 
+// Контраст: ограничиваем область сканирования до контент‑секций
 const scanContrast = () => {
-  // Исключаем заголовки/брендовые элементы из сканирования
-  const candidates = document.querySelectorAll('p,span,li,a,small,div,button,label,summary');
-  candidates.forEach((el) => {
-    // Пропустить брендовые/навигационные ссылки
+  const scope = document.querySelectorAll('.section :where(p,span,li,small,div,button,label,summary)');
+  scope.forEach((el) => {
+    if (el.closest('header, nav, footer')) return;
     if (el.matches('.nav__link,.footer__link,.contact-cta')) return;
     ensureReadable(el);
   });
@@ -148,10 +148,19 @@ const recheckAfterTheme = () => setTimeout(scanContrast, 400);
 const mobileBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 if (mobileBtn && mobileMenu) {
+  let lastFocus = null;
+  const firstFocusable = () => mobileMenu.querySelector('a,button');
   const setMenuState = (open) => {
     mobileBtn.setAttribute('aria-expanded', String(open));
     mobileMenu.classList.toggle('is-open', open);
     mobileMenu.setAttribute('aria-hidden', String(!open));
+    if (open) {
+      lastFocus = document.activeElement;
+      const first = firstFocusable();
+      first && first.focus();
+    } else if (lastFocus && lastFocus.focus) {
+      lastFocus.focus();
+    }
   };
   setMenuState(false);
   mobileBtn.addEventListener('click', () => {
@@ -289,19 +298,34 @@ sections.forEach(s => s && so.observe(s));
   const rootEl = document.getElementById('testimonialsCarousel');
   if (!rootEl) return;
   const track = rootEl.querySelector('.carousel__track');
+  const status = document.getElementById('carouselStatus');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
   if (!track) return;
+
+  const announce = () => {
+    if (!status) return;
+    const items = Array.from(track.querySelectorAll('.testimonial'));
+    const idx = Math.round(track.scrollLeft / (track.clientWidth * 0.6));
+    const safeIdx = Math.max(1, Math.min(items.length, idx + 1));
+    status.textContent = `Отзыв ${safeIdx} из ${items.length}`;
+  };
 
   // keyboard support when track is focused
   track.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') { e.preventDefault(); track.scrollBy({ left: 80, behavior: 'smooth' }); }
-    if (e.key === 'ArrowLeft')  { e.preventDefault(); track.scrollBy({ left: -80, behavior: 'smooth' }); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); track.scrollBy({ left: 80, behavior: 'smooth' }); announce(); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); track.scrollBy({ left: -80, behavior: 'smooth' }); announce(); }
   });
+
+  // buttons link
+  prevBtn && prevBtn.addEventListener('click', () => { track.scrollBy({ left: -track.clientWidth * 0.6, behavior: 'smooth' }); announce(); });
+  nextBtn && nextBtn.addEventListener('click', () => { track.scrollBy({ left: track.clientWidth * 0.6, behavior: 'smooth' }); announce(); });
 
   // drag to scroll
   let isDown = false, startX = 0, startScroll = 0;
   const onDown = (x) => { isDown = true; startX = x; startScroll = track.scrollLeft; track.classList.add('is-dragging'); };
   const onMove = (x) => { if (!isDown) return; const dx = x - startX; track.scrollLeft = startScroll - dx; };
-  const onUp = () => { if (!isDown) return; isDown = false; track.classList.remove('is-dragging'); };
+  const onUp = () => { if (!isDown) return; isDown = false; track.classList.remove('is-dragging'); announce(); };
 
   track.addEventListener('pointerdown', (e) => { track.setPointerCapture(e.pointerId); onDown(e.clientX); }, { passive: true });
   track.addEventListener('pointermove', (e) => onMove(e.clientX), { passive: true });

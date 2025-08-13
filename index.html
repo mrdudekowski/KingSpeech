@@ -193,10 +193,10 @@
           <div class="container">
             <h2 class="section-title text-center hglow-base hglow-2" data-animate>Отзывы учеников</h2>
             <div id="testimonialsCarousel" class="carousel" data-animate>
-              <button class="carousel__btn" aria-label="Предыдущий отзыв" id="carouselPrev">
+              <button class="carousel__btn" aria-label="Предыдущий отзыв" id="carouselPrev" aria-controls="testimonialsTrack">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg>
               </button>
-              <div class="carousel__track" role="region" aria-label="Лента отзывов" tabindex="0">
+              <div id="testimonialsTrack" class="carousel__track" role="region" aria-label="Лента отзывов" tabindex="0">
                 <figure class="testimonial">
                   <img class="testimonial-avatar" src="https://unavatar.io/github/yyx990803" alt="Аватар ученика" width="64" height="64" loading="lazy" decoding="async" />
                   <blockquote class="testimonial-quote">«Говорю свободнее уже через месяц. Уроки проходят легко и с юмором!»</blockquote>
@@ -223,9 +223,10 @@
                   <figcaption class="testimonial-name">Дарья, Upper‑Intermediate</figcaption>
                 </figure>
               </div>
-              <button class="carousel__btn" aria-label="Следующий отзыв" id="carouselNext">
+              <button class="carousel__btn" aria-label="Следующий отзыв" id="carouselNext" aria-controls="testimonialsTrack">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
               </button>
+              <p id="carouselStatus" class="sr-only" aria-live="polite"></p>
             </div>
           </div>
         </section>

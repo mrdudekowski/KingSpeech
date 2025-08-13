@@ -340,6 +340,13 @@ html:not(.dark) .contact-cta { color: var(--text); }
 html.dark .contact-cta{ background: var(--card); }
 .contact-cta:hover{ background: var(--accent); color: #fff; border-color: var(--accent-600); transform: translateY(-1px) scale(1.03); }
 .contact-cta svg{ flex: 0 0 auto; }
+html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
+
+/* Reduce background intensity on slow update devices */
+@media (update: slow) {
+  .bg-aurora::before, .bg-aurora::after { filter: blur(24px); opacity: .40; }
+  .bg-aurora-onlook::before, .bg-aurora-onlook::after, .bg-aurora-onlook .l3 { filter: blur(24px); opacity: .40; }
+}
 
 /* Arrange right-side panels in two columns on large screens */
 @media (min-width: 1024px){
