@@ -12,7 +12,6 @@ const applyTheme = (t) => {
 };
 // Инициализация темы: если нет сохранённого, берём системную
 (() => {
-  // Theme already pre-applied in <head> to prevent flashes; ensure ARIA state only
   const saved = getStoredTheme();
   if (saved) {
     applyTheme(saved);
@@ -20,9 +19,15 @@ const applyTheme = (t) => {
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     applyTheme(prefersDark ? 'dark' : 'light');
   }
-  // Re-enable transitions after first paint
   requestAnimationFrame(() => document.documentElement.classList.remove('no-transitions'));
 })();
+
+const clearAutoContrast = () => {
+  document.querySelectorAll('[data-autocontrast-applied="1"]').forEach((el) => {
+    el.style.color = '';
+    el.removeAttribute('data-autocontrast-applied');
+  });
+};
 
 const bindToggle = (btn) => {
   if (!btn) return;
@@ -36,6 +41,8 @@ const bindToggle = (btn) => {
     applyTheme(toDark ? 'dark' : 'light');
     setStoredTheme(toDark ? 'dark' : 'light');
     updateAria();
+    // Сбрасываем ранее принудительно выставленные цвета перед пересканом
+    clearAutoContrast();
     // recheck contrast once after theme switch
     recheckAfterTheme();
   });
@@ -83,8 +90,18 @@ const getComputedBackground = (el) => {
   const htmlBg = parseRGB(getComputedStyle(document.documentElement).backgroundColor);
   return htmlBg || fallback;
 };
+
+const shouldSkipAutoContrast = (el) => {
+  // Не трогаем брендовые заголовки/ссылки/кнопки/CTA и элементы с явным классом отключения
+  if (!el || el.closest('.no-contrast')) return true;
+  if (el.matches('h1,h2,h3,h4,h5,h6,.section-title,.footer__title,.card-title')) return true;
+  if (el.matches('.btn,.contact-cta,.nav__link,.footer__link')) return true;
+  return false;
+};
+
 const ensureReadable = (el) => {
   if (!el || !el.isConnected) return;
+  if (shouldSkipAutoContrast(el)) return;
   const style = getComputedStyle(el);
   if (style.visibility === 'hidden' || style.display === 'none') return;
   if (!el.textContent || !el.textContent.trim()) return;
@@ -100,10 +117,17 @@ const ensureReadable = (el) => {
   const bgLum = relLuminance(bg);
   const target = bgLum < 0.35 ? 'rgb(230,237,245)' : 'rgb(31,41,55)';
   el.style.color = target;
+  el.setAttribute('data-autocontrast-applied', '1');
 };
+
 const scanContrast = () => {
-  const candidates = document.querySelectorAll('p,span,li,a,small,div,button,label,summary,h1,h2,h3,h4,h5,h6');
-  candidates.forEach(ensureReadable);
+  // Исключаем заголовки/брендовые элементы из сканирования
+  const candidates = document.querySelectorAll('p,span,li,a,small,div,button,label,summary');
+  candidates.forEach((el) => {
+    // Пропустить брендовые/навигационные ссылки
+    if (el.matches('.nav__link,.footer__link,.contact-cta')) return;
+    ensureReadable(el);
+  });
 };
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -114,7 +138,10 @@ const recheckAfterTheme = () => setTimeout(scanContrast, 400);
 ['themeToggle', 'themeToggleMobile'].forEach((id) => {
   const btn = document.getElementById(id);
   if (!btn) return;
-  btn.addEventListener('click', recheckAfterTheme);
+  btn.addEventListener('click', () => {
+    clearAutoContrast();
+    recheckAfterTheme();
+  });
 });
 
 // Мобильное меню

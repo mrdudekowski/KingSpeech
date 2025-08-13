@@ -267,6 +267,17 @@ html.dark .theme-moon { top: auto; bottom: 18px; left: 50%; transform: translate
 
 /* Headings in brand accent per guideline */
  h1, h2, h3, h4, h5, h6 { color: var(--accent); }
+html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 { color: var(--accent); }
+.section-title { color: var(--accent); }
+html.dark .section-title { color: var(--accent); }
+.footer__title { color: var(--text); }
+
+/* Brand/links explicit */
+.nav__link, .footer__link, .contact-cta { color: inherit; }
+html.dark .nav__link, html.dark .footer__link, html.dark .contact-cta { color: inherit; }
+
+/* Utility to opt-out auto-contrast adjustments */
+.no-contrast { color: inherit !important; }
 
 /* Footer */
 .footer { border-top: 1px solid var(--border); padding: 2.5rem 0; padding-block: 40px; background: var(--surface-2); }
