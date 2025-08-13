@@ -345,7 +345,11 @@ sections.forEach(s => s && so.observe(s));
   track.querySelectorAll('.testimonial').forEach((card) => {
     const quote = card.querySelector('.testimonial-quote');
     if (!quote) return;
-    if (quote.textContent && quote.textContent.trim().length > 180) {
+    const preview = (quote.textContent || '').trim();
+    const full = quote.getAttribute('data-full');
+    const needsToggle = (full && full.trim().length > preview.length) || (preview.length > 180);
+    if (needsToggle) {
+      if (!quote.hasAttribute('data-preview')) quote.setAttribute('data-preview', preview);
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'testimonial-more';
@@ -353,6 +357,11 @@ sections.forEach(s => s && so.observe(s));
       btn.setAttribute('aria-expanded', 'false');
       btn.addEventListener('click', () => {
         const expanded = card.classList.toggle('is-expanded');
+        if (expanded && full) {
+          quote.textContent = full;
+        } else {
+          quote.textContent = quote.getAttribute('data-preview') || preview;
+        }
         btn.textContent = expanded ? 'Свернуть' : 'Показать полностью';
         btn.setAttribute('aria-expanded', String(expanded));
       });
