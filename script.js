@@ -366,37 +366,84 @@ sections.forEach(s => s && so.observe(s));
   const onMove = (x) => { if (!isDown) return; const dx = x - startX; track.scrollLeft = startScroll - dx; };
   const onUp = () => { if (!isDown) return; isDown = false; track.classList.remove('is-dragging'); announce(); };
 
-  track.addEventListener('pointerdown', (e) => { track.setPointerCapture(e.pointerId); onDown(e.clientX); }, { passive: true });
-  track.addEventListener('pointermove', (e) => onMove(e.clientX), { passive: true });
-  track.addEventListener('pointerup', onUp, { passive: true });
+  const isInteractive = (el) => !!(el && el.closest('button,a,input,textarea,select,[role="button"]'));
+  track.addEventListener('pointerdown', (e) => {
+    if (isInteractive(e.target)) return; // do not start drag on interactive elements
+    track.setPointerCapture(e.pointerId);
+    onDown(e.clientX);
+  }, { passive: true });
+  track.addEventListener('pointermove', (e) => {
+    if (isInteractive(e.target)) return;
+    onMove(e.clientX);
+  }, { passive: true });
+  track.addEventListener('pointerup', (e) => { if (isInteractive(e.target)) return; onUp(); }, { passive: true });
   track.addEventListener('pointercancel', onUp, { passive: true });
 
-  // expand/collapse long quotes
-  track.querySelectorAll('.testimonial').forEach((card) => {
+  // expand/collapse long quotes with animated height and proper clamp
+  track.querySelectorAll('.testimonial').forEach((card, idx) => {
     const quote = card.querySelector('.testimonial-quote');
-    if (!quote) return;
+    const textWrap = card.querySelector('.testimonial-text');
+    if (!quote || !textWrap) return;
     const preview = (quote.textContent || '').trim();
     const full = quote.getAttribute('data-full');
     const needsToggle = (full && full.trim().length > preview.length) || (preview.length > 180);
-    if (needsToggle) {
-      if (!quote.hasAttribute('data-preview')) quote.setAttribute('data-preview', preview);
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'testimonial-more';
+    if (!needsToggle) return;
+    if (!quote.hasAttribute('data-preview')) quote.setAttribute('data-preview', preview);
+
+    const id = `ttext-${idx}`;
+    textWrap.id = id;
+    textWrap.style.maxHeight = `${textWrap.scrollHeight}px`; // establish current height
+    // collapse to preview height after first frame to enable transition
+    requestAnimationFrame(() => {
+      textWrap.style.maxHeight = `${textWrap.scrollHeight}px`;
+    });
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'testimonial-more';
+    btn.textContent = 'Показать полностью';
+    btn.setAttribute('aria-controls', id);
+    btn.setAttribute('aria-expanded', 'false');
+
+    const getPreviewHeight = () => {
+      // temporarily clamp and measure
+      quote.style.webkitLineClamp = '6';
+      quote.style.display = '-webkit-box';
+      const h = textWrap.scrollHeight;
+      quote.style.webkitLineClamp = '';
+      quote.style.display = '';
+      return h;
+    };
+
+    const expand = () => {
+      card.classList.add('is-expanded');
+      quote.textContent = full;
+      // measure
+      textWrap.style.maxHeight = `${textWrap.scrollHeight}px`; // set to current
+      requestAnimationFrame(() => {
+        textWrap.style.maxHeight = `${textWrap.scrollHeight}px`;
+      });
+      btn.textContent = 'Свернуть';
+      btn.setAttribute('aria-expanded', 'true');
+    };
+
+    const collapse = () => {
+      card.classList.remove('is-expanded');
+      quote.textContent = quote.getAttribute('data-preview') || preview;
+      const ph = getPreviewHeight();
+      textWrap.style.maxHeight = `${ph}px`;
       btn.textContent = 'Показать полностью';
       btn.setAttribute('aria-expanded', 'false');
-      btn.addEventListener('click', () => {
-        const expanded = card.classList.toggle('is-expanded');
-        if (expanded && full) {
-          quote.textContent = full;
-        } else {
-          quote.textContent = quote.getAttribute('data-preview') || preview;
-        }
-        btn.textContent = expanded ? 'Свернуть' : 'Показать полностью';
-        btn.setAttribute('aria-expanded', String(expanded));
-      });
-      card.appendChild(btn);
-    }
+    };
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const expanded = card.classList.contains('is-expanded');
+      expanded ? collapse() : expand();
+    });
+    card.appendChild(btn);
+    // initialize collapsed height
+    collapse();
   });
 
   const ro = new ResizeObserver(() => announce());

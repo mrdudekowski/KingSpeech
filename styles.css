@@ -199,9 +199,11 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 /* Testimonials */
 .testimonials { display: grid; gap: 16px; margin-top: 1.5rem; }
 @media (min-width: 768px) { .testimonials { grid-template-columns: repeat(3, minmax(0,1fr)); } }
-.testimonial { border-radius: 1rem; background: var(--card); padding: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform var(--dur-xxs) var(--ease), box-shadow var(--dur-xxs) var(--ease); display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
+.testimonial { border-radius: 1rem; background: var(--card); padding: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform var(--dur-xxs) var(--ease), box-shadow var(--dur-xxs) var(--ease); display: flex; align-items: flex-start; gap: 12px; }
 .testimonial:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(16,24,40,.10); }
-.testimonial-avatar { height: 64px; width: 64px; border-radius: 9999px; object-fit: cover; grid-row: 1 / span 2; }
+.testimonial-avatar { height: 64px; width: 64px; border-radius: 9999px; object-fit: cover; flex: 0 0 auto; }
+.testimonial-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.testimonial-text { overflow: hidden; transition: max-height var(--dur-s) var(--ease); }
 .testimonial-quote { margin-top: 0; color: var(--text); font-size: 16px; line-height: 1.55; }
 .testimonial-name { margin-top: .25rem; font-size: 13px; font-weight: 600; color: var(--text-muted); }
 
@@ -417,9 +419,9 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
 
 /* Testimonial collapse */
 .testimonial { position: relative; }
-.testimonial .testimonial-quote { max-height: 120px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; }
-.testimonial.is-expanded .testimonial-quote { max-height: none; -webkit-line-clamp: unset; }
-.testimonial .testimonial-more { margin-top: 8px; background: transparent; border: 0; color: var(--accent); font-weight: 700; cursor: pointer; padding: 4px 0; }
+.testimonial .testimonial-quote { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; }
+.testimonial.is-expanded .testimonial-quote { -webkit-line-clamp: unset; }
+.testimonial .testimonial-more { margin-top: 8px; background: transparent; border: 0; color: var(--accent); font-weight: 700; cursor: pointer; padding: 4px 0; position: relative; z-index: 1; }
 
 /* Disable text selection inside testimonials */
 .testimonial, .testimonial * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
