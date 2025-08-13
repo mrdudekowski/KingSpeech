@@ -202,7 +202,7 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 .testimonial { border-radius: 1rem; background: var(--card); padding: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform var(--dur-xxs) var(--ease), box-shadow var(--dur-xxs) var(--ease); display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
 .testimonial:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(16,24,40,.10); }
 .testimonial-avatar { height: 64px; width: 64px; border-radius: 9999px; object-fit: cover; flex: 0 0 auto; }
-.testimonial-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1 1 0%; }
+.testimonial-body { display: grid; grid-template-rows: auto 1fr; gap: 6px; min-width: 0; flex: 1 1 0%; align-items: start; }
 .testimonial-text { overflow: hidden; transition: max-height var(--dur-s) var(--ease); width: 100%; }
 .testimonial-quote { margin-top: 0; color: var(--text); font-size: 16px; line-height: 1.55; display: block; white-space: normal; word-break: break-word; hyphens: auto; }
 .testimonial-name { margin-top: .25rem; font-size: 13px; font-weight: 600; color: var(--text-muted); }
