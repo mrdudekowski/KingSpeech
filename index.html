@@ -15,10 +15,12 @@
     <meta property="og:url" content="." />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Google Fonts: Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Local Fonts: Plus Jakarta Sans (woff2 subsets) -->
+    <link rel="preload" as="font" type="font/woff2" href="fonts/plus-jakarta-sans/PlusJakartaSans-700-cyrillic.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="fonts/plus-jakarta-sans/PlusJakartaSans-700-latin.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="fonts/plus-jakarta-sans/PlusJakartaSans-800-cyrillic.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="fonts/plus-jakarta-sans/PlusJakartaSans-800-latin.woff2" crossorigin>
+    <link rel="stylesheet" href="fonts/plus-jakarta-sans/fonts.css">
 
     <!-- Baseline CSP (meta) -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
