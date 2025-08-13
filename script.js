@@ -400,8 +400,8 @@ sections.forEach(s => s && so.observe(s));
 
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'testimonial-more';
-    btn.textContent = 'Показать полностью';
+    btn.className = 'testimonial-toggle';
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';
     btn.setAttribute('aria-controls', id);
     btn.setAttribute('aria-expanded', 'false');
 
@@ -423,7 +423,6 @@ sections.forEach(s => s && so.observe(s));
       requestAnimationFrame(() => {
         textWrap.style.maxHeight = `${textWrap.scrollHeight}px`;
       });
-      btn.textContent = 'Свернуть';
       btn.setAttribute('aria-expanded', 'true');
     };
 
@@ -432,7 +431,6 @@ sections.forEach(s => s && so.observe(s));
       quote.textContent = quote.getAttribute('data-preview') || preview;
       const ph = getPreviewHeight();
       textWrap.style.maxHeight = `${ph}px`;
-      btn.textContent = 'Показать полностью';
       btn.setAttribute('aria-expanded', 'false');
     };
 
@@ -442,8 +440,26 @@ sections.forEach(s => s && so.observe(s));
       expanded ? collapse() : expand();
     });
     card.appendChild(btn);
-    // initialize collapsed height
-    collapse();
+    // initialize collapsed height correctly: set preview content first and measure
+    card.classList.remove('is-expanded');
+    quote.textContent = quote.getAttribute('data-preview') || preview;
+    // force collapsed clamp state via class for initial render
+    card.classList.add('is-collapsed');
+    const ph = getPreviewHeight();
+    textWrap.style.maxHeight = `${ph}px`;
+    btn.setAttribute('aria-expanded', 'false');
+
+    btn.addEventListener('click', () => {
+      const expanded = card.classList.contains('is-expanded');
+      if (expanded) {
+        card.classList.remove('is-expanded');
+        card.classList.add('is-collapsed');
+        collapse();
+      } else {
+        card.classList.remove('is-collapsed');
+        expand();
+      }
+    });
   });
 
   const ro = new ResizeObserver(() => announce());

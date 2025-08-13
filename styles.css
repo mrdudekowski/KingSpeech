@@ -202,9 +202,9 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 .testimonial { border-radius: 1rem; background: var(--card); padding: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform var(--dur-xxs) var(--ease), box-shadow var(--dur-xxs) var(--ease); display: flex; align-items: flex-start; gap: 12px; }
 .testimonial:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(16,24,40,.10); }
 .testimonial-avatar { height: 64px; width: 64px; border-radius: 9999px; object-fit: cover; flex: 0 0 auto; }
-.testimonial-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.testimonial-text { overflow: hidden; transition: max-height var(--dur-s) var(--ease); }
-.testimonial-quote { margin-top: 0; color: var(--text); font-size: 16px; line-height: 1.55; }
+.testimonial-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1 1 0%; }
+.testimonial-text { overflow: hidden; transition: max-height var(--dur-s) var(--ease); width: 100%; }
+.testimonial-quote { margin-top: 0; color: var(--text); font-size: 16px; line-height: 1.55; display: block; }
 .testimonial-name { margin-top: .25rem; font-size: 13px; font-weight: 600; color: var(--text-muted); }
 
 /* FAQ */
@@ -419,9 +419,11 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
 
 /* Testimonial collapse */
 .testimonial { position: relative; }
-.testimonial .testimonial-quote { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; }
-.testimonial.is-expanded .testimonial-quote { -webkit-line-clamp: unset; }
-.testimonial .testimonial-more { margin-top: 8px; background: transparent; border: 0; color: var(--accent); font-weight: 700; cursor: pointer; padding: 4px 0; position: relative; z-index: 1; }
+.testimonial.is-collapsed .testimonial-quote { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; }
+.testimonial .testimonial-toggle { margin-top: 4px; align-self: flex-start; background: transparent; border: 0; color: var(--accent); cursor: pointer; padding: 4px; border-radius: 8px; transition: transform var(--dur-xs) var(--ease), color var(--dur-xs) var(--ease); position: relative; z-index: 1; }
+.testimonial .testimonial-toggle:focus-visible{ box-shadow: 0 0 0 3px rgba(255,122,0,.25); }
+.testimonial .testimonial-toggle svg{ width: 18px; height: 18px; transform: rotate(0deg); transition: transform var(--dur-xs) var(--ease); }
+.testimonial.is-expanded .testimonial-toggle svg{ transform: rotate(180deg); }
 
 /* Disable text selection inside testimonials */
 .testimonial, .testimonial * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
