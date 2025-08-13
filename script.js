@@ -291,9 +291,9 @@ const so = new IntersectionObserver(entries => {
     if (e.isIntersecting) setActive(e.target.id);
   });
 }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
-sections.forEach(s => s && so.observe(s));
+sections.forEach(s => s && so.observe(s)); 
 
-// Testimonials carousel: grouped scroll (1/2/3 per view) + drag + buttons
+// Testimonials carousel: group scroll + drag + keyboard
 (() => {
   const rootEl = document.getElementById('testimonialsCarousel');
   if (!rootEl) return;
@@ -303,55 +303,65 @@ sections.forEach(s => s && so.observe(s));
   const nextBtn = document.getElementById('carouselNext');
   if (!track) return;
 
-  const perView = () => (window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1);
-  const cardWidth = () => track.clientWidth / perView();
-
-  const scrollByGroup = (dir) => {
-    const amount = Math.round(cardWidth() * perView());
-    track.scrollBy({ left: dir * amount, behavior: 'smooth' });
-    announce();
+  const cols = () => (window.matchMedia('(min-width: 1200px)').matches ? 3 : (window.matchMedia('(min-width: 768px)').matches ? 2 : 1));
+  const step = () => {
+    const gap = 16; // sync with CSS --gap
+    const visible = cols();
+    const itemWidth = (track.clientWidth - (visible - 1) * gap) / visible;
+    return itemWidth + gap;
   };
 
   const announce = () => {
     if (!status) return;
-    const total = track.querySelectorAll('.testimonial').length;
-    const group = perView();
-    const idx = Math.round(track.scrollLeft / cardWidth());
-    const firstVisible = Math.max(1, idx + 1);
-    const lastVisible = Math.min(total, idx + group);
-    status.textContent = `Показаны ${firstVisible}–${lastVisible} из ${total}`;
+    const items = Array.from(track.querySelectorAll('.testimonial'));
+    const visible = cols();
+    const idx = Math.round(track.scrollLeft / step()) + 1; // 1-based index of first visible
+    const last = Math.min(items.length, idx + visible - 1);
+    status.textContent = `Отзыв(ы) ${idx}–${last} из ${items.length}`;
   };
 
-  prevBtn && prevBtn.addEventListener('click', () => scrollByGroup(-1));
-  nextBtn && nextBtn.addEventListener('click', () => scrollByGroup(1));
-  window.addEventListener('resize', () => setTimeout(announce, 200), { passive: true });
+  // buttons
+  prevBtn && prevBtn.addEventListener('click', () => { track.scrollBy({ left: -step() * cols(), behavior: 'smooth' }); announce(); });
+  nextBtn && nextBtn.addEventListener('click', () => { track.scrollBy({ left: step() * cols(), behavior: 'smooth' }); announce(); });
+
+  // keyboard on track
+  track.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); track.scrollBy({ left: step(), behavior: 'smooth' }); announce(); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); track.scrollBy({ left: -step(), behavior: 'smooth' }); announce(); }
+  });
 
   // drag to scroll
   let isDown = false, startX = 0, startScroll = 0;
   const onDown = (x) => { isDown = true; startX = x; startScroll = track.scrollLeft; track.classList.add('is-dragging'); };
   const onMove = (x) => { if (!isDown) return; const dx = x - startX; track.scrollLeft = startScroll - dx; };
   const onUp = () => { if (!isDown) return; isDown = false; track.classList.remove('is-dragging'); announce(); };
+
   track.addEventListener('pointerdown', (e) => { track.setPointerCapture(e.pointerId); onDown(e.clientX); }, { passive: true });
   track.addEventListener('pointermove', (e) => onMove(e.clientX), { passive: true });
   track.addEventListener('pointerup', onUp, { passive: true });
   track.addEventListener('pointercancel', onUp, { passive: true });
 
-  // more buttons for testimonials
+  // expand/collapse long quotes
   track.querySelectorAll('.testimonial').forEach((card) => {
     const quote = card.querySelector('.testimonial-quote');
     if (!quote) return;
-    const moreBtn = document.createElement('button');
-    moreBtn.className = 'testimonial-more';
-    moreBtn.type = 'button';
-    moreBtn.textContent = 'Читать полностью';
-    moreBtn.addEventListener('click', () => {
-      const expanded = card.classList.toggle('is-expanded');
-      moreBtn.textContent = expanded ? 'Свернуть' : 'Читать полностью';
-      announce();
-    });
-    card.appendChild(moreBtn);
+    if (quote.textContent && quote.textContent.trim().length > 180) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'testimonial-more';
+      btn.textContent = 'Показать полностью';
+      btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('click', () => {
+        const expanded = card.classList.toggle('is-expanded');
+        btn.textContent = expanded ? 'Свернуть' : 'Показать полностью';
+        btn.setAttribute('aria-expanded', String(expanded));
+      });
+      card.appendChild(btn);
+    }
   });
 
+  const ro = new ResizeObserver(() => announce());
+  ro.observe(track);
   announce();
 })();
 
