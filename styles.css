@@ -199,11 +199,11 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 /* Testimonials */
 .testimonials { display: grid; gap: 16px; margin-top: 1.5rem; }
 @media (min-width: 768px) { .testimonials { grid-template-columns: repeat(3, minmax(0,1fr)); } }
-.testimonial { border-radius: 1rem; background: var(--card); padding: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform var(--dur-xxs) var(--ease), box-shadow var(--dur-xxs) var(--ease); }
+.testimonial { border-radius: 1rem; background: var(--card); padding: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform var(--dur-xxs) var(--ease), box-shadow var(--dur-xxs) var(--ease); display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
 .testimonial:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(16,24,40,.10); }
-.testimonial-avatar { height: 64px; width: 64px; border-radius: 9999px; object-fit: cover; }
-.testimonial-quote { margin-top: .75rem; color: var(--text); font-size: 16px; line-height: 1.55; }
-.testimonial-name { margin-top: .5rem; font-size: 13px; font-weight: 600; color: var(--text-muted); }
+.testimonial-avatar { height: 64px; width: 64px; border-radius: 9999px; object-fit: cover; grid-row: 1 / span 2; }
+.testimonial-quote { margin-top: 0; color: var(--text); font-size: 16px; line-height: 1.55; }
+.testimonial-name { margin-top: .25rem; font-size: 13px; font-weight: 600; color: var(--text-muted); }
 
 /* FAQ */
 .faq__list { max-width: 900px; margin: 1.5rem auto 0; display: grid; gap: 12px; }
