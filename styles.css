@@ -333,6 +333,27 @@ html:not(.dark) .contact-cta { color: var(--text); }
 .form{ max-width: 640px; }
 .btn--block{ width: 100%; }
 
+/* Chips (messenger selector) */
+.chips{ display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .25rem; }
+.chip{ display: inline-flex; align-items: center; gap: .4rem; padding: .45rem .7rem; border-radius: 9999px; border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; transition: background-color var(--dur-xs) var(--ease), border-color var(--dur-xs) var(--ease), transform var(--dur-xxs) var(--ease); }
+.chip:hover{ border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); transform: translateY(-1px); }
+.chip.is-selected{ background: color-mix(in srgb, var(--accent) 12%, var(--card)); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); color: var(--text); }
+.chip__icon{ font-size: 1rem; line-height: 1; }
+
+/* Mini cards (goals) */
+.mini-cards{ display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0,1fr)); }
+@media (max-width: 1023.98px){ .mini-cards{ grid-template-columns: 1fr; } }
+.mini-card{ padding: 14px; border: 1px solid var(--border); background: var(--card); border-radius: 14px; box-shadow: var(--shadow-sm); display: grid; gap: 8px; align-content: start; }
+.mini-card__icon{ font-size: 22px; }
+.mini-card__title{ margin: 0; font-size: 1rem; font-weight: 800; }
+.mini-card__text{ margin: 0; color: var(--text-muted); font-size: .95rem; }
+.mini-card__btn{ margin-top: 6px; padding: 10px 12px; }
+
+/* Trust bar */
+.trustbar{ display: grid; grid-auto-flow: column; gap: 12px; align-items: center; justify-content: center; padding: 10px 0; margin-top: 14px; color: color-mix(in srgb, var(--text) 75%, transparent); }
+@media (max-width: 767.98px){ .trustbar{ grid-auto-flow: row; justify-items: center; gap: 6px; } }
+.trustbar__item{ padding: 6px 10px; border-radius: 9999px; background: color-mix(in srgb, var(--accent) 8%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border)); font-weight: 700; }
+
 /* Upsized inputs and stronger focus ring per spec */
 .form__input{ border-radius: 12px; padding: 1rem 1.1rem; }
 .form__input:focus{ outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,122,0,.30); }

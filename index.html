@@ -296,6 +296,8 @@
                 <p class="text-muted mb-6 text-md-plus">Оставьте контакты — мы свяжемся с вами в течение дня.</p>
                 <div class="contact__formBox panel" data-animate>
                   <form id="leadForm" novalidate class="form" aria-labelledby="contactTitle">
+                    <input type="hidden" name="messenger" id="messenger" value="Telegram" />
+                    <input type="hidden" name="goal" id="goal" value="" />
                     <div class="form__group">
                       <label for="name" class="form__label">Имя</label>
                       <span class="input__icon" aria-hidden="true">
@@ -318,39 +320,59 @@
                       </span>
                       <input id="phone" name="phone" type="tel" inputmode="tel" class="form__input" placeholder="+7 999 123-45-67" required />
                     </div>
+
+                    <div class="form__group">
+                      <span class="form__label">Удобнее связаться через</span>
+                      <div class="chips" role="group" aria-label="Предпочтительный мессенджер">
+                        <button type="button" class="chip is-selected" data-value="Telegram" aria-pressed="true" aria-label="Выбрать Telegram">
+                          <span class="chip__icon" aria-hidden="true">✈️</span> Telegram
+                        </button>
+                        <button type="button" class="chip" data-value="WhatsApp" aria-pressed="false" aria-label="Выбрать WhatsApp">
+                          <span class="chip__icon" aria-hidden="true">💬</span> WhatsApp
+                        </button>
+                        <button type="button" class="chip" data-value="VK" aria-pressed="false" aria-label="Выбрать VK">
+                          <span class="chip__icon" aria-hidden="true">▣</span> VK
+                        </button>
+                      </div>
+                      <p class="form__hint">Ответим в течение дня</p>
+                    </div>
+
                     <button type="submit" class="btn btn--primary btn--block" aria-label="Отправить заявку">Отправить заявку</button>
                     <p id="formMessage" class="form__message" role="status" aria-live="polite"></p>
                   </form>
                 </div>
               </div>
               <div class="contact__side" data-animate>
-                <div class="panel">
-                  <h3 class="panel__title hglow-base hglow-2">Контакты</h3>
-                  <div class="panel__links contact__buttons">
-                    <a class="contact-cta" href="https://t.me/" target="_blank" rel="noopener" aria-label="Написать в Telegram">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.2 16.8 8.9 19c.4 0 .6-.2.9-.4l2.1-2 4.3 3.1c.8.5 1.4.3 1.6-.7l2.9-13.7c.3-1.2-.4-1.7-1.2-1.4L3.9 9.9c-1.2.5-1.2 1.1-.2 1.4l5.7 1.8 8.3-5.3c.4-.3.8-.1.5.1l-9 8.9z"/></svg>
-                      Telegram
-                    </a>
-                    <a class="contact-cta" href="https://wa.me/" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.7 15l-1 3.7 3.8-1A10 10 0 1 0 12 2zm5.6 14.4c-.2.5-1.3 1-1.8 1-2.1.2-5.6-2-6.7-3.9-.6-1-.7-1.8-.4-2.3.2-.4.7-1 1.2-.9h.9c.2 0 .4.4.5.7.1.3.3.9.4 1.1.1.3.1.5-.1.8-.1.2-.3.3-.4.5-.1.1 0 .3.1.5.3.5 1.2 1.8 2.7 2.6.9.5 1.5.7 1.7.5.2-.1.3-.4.5-.6.2-.2.3-.3.5-.2.2 0 1.3.6 1.5.8.1.2.1.5 0 .9z"/></svg>
-                      WhatsApp
-                    </a>
-                    <a class="contact-cta" href="https://vk.com/" target="_blank" rel="noopener" aria-label="VK">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 6h16v12H4z"/></svg>
-                      VK
-                    </a>
-                  </div>
-                </div>
-
                 <div class="panel" data-animate>
                   <h3 class="panel__title hglow-base hglow-2">Часто выбирают</h3>
-                  <ul class="panel__list">
-                    <li>Английский для туризма</li>
-                    <li>Подготовка к собеседованию</li>
-                    <li>Общий курс для детей 8–14</li>
-                  </ul>
+                  <div class="mini-cards">
+                    <article class="mini-card">
+                      <div class="mini-card__icon">💼</div>
+                      <h4 class="mini-card__title">Работа</h4>
+                      <p class="mini-card__text">Разговорный английский для карьеры</p>
+                      <button class="btn mini-card__btn goal-card-btn" data-goal="Работа" type="button">Начать</button>
+                    </article>
+                    <article class="mini-card">
+                      <div class="mini-card__icon">✈️</div>
+                      <h4 class="mini-card__title">Путешествия</h4>
+                      <p class="mini-card__text">Уверенно общаться в поездках</p>
+                      <button class="btn mini-card__btn goal-card-btn" data-goal="Путешествия" type="button">Начать</button>
+                    </article>
+                    <article class="mini-card">
+                      <div class="mini-card__icon">🧒</div>
+                      <h4 class="mini-card__title">Дети 8–14</h4>
+                      <p class="mini-card__text">Интересные занятия без стресса</p>
+                      <button class="btn mini-card__btn goal-card-btn" data-goal="Дети 8–14" type="button">Начать</button>
+                    </article>
+                  </div>
                 </div>
               </div>
+            </div>
+
+            <div class="trustbar" aria-label="Доверие">
+              <div class="trustbar__item">🏅 Cambridge сертификация</div>
+              <div class="trustbar__item">🕘 9 лет опыта</div>
+              <div class="trustbar__item">👥 100+ учеников</div>
             </div>
           </div>
         </section>

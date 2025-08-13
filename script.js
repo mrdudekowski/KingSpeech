@@ -280,6 +280,31 @@ if (form) {
   });
 }
 
+// Messenger chips + goal cards wiring
+(() => {
+  const formEl = document.getElementById('leadForm');
+  if (!formEl) return;
+  const chips = Array.from(formEl.querySelectorAll('.chip'));
+  const hiddenMessenger = formEl.querySelector('#messenger');
+  const hiddenGoal = formEl.querySelector('#goal');
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      chips.forEach((c) => { c.classList.remove('is-selected'); c.setAttribute('aria-pressed', 'false'); });
+      chip.classList.add('is-selected');
+      chip.setAttribute('aria-pressed', 'true');
+      if (hiddenMessenger) hiddenMessenger.value = chip.getAttribute('data-value') || '';
+    });
+  });
+  document.querySelectorAll('.goal-card-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const goal = btn.getAttribute('data-goal') || '';
+      if (hiddenGoal) hiddenGoal.value = goal;
+      const name = formEl.querySelector('#name');
+      name && name.focus();
+    });
+  });
+})();
+
 // Active nav link on scroll
 const sections = ['home','about','method','testimonials','faq','contact']
   .map(id => document.getElementById(id));
