@@ -20,36 +20,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Baseline CSP to mitigate XSS on static hosting (server headers are preferred) -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <!-- Baseline CSP (meta) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
     <meta name="referrer" content="no-referrer">
 
-    <!-- Pre-init theme before CSS to avoid FOUC/flashes -->
-    <script>(function(){try{var d=document.documentElement;d.classList.add('no-transitions');var saved=localStorage.getItem('theme');var isDark=saved?saved==='dark':(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(isDark){d.classList.add('dark');}else{d.classList.remove('dark');}}catch(e){}})();</script>
+    <!-- Pre-init theme before CSS to avoid FOUC/flashes (now external to drop inline scripts in CSP) -->
+    <script src="theme-preinit.js"></script>
 
     <!-- Стили: обновлённая палитра и компоненты с упором на WCAG AA -->
     <link rel="stylesheet" href="styles.css" />
     <link rel="preload" as="image" href="Vector_clean_KingSpeech.png" />
+    <!-- Preload hero visual for faster LCP -->
+    <link rel="preload" as="image" href="assets/hero/hero-a-plus.webp" imagesrcset="assets/hero/hero-a-plus.webp 1x" />
 
     <!-- Favicon -->
     <link rel="icon" href="Vector_clean_KingSpeech.png" />
 
-    <!-- Structured data (Organization/Person) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "KingSpeech",
-        "url": ".",
-        "logo": "Vector_clean_KingSpeech.png",
-        "sameAs": [
-          "https://t.me/",
-          "https://wa.me/"
-        ]
-      }
-    </script>
-  </head>
+    <!-- Canonical & theme-color (light/dark) -->
+    <link rel="canonical" href="https://mrdudekowski.github.io/KingSpeech/" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121212" />
 
+    <!-- Structured data (Organization/Person) -->
+    <script type="application/ld+json" src="schema-org.json"></script>
+    <!-- Structured data (FAQPage) -->
+    <script type="application/ld+json" src="schema-faq.json"></script>
+  </head>
   <body>
     <!-- Навигация: фиксированная шапка с блюром и активным пунктом меню -->
     <header class="site-header">
@@ -130,8 +126,8 @@
             <div class="hero__media" data-animate>
               <div class="media-frame">
                 <picture>
-                  <source type="image/webp" srcset="assets/hero/hero-a-plus.webp" />
-                  <img src="assets/hero/hero-a-plus.webp" alt="Иллюстрация онлайн‑занятий по английскому" />
+                  <source type="image/webp" srcset="assets/hero/hero-a-plus.webp 1x" />
+                  <img src="assets/hero/hero-a-plus.webp" alt="Иллюстрация онлайн‑занятий по английскому" decoding="async" fetchpriority="high" width="800" height="600" sizes="(min-width: 1024px) 640px, (min-width: 768px) 560px, 92vw" srcset="assets/hero/hero-a-plus.webp 560w, assets/hero/hero-a-plus.webp 800w" />
                 </picture>
               </div>
             </div>
@@ -144,14 +140,11 @@
         <div class="container">
           <div class="about__grid">
             <div class="about__photo" data-animate>
-              <picture>
-                <source type="image/webp" srcset="teacher.webp" />
-                <img src="photo_2023-02-05_21-22-56.jpg" alt="Фото преподавателя английского" />
-              </picture>
+              <img src="photo_2023-02-05_21-22-56.jpg" alt="Фото преподавателя английского" loading="lazy" decoding="async" width="600" height="600" sizes="(min-width: 768px) 420px, 80vw" />
             </div>
             <div class="about__content" data-animate>
               <h2 class="section-title">О преподавателе</h2>
-              <p class="text-muted">Меня зовут Юлия. Более 7 лет помогаю детям и взрослым говорить уверенно. В основе занятий — разговорная практика, актуальная лексика и индивидуальный план под ваши цели.</p>
+              <p class="text-muted text-md-plus">Меня зовут Юлия. Более 7 лет помогаю детям и взрослым говорить уверенно. В основе занятий — разговорная практика, актуальная лексика и индивидуальный план под ваши цели.</p>
               <ul class="about__list text-muted">
                 <li class="li-check">Сертификация Cambridge</li>
                 <li class="li-check">Опыт подготовки к экзаменам</li>
@@ -198,33 +191,39 @@
         <div class="container">
           <h2 class="section-title text-center" data-animate>Отзывы учеников</h2>
           <div id="testimonialsCarousel" class="carousel" data-animate>
+            <button class="carousel__btn" aria-label="Предыдущий отзыв" id="carouselPrev">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg>
+            </button>
             <div class="carousel__track" role="region" aria-label="Лента отзывов" tabindex="0">
               <figure class="testimonial">
-                <img class="testimonial-avatar" src="https://unavatar.io/github/yyx990803" alt="Аватар ученика" />
+                <img class="testimonial-avatar" src="https://unavatar.io/github/yyx990803" alt="Аватар ученика" width="64" height="64" loading="lazy" decoding="async" />
                 <blockquote class="testimonial-quote">«Говорю свободнее уже через месяц. Уроки проходят легко и с юмором!»</blockquote>
                 <figcaption class="testimonial-name">Мария, B1 → B2</figcaption>
               </figure>
               <figure class="testimonial">
-                <img class="testimonial-avatar" src="https://unavatar.io/twitter/kentcdodds" alt="Аватар ученика" />
+                <img class="testimonial-avatar" src="https://unavatar.io/twitter/kentcdodds" alt="Аватар ученика" width="64" height="64" loading="lazy" decoding="async" />
                 <blockquote class="testimonial-quote">«Подготовился к собеседованию на английском и получил оффер.»</blockquote>
                 <figcaption class="testimonial-name">Игорь, разговорный</figcaption>
               </figure>
               <figure class="testimonial">
-                <img class="testimonial-avatar" src="https://unavatar.io/twitter/dan_abramov" alt="Аватар ученика" />
+                <img class="testimonial-avatar" src="https://unavatar.io/twitter/dan_abramov" alt="Аватар ученика" width="64" height="64" loading="lazy" decoding="async" />
                 <blockquote class="testimonial-quote">«Ребёнок ждёт каждый урок. Много практики и внимания к интересам.»</blockquote>
                 <figcaption class="testimonial-name">Елена, мама ученицы</figcaption>
               </figure>
               <figure class="testimonial">
-                <img class="testimonial-avatar" src="https://unavatar.io/github/sindresorhus" alt="Аватар ученика" />
+                <img class="testimonial-avatar" src="https://unavatar.io/github/sindresorhus" alt="Аватар ученика" width="64" height="64" loading="lazy" decoding="async" />
                 <blockquote class="testimonial-quote">«Сдал IELTS на 7.0. Структура занятий и разбор ошибок очень помогли в подготовке.»</blockquote>
                 <figcaption class="testimonial-name">Алексей, IELTS 7.0</figcaption>
               </figure>
               <figure class="testimonial">
-                <img class="testimonial-avatar" src="https://unavatar.io/github/addyosmani" alt="Аватар ученика" />
+                <img class="testimonial-avatar" src="https://unavatar.io/github/addyosmani" alt="Аватар ученика" width="64" height="64" loading="lazy" decoding="async" />
                 <blockquote class="testimonial-quote">«Стало проще говорить на работе и проводить презентации на английском. Рекомендую!»</blockquote>
                 <figcaption class="testimonial-name">Дарья, Upper‑Intermediate</figcaption>
               </figure>
             </div>
+            <button class="carousel__btn" aria-label="Следующий отзыв" id="carouselNext">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+            </button>
           </div>
         </div>
       </section>
@@ -264,7 +263,7 @@
           <div class="contact__grid">
             <div data-animate>
               <h2 class="section-title">📅 Запишитесь на вводное занятие</h2>
-              <p class="text-muted mb-6" style="font-size:1.05rem">Оставьте контакты — мы свяжемся с вами в течение дня.</p>
+              <p class="text-muted mb-6 text-md-plus">Оставьте контакты — мы свяжемся с вами в течение дня.</p>
               <div class="contact__formBox panel" data-animate>
                 <form id="leadForm" novalidate class="form" aria-labelledby="contactTitle">
                   <div class="form__group">
@@ -333,9 +332,9 @@
         <div class="footer__grid">
           <div>
             <a href="#home" class="footer__brand" aria-label="К началу страницы">
-              <img src="Vector_clean_KingSpeech.png" alt="Логотип KingSpeech" />
+              <img src="Vector_clean_KingSpeech.png" alt="Логотип KingSpeech" loading="lazy" decoding="async" />
             </a>
-            <p class="text-muted" style="margin-top:.75rem">Онлайн‑уроки английского: разговорная практика, гибкий график и поддержка между занятиями.</p>
+            <p class="text-muted mt-3">Онлайн‑уроки английского: разговорная практика, гибкий график и поддержка между занятиями.</p>
           </div>
           <nav aria-label="Быстрые ссылки">
             <p class="footer__title">Меню</p>
