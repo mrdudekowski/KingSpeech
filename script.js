@@ -22,6 +22,41 @@ const applyTheme = (t) => {
   requestAnimationFrame(() => document.documentElement.classList.remove('no-transitions'));
 })();
 
+// Modal logic for testimonials
+function openReviewModal(startIndex){
+  const modal = document.getElementById('reviewModal');
+  if (!modal) return;
+  const items = Array.from(document.querySelectorAll('#testimonials .testimonial'));
+  const avatars = items.map(i => i.querySelector('.testimonial-avatar').getAttribute('src'));
+  const names = items.map(i => i.querySelector('.testimonial-name').textContent.trim());
+  const fullTexts = items.map(i => i.querySelector('.testimonial-quote').getAttribute('data-full') || i.querySelector('.testimonial-quote').textContent.trim());
+
+  const avatarEl = modal.querySelector('.modal__avatar');
+  const nameEl = modal.querySelector('.modal__name');
+  const quoteEl = modal.querySelector('.modal__quote');
+  const prevBtn = modal.querySelector('.modal__prev');
+  const nextBtn = modal.querySelector('.modal__next');
+  const closeEls = modal.querySelectorAll('[data-close]');
+
+  let index = startIndex;
+  const render = () => {
+    avatarEl.src = avatars[index];
+    avatarEl.alt = `Аватар ${names[index]}`;
+    nameEl.textContent = names[index];
+    quoteEl.textContent = fullTexts[index];
+  };
+  const show = () => { modal.setAttribute('aria-hidden', 'false'); render(); };
+  const hide = () => { modal.setAttribute('aria-hidden', 'true'); };
+
+  const go = (dir) => { index = (index + dir + items.length) % items.length; render(); };
+  prevBtn.onclick = () => go(-1);
+  nextBtn.onclick = () => go(1);
+  closeEls.forEach(el => el.onclick = hide);
+  modal.addEventListener('click', (e) => { if (e.target.matches('.modal')) hide(); });
+  document.addEventListener('keydown', function onEsc(e){ if(e.key==='Escape'){ hide(); document.removeEventListener('keydown', onEsc); } });
+
+  show();
+}
 const clearAutoContrast = () => {
   document.querySelectorAll('[data-autocontrast-applied="1"]').forEach((el) => {
     el.style.color = '';
@@ -380,7 +415,8 @@ sections.forEach(s => s && so.observe(s));
   track.addEventListener('pointercancel', onUp, { passive: true });
 
   // expand/collapse long quotes with animated height and proper clamp
-  track.querySelectorAll('.testimonial').forEach((card, idx) => {
+  const cards = Array.from(track.querySelectorAll('.testimonial'));
+  cards.forEach((card, idx) => {
     const quote = card.querySelector('.testimonial-quote');
     const textWrap = card.querySelector('.testimonial-text');
     if (!quote || !textWrap) return;
@@ -398,12 +434,9 @@ sections.forEach(s => s && so.observe(s));
       textWrap.style.maxHeight = `${textWrap.scrollHeight}px`;
     });
 
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'testimonial-toggle';
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';
-    btn.setAttribute('aria-controls', id);
-    btn.setAttribute('aria-expanded', 'false');
+    // Entire card opens modal
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
 
     const getPreviewHeight = () => {
       // temporarily clamp and measure
@@ -434,12 +467,6 @@ sections.forEach(s => s && so.observe(s));
       btn.setAttribute('aria-expanded', 'false');
     };
 
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const expanded = card.classList.contains('is-expanded');
-      expanded ? collapse() : expand();
-    });
-    card.appendChild(btn);
     // initialize collapsed height correctly: set preview content first and measure
     card.classList.remove('is-expanded');
     quote.textContent = quote.getAttribute('data-preview') || preview;
@@ -447,19 +474,10 @@ sections.forEach(s => s && so.observe(s));
     card.classList.add('is-collapsed');
     const ph = getPreviewHeight();
     textWrap.style.maxHeight = `${ph}px`;
-    btn.setAttribute('aria-expanded', 'false');
-
-    btn.addEventListener('click', () => {
-      const expanded = card.classList.contains('is-expanded');
-      if (expanded) {
-        card.classList.remove('is-expanded');
-        card.classList.add('is-collapsed');
-        collapse();
-      } else {
-        card.classList.remove('is-collapsed');
-        expand();
-      }
-    });
+    // open modal on click/Enter
+    const open = () => openReviewModal(idx);
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
   });
 
   const ro = new ResizeObserver(() => announce());
