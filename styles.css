@@ -113,6 +113,7 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 /* Layout helpers */
 .container { max-width: 1280px; margin-inline: auto; padding-inline: 32px; }
 .section { padding-block: clamp(48px, 5vw, 80px); }
+.section:last-of-type { padding-bottom: clamp(20px, 3vw, 36px); }
 .section-title { margin: 0 0 24px 0; letter-spacing: -0.02em; }
 .section-subtitle { max-width: 60ch; margin-inline: auto; }
 
@@ -287,7 +288,7 @@ html:not(.dark) .contact-cta { color: var(--text); }
 .no-contrast { color: inherit !important; }
 
 /* Footer */
-.footer { border-top: 1px solid var(--border); padding: 2.5rem 0; padding-block: 40px; background: var(--surface-2); }
+.footer { border-top: 1px solid var(--border); padding-block: 28px; background: var(--surface-2); }
 .footer__grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
 @media (min-width: 768px) { .footer__grid { grid-template-columns: 1.2fr 1fr 1fr; } }
 .footer__brand img { height: 36px; width: auto; }
@@ -350,7 +351,7 @@ html:not(.dark) .contact-cta { color: var(--text); }
 /* removed CTA buttons per latest UX */
 
 /* Trust bar */
-.trustbar{ display: grid; grid-auto-flow: column; gap: 12px; align-items: center; justify-content: center; padding: 10px 0; margin-top: 14px; color: color-mix(in srgb, var(--text) 75%, transparent); }
+.trustbar{ display: grid; grid-auto-flow: column; gap: 12px; align-items: center; justify-content: center; padding: 8px 0; margin: 10px 0 6px; color: color-mix(in srgb, var(--text) 75%, transparent); }
 @media (max-width: 767.98px){ .trustbar{ grid-auto-flow: row; justify-items: center; gap: 6px; } }
 .trustbar__item{ padding: 6px 10px; border-radius: 9999px; background: color-mix(in srgb, var(--accent) 8%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border)); font-weight: 700; }
 
