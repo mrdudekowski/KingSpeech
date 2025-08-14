@@ -257,6 +257,138 @@ if (toTopBtn) {
   toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
+// ===== FX: Mail send animation =====
+const supportsMotionPath = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('offset-path', 'path("M0,0 L1,1")');
+
+const getCenter = (el) => {
+  const r = el.getBoundingClientRect();
+  return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+};
+
+const buildPath = (start, end) => {
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+  const c1x = start.x + dx * 0.25, c1y = start.y - Math.abs(dy) * 0.8;
+  const midX = start.x + dx * 0.55, midY = start.y - Math.abs(dy) * 0.15;
+  const c3x = end.x - dx * 0.20, c3y = end.y + Math.abs(dy) * 0.25;
+  return `M ${start.x},${start.y} C ${c1x},${c1y} ${start.x + dx * 0.45},${start.y - Math.abs(dy) * 0.25} ${midX},${midY} S ${c3x},${c3y} ${end.x},${end.y}`;
+};
+
+async function playMailAnimation() {
+  const btn = document.querySelector('#leadForm button[type="submit"]');
+  const slotAnchor = document.getElementById('mailSlotAnchor');
+  const fxLayer = document.getElementById('fxLayer');
+  if (!btn || !slotAnchor || !fxLayer) return;
+
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Press‑bounce before liftoff
+  try { await (btn.animate([
+    { transform: 'translateY(0) scale(1)' },
+    { transform: 'translateY(1px) scale(0.98)' },
+    { transform: 'translateY(0) scale(1)' },
+  ], { duration: 90, easing: 'cubic-bezier(.2,.9,.2,1)' }).finished); } catch(_) {}
+
+  const start = getCenter(btn);
+  const end = getCenter(slotAnchor);
+
+  if (reduce) {
+    // Без полёта: подсветка слота и сообщение
+    const slot = document.createElement('div');
+    slot.className = 'fx-slot';
+    slot.style.left = `${end.x - 60}px`;
+    slot.style.top = `${end.y - 6}px`;
+    fxLayer.appendChild(slot);
+    try { await slot.animate([{ transform:'scaleY(1)' }, { transform:'scaleY(0.86)' }, { transform:'scaleY(1)' }], { duration: 220 }).finished; } catch(_) {}
+    slot.remove();
+    showFxSuccess();
+    return;
+  }
+
+  const path = buildPath(start, end);
+  const env = document.createElement('div');
+  env.className = 'fx-envelope';
+  env.style.left = `${start.x}px`;
+  env.style.top = `${start.y}px`;
+  fxLayer.appendChild(env);
+
+  const slot = document.createElement('div');
+  slot.className = 'fx-slot';
+  slot.style.left = `${end.x - 60}px`;
+  slot.style.top = `${end.y - 6}px`;
+  fxLayer.appendChild(slot);
+
+  if (supportsMotionPath) {
+    env.style.offsetPath = `path("${path}")`;
+    env.style.offsetRotate = 'auto 12deg';
+    // Trails
+    const trails = [];
+    for (let i = 0; i < 3; i++) {
+      const t = document.createElement('div');
+      t.className = 'fx-trail';
+      t.style.offsetPath = `path("${path}")`;
+      t.style.offsetRotate = 'auto';
+      fxLayer.appendChild(t);
+      t.animate([
+        { offsetDistance: '0%', opacity: 0.6 },
+        { offsetDistance: '100%', opacity: 0 }
+      ], { duration: 900, delay: i * 60, easing: 'cubic-bezier(.33,1,.68,1)' }).finished.then(() => t.remove()).catch(() => t.remove());
+      trails.push(t);
+    }
+
+    // Segmented timing: 60% + 40%
+    try { await env.animate([
+      { offsetDistance: '0%' },
+      { offsetDistance: '60%' }
+    ], { duration: 560, easing: 'cubic-bezier(.16,1,.3,1)' }).finished; } catch(_) {}
+
+    try { await env.animate([
+      { offsetDistance: '60%' },
+      { offsetDistance: '100%' }
+    ], { duration: 340, easing: 'cubic-bezier(.4,0,.6,1)' }).finished; } catch(_) {}
+  } else {
+    // Fallback: simple translate
+    const dx = end.x - start.x, dy = end.y - start.y;
+    try { await env.animate([
+      { transform: `translate(-50%, -50%) translate(0px,0px)` },
+      { transform: `translate(-50%, -50%) translate(${dx * 0.6}px, ${dy * 0.6}px)` },
+      { transform: `translate(-50%, -50%) translate(${dx}px, ${dy}px)` }
+    ], { duration: 900, easing: 'cubic-bezier(.2,.9,.2,1)' }).finished; } catch(_) {}
+  }
+
+  // Dive into slot and cleanup
+  try { await Promise.all([
+    env.animate([
+      { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
+      { transform: 'translate(-50%,-50%) scale(0.82)', opacity: 0 }
+    ], { duration: 180, easing: 'cubic-bezier(.2,.9,.2,1)' }).finished,
+    slot.animate([
+      { transform: 'scaleY(1)' },
+      { transform: 'scaleY(0.84)' },
+      { transform: 'scaleY(1)' }
+    ], { duration: 200, easing: 'cubic-bezier(.2,.9,.2,1)' }).finished
+  ]); } catch(_) {}
+  env.remove();
+  slot.remove();
+  showFxSuccess();
+}
+
+function showFxSuccess(){
+  const old = document.querySelector('.fx-success');
+  if (old) old.remove();
+  const box = document.createElement('div');
+  box.className = 'fx-success';
+  box.textContent = 'Преподаватель скоро с вами свяжется';
+  document.body.appendChild(box);
+  try { box.animate([
+    { transform:'translateY(8px)', opacity: 0 },
+    { transform:'translateY(0)', opacity: 1 }
+  ], { duration: 260, easing: 'cubic-bezier(.16,1,.3,1)' }); } catch(_) {}
+  setTimeout(() => {
+    try { box.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 280, delay: 2600, fill: 'forwards' }).finished.then(() => box.remove()); } catch(_) { box.remove(); }
+  }, 0);
+}
+
 // Валидация формы
 const form = document.getElementById('leadForm');
 const message = document.getElementById('formMessage');
@@ -285,32 +417,77 @@ if (form) {
     const name = form.querySelector('#name');
     const email = form.querySelector('#email');
     const phone = form.querySelector('#phone');
+    const hiddenMessenger = form.querySelector('#messenger');
+    const hiddenGoal = form.querySelector('#goal');
+    const honeypot = form.querySelector('#website');
 
     const nameOk = name.value.trim().length >= 2;
-    const emailOk = validateEmail(email.value);
-    const phoneOk = digits(phone.value).length >= 10;
+    const emailOk = email.value.trim() ? validateEmail(email.value) : false;
+    const phoneDigits = digits(phone.value);
+    const phoneOk = phone.value.trim() ? phoneDigits.length >= 10 : false;
+    const contactOk = emailOk || phoneOk;
 
-    if (!nameOk) setFieldState(name, false, 'Пожалуйста, укажите имя (минимум 2 символа).');
-    else if (!emailOk) setFieldState(email, false, 'Укажите корректный email.');
-    else if (!phoneOk) setFieldState(phone, false, 'Укажите телефон (не менее 10 цифр).');
-    else {
-      setFieldState(phone, true);
-      setFieldState(email, true);
-      setFieldState(name, true);
+    if (!nameOk) { setFieldState(name, false, 'Пожалуйста, укажите имя (минимум 2 символа).'); return; }
+    if (!contactOk) {
+      setFieldState(email, false);
+      setFieldState(phone, false, 'Укажите email или телефон.');
+      return;
+    }
 
-      const submitBtn = form.querySelector('button[type="submit"]');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Отправка…';
+    setFieldState(name, true);
+    setFieldState(email, emailOk);
+    setFieldState(phone, phoneOk);
 
-      await new Promise((res) => setTimeout(res, 800));
-
+    const consent = form.querySelector('#consent');
+    if (consent && !consent.checked) {
       if (message) {
-        message.textContent = 'Спасибо! Я свяжусь с вами в ближайшее время.';
-        message.className = 'text-sm text-green-600';
+        message.textContent = 'Пожалуйста, подтвердите согласие с политикой конфиденциальности.';
+        message.className = 'text-sm text-red-600';
       }
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Отправить заявку';
+      consent.focus();
+      return;
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Отправка…'; }
+
+    try {
+      const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxcjbU-GAUIZuRYQsPD877Y8p7HkJ0xRcGoeHTNflbvqtOMy21r8OKu97fWNll6hlLVVQ/exec';
+      const body = new URLSearchParams();
+      body.set('name', name.value.trim());
+      body.set('email', email.value.trim());
+      body.set('phone', phone.value.trim());
+      body.set('messenger', hiddenMessenger ? hiddenMessenger.value : '');
+      body.set('goal', hiddenGoal ? hiddenGoal.value : '');
+      body.set('page', window.location.href);
+      body.set('ref', document.referrer || '');
+      body.set('website', honeypot ? (honeypot.value || '') : '');
+
+      const res = await fetch(GAS_WEB_APP_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body
+      });
+
+      let json = {};
+      try { json = await res.json(); } catch (_) { json = {}; }
+      if (!json || json.ok !== true) {
+        const details = json && json.tg && json.tg.description ? `: ${json.tg.description}` : '';
+        console.error('Lead send failed', { json });
+        throw new Error('server_error' + details);
+      }
+
+      if (message) { message.textContent = ''; message.className = 'text-sm'; }
       form.reset();
+      // FX mail animation + success toast
+      playMailAnimation();
+    } catch (err) {
+      if (message) {
+        message.textContent = 'Не удалось отправить заявку. Попробуйте позже или напишите в Telegram.';
+        message.className = 'text-sm text-red-600';
+      }
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Отправить заявку'; }
     }
   });
 }

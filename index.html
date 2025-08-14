@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="fonts/plus-jakarta-sans/fonts.css">
 
     <!-- Baseline CSP (meta) -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
     <meta name="referrer" content="no-referrer">
 
     <!-- Pre-init theme before CSS to avoid FOUC/flashes (now external to drop inline scripts in CSP) -->
@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="preload" as="image" href="Vector_clean_KingSpeech.png" />
     <!-- Preload hero visual for faster LCP -->
-    <link rel="preload" as="image" href="assets/hero/hero-a-plus.webp" imagesrcset="assets/hero/hero-a-plus.webp 1x" />
+          <link rel="preload" as="image" href="assets/hero/hero-a-plus-800.webp" imagesrcset="assets/hero/hero-a-plus-560.webp 560w, assets/hero/hero-a-plus-800.webp 800w" imagesizes="(min-width: 1280px) 640px, (min-width: 768px) 560px, 92vw" />
 
     <!-- Favicon -->
     <link rel="icon" href="Vector_clean_KingSpeech.png" />
@@ -333,6 +333,7 @@
                   <form id="leadForm" novalidate class="form" aria-labelledby="contactTitle">
                     <input type="hidden" name="messenger" id="messenger" value="Telegram" />
                     <input type="hidden" name="goal" id="goal" value="" />
+                    <input type="text" name="website" id="website" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
                     <div class="form__group">
                       <label for="name" class="form__label">Имя</label>
                       <span class="input__icon" aria-hidden="true">
@@ -370,6 +371,13 @@
                         </button>
                       </div>
                       <p class="form__hint">Ответим в течение дня</p>
+                    </div>
+
+                    <div class="form__group">
+                      <label class="form__label" for="consent">
+                        <input id="consent" type="checkbox" required />
+                        Я согласен(а) с <a href="privacy.html" target="_blank" class="footer__link">политикой конфиденциальности</a>
+                      </label>
                     </div>
 
                     <button type="submit" class="btn btn--primary btn--block" aria-label="Отправить заявку">Отправить заявку</button>
@@ -450,10 +458,14 @@
           </div>
           <div class="footer__bar">
             <p class="footer__copy">© <span id="year"></span> KingSpeech. Все права защищены.</p>
-            <a href="#" id="privacyLink" class="footer__link">Политика конфиденциальности</a>
+            <a href="privacy.html" id="privacyLink" class="footer__link">Политика конфиденциальности</a>
           </div>
         </div>
       </footer>
+
+      <!-- FX layer and anchor for mail slot -->
+      <div id="fxLayer" class="fx-layer" aria-hidden="true"></div>
+      <div id="mailSlotAnchor" class="mail-slot-anchor" aria-hidden="true"></div>
 
       <button id="toTop" aria-label="Наверх" class="to-top" hidden>
         <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" /></svg>
