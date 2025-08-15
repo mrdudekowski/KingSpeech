@@ -30,7 +30,7 @@
     <script src="theme-preinit.js"></script>
 
     <!-- Стили: обновлённая палитра и компоненты с упором на WCAG AA -->
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=1.6" />
     <link rel="preload" as="image" href="Vector_clean_KingSpeech.png" />
     <!-- Preload hero visual for faster LCP -->
           <link rel="preload" as="image" href="assets/hero/hero-a-plus-800.webp" imagesrcset="assets/hero/hero-a-plus-560.webp 560w, assets/hero/hero-a-plus-800.webp 800w" imagesizes="(min-width: 1280px) 640px, (min-width: 768px) 560px, 92vw" />
@@ -219,9 +219,6 @@
           <div class="container">
             <h2 class="section-title text-center hglow-base hglow-2" data-animate>Отзывы учеников</h2>
             <div id="testimonialsCarousel" class="carousel" data-animate>
-              <button class="carousel__btn" aria-label="Предыдущий отзыв" id="carouselPrev" aria-controls="testimonialsTrack">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg>
-              </button>
               <div id="testimonialsTrack" class="carousel__track" role="region" aria-label="Лента отзывов" tabindex="0">
                 <figure class="testimonial">
                   <img class="testimonial-avatar" src="https://ui-avatars.com/api/?name=Алиса&background=FF7A00&color=fff" alt="Аватар Алиса" width="64" height="64" loading="lazy" decoding="async" />
@@ -258,12 +255,17 @@
                     <div class="testimonial-text"><blockquote class="testimonial-quote" data-full="Очень хороший преподаватель: объясняет всё доходчиво, терпелив и бережно относится к ученикам. Быстро находит подход к человеку любого возраста, помогает отточить материал и снимает волнение из‑за уровня английского.">«Терпеливый и внимательный — нашёл подход и снял волнение.»</blockquote></div>
                   </div>
                 </figure>
-                </div>
-                <button class="carousel__btn" aria-label="Следующий отзыв" id="carouselNext" aria-controls="testimonialsTrack">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
-                </button>
-                <p id="carouselStatus" class="sr-only" aria-live="polite"></p>
               </div>
+              <!-- Индикаторы (точки) -->
+              <div class="carousel__indicators" role="tablist" aria-label="Навигация по отзывам">
+                <button class="carousel__indicator is-active" role="tab" aria-selected="true" aria-label="Отзыв 1 из 5" data-index="0"></button>
+                <button class="carousel__indicator" role="tab" aria-selected="false" aria-label="Отзыв 2 из 5" data-index="1"></button>
+                <button class="carousel__indicator" role="tab" aria-selected="false" aria-label="Отзыв 3 из 5" data-index="2"></button>
+                <button class="carousel__indicator" role="tab" aria-selected="false" aria-label="Отзыв 4 из 5" data-index="3"></button>
+                <button class="carousel__indicator" role="tab" aria-selected="false" aria-label="Отзыв 5 из 5" data-index="4"></button>
+              </div>
+              <p id="carouselStatus" class="sr-only" aria-live="polite"></p>
+            </div>
             </div>
           </div>
         </section>

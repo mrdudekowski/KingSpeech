@@ -425,7 +425,7 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
 .form__hint{ margin-top: .3rem; font-size: .8rem; color: color-mix(in srgb, var(--text-muted) 70%, transparent); }
 
 /* Carousel (testimonials) */
-.carousel{ position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; }
+.carousel{ position: relative; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .carousel__track{
   --gap: 16px;
   --cols: 1;
@@ -438,6 +438,76 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
   padding: 6px;
   border-radius: 12px;
   grid-auto-columns: calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));
+  width: 100%;
+}
+/* Скрыть нативный горизонтальный скроллбар визуально */
+.carousel__track{ scrollbar-width: none; }
+.carousel__track::-webkit-scrollbar{ height: 0; }
+
+/* Индикаторы карусели (точки) */
+.carousel__indicators {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel__indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: color-mix(in srgb, var(--text) 20%, transparent);
+  cursor: pointer;
+  transition: background-color var(--dur-xs) var(--ease), transform var(--dur-xs) var(--ease);
+  padding: 0;
+}
+
+.carousel__indicator:hover {
+  background: color-mix(in srgb, var(--accent) 60%, transparent);
+  transform: scale(1.2);
+}
+
+.carousel__indicator.is-active {
+  background: var(--accent);
+  transform: scale(1.3);
+}
+
+/* Анимации перелистывания */
+@keyframes trackSlideForward { from { transform: translateX(10px); } to { transform: translateX(0); } }
+@keyframes trackSlideBack { from { transform: translateX(-10px); } to { transform: translateX(0); } }
+.carousel__track.anim-forward { animation: trackSlideForward var(--dur-s) var(--ease); }
+.carousel__track.anim-back { animation: trackSlideBack var(--dur-s) var(--ease); }
+
+@keyframes modalSlideInLeft { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes modalSlideInRight { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: translateX(0); } }
+.modal__content.anim-forward { animation: modalSlideInLeft var(--dur-s) var(--ease); }
+.modal__content.anim-back { animation: modalSlideInRight var(--dur-s) var(--ease); }
+
+/* Оптимизация карусели для мобильных устройств */
+@media (max-width: 767px) {
+  .carousel {
+    gap: 12px !important; /* Отступ между треком и индикаторами */
+  }
+  
+  .carousel__track {
+    padding: 4px !important; /* Минимальные отступы трека */
+    width: 100% !important; /* Трек занимает всю ширину */
+    max-width: none !important;
+  }
+  
+  /* Оптимизируем карточки отзывов */
+  .testimonial {
+    padding: 20px !important; /* Увеличиваем отступы для лучшей читаемости */
+    min-width: 280px !important; /* Оптимальная минимальная ширина */
+    max-width: none !important; /* Убираем ограничение максимальной ширины */
+  }
+  
+  /* Увеличиваем индикаторы для удобства на мобильных */
+  .carousel__indicator {
+    width: 10px;
+    height: 10px;
+  }
 }
 @media (min-width: 768px){ .carousel__track{ --cols: 2; } }
 @media (min-width: 1200px){ .carousel__track{ --cols: 3; } }
@@ -445,6 +515,13 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
 .carousel__track::-webkit-scrollbar-track{ background: color-mix(in srgb, var(--text) 6%, transparent); border-radius: 9999px; }
 .carousel__track::-webkit-scrollbar-thumb{ background: color-mix(in srgb, var(--text) 20%, transparent); border-radius: 9999px; }
 .carousel__track > *{ scroll-snap-align: start; }
+/* во время drag отключаем snapping для избежания «наезда» карточек */
+.carousel__track.is-dragging{ scroll-snap-type: none; cursor: grabbing; }
+/* скрываем полоску прокрутки во всех браузерах поверх дефолтной стилизации */
+.carousel__track{ scrollbar-width: none !important; }
+.carousel__track::-webkit-scrollbar{ height: 0 !important; }
+/* Индикаторы в модалке */
+.modal__indicators{ margin: 8px auto 14px; }
 .carousel__btn{ height: 40px; width: 40px; border-radius: 9999px; border: 1px solid var(--border); background: var(--card); color: var(--text); display: grid; place-items: center; box-shadow: var(--shadow-sm); transition: color var(--dur-xs) var(--ease), border-color var(--dur-xs) var(--ease); }
 .carousel__btn:hover{ color: var(--accent); border-color: color-mix(in srgb, var(--accent) 50%, var(--border)); }
 @media (min-width: 1024px){ .carousel__track{ /* grid-auto-columns set via --cols */ } }

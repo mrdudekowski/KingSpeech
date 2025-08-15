@@ -37,23 +37,75 @@ function openReviewModal(startIndex){
   const prevBtn = modal.querySelector('.modal__prev');
   const nextBtn = modal.querySelector('.modal__next');
   const closeEls = modal.querySelectorAll('[data-close]');
+  const dialog = modal.querySelector('.modal__dialog');
 
   let index = startIndex;
+  // точки навигации в модалке
+  let indicatorsWrap = modal.querySelector('.modal__indicators');
+  if (!indicatorsWrap) {
+    indicatorsWrap = document.createElement('div');
+    indicatorsWrap.className = 'carousel__indicators modal__indicators';
+    dialog && dialog.appendChild(indicatorsWrap);
+  }
+  indicatorsWrap.innerHTML = '';
+  const modalContent = modal.querySelector('.modal__content');
+  const animateModal = (dir) => {
+    if (!modalContent) return;
+    modalContent.classList.remove('anim-forward', 'anim-back');
+    modalContent.getBoundingClientRect();
+    modalContent.classList.add(dir > 0 ? 'anim-forward' : 'anim-back');
+    setTimeout(() => modalContent.classList.remove('anim-forward', 'anim-back'), 320);
+  };
+
+  const dots = avatars.map((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'carousel__indicator';
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', `Отзыв ${i + 1} из ${avatars.length}`);
+    b.addEventListener('click', () => {
+      const dir = i > index ? 1 : -1;
+      animateModal(dir);
+      index = i;
+      render();
+      updateDots();
+    });
+    indicatorsWrap.appendChild(b);
+    return b;
+  });
+
   const render = () => {
     avatarEl.src = avatars[index];
     avatarEl.alt = `Аватар ${names[index]}`;
     nameEl.textContent = names[index];
     quoteEl.textContent = fullTexts[index];
   };
-  const show = () => { modal.setAttribute('aria-hidden', 'false'); render(); };
+  const updateDots = () => {
+    dots.forEach((d, i) => {
+      const active = i === index;
+      d.classList.toggle('is-active', active);
+      d.setAttribute('aria-selected', String(active));
+    });
+  };
+  const show = () => { modal.setAttribute('aria-hidden', 'false'); render(); updateDots(); };
   const hide = () => { modal.setAttribute('aria-hidden', 'true'); };
 
-  const go = (dir) => { index = (index + dir + items.length) % items.length; render(); };
-  prevBtn.onclick = () => go(-1);
-  nextBtn.onclick = () => go(1);
+  const go = (dir) => {
+    const nextIndex = (index + dir + items.length) % items.length;
+    animateModal(dir);
+    index = nextIndex;
+    render();
+  };
+  // стрелки скрываем, но оставляем клавиатуру
+  if (prevBtn) { prevBtn.style.display = 'none'; prevBtn.tabIndex = -1; }
+  if (nextBtn) { nextBtn.style.display = 'none'; nextBtn.tabIndex = -1; }
   closeEls.forEach(el => el.onclick = hide);
   modal.addEventListener('click', (e) => { if (e.target.matches('.modal')) hide(); });
   document.addEventListener('keydown', function onEsc(e){ if(e.key==='Escape'){ hide(); document.removeEventListener('keydown', onEsc); } });
+  dialog && dialog.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(1); updateDots(); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); go(-1); updateDots(); }
+  });
 
   show();
 }
@@ -545,6 +597,11 @@ sections.forEach(s => s && so.observe(s));
   const nextBtn = document.getElementById('carouselNext');
   if (!track) return;
 
+  // индикаторы под каруселью
+  const items = Array.from(track.querySelectorAll('.testimonial'));
+  const indicatorsWrap = rootEl.querySelector('.carousel__indicators');
+  const indicators = indicatorsWrap ? Array.from(indicatorsWrap.querySelectorAll('.carousel__indicator')) : [];
+
   const cols = () => (window.matchMedia('(min-width: 1200px)').matches ? 3 : (window.matchMedia('(min-width: 768px)').matches ? 2 : 1));
   const step = () => {
     const gap = 16; // sync with CSS --gap
@@ -562,9 +619,9 @@ sections.forEach(s => s && so.observe(s));
     status.textContent = `Отзыв(ы) ${idx}–${last} из ${items.length}`;
   };
 
-  // buttons
-  prevBtn && prevBtn.addEventListener('click', () => { track.scrollBy({ left: -step() * cols(), behavior: 'smooth' }); announce(); });
-  nextBtn && nextBtn.addEventListener('click', () => { track.scrollBy({ left: step() * cols(), behavior: 'smooth' }); announce(); });
+  // buttons (на странице их нет, но оставляем на случай будущего использования)
+  if (prevBtn) prevBtn.addEventListener('click', () => { track.scrollBy({ left: -step() * cols(), behavior: 'smooth' }); announce(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { track.scrollBy({ left: step() * cols(), behavior: 'smooth' }); announce(); });
 
   // keyboard on track
   track.addEventListener('keydown', (e) => {
@@ -659,6 +716,46 @@ sections.forEach(s => s && so.observe(s));
 
   const ro = new ResizeObserver(() => announce());
   ro.observe(track);
+
+  // Активная точка по текущему первому видимому элементу
+  const setActiveDot = (i) => {
+    if (!indicators.length) return;
+    const clamped = Math.max(0, Math.min(items.length - 1, i));
+    indicators.forEach((b, idx) => {
+      const active = idx === clamped;
+      b.classList.toggle('is-active', active);
+      b.setAttribute('aria-selected', String(active));
+    });
+  };
+
+  const updateFromScroll = () => {
+    const idx = Math.round(track.scrollLeft / step());
+    setActiveDot(idx);
+    announce();
+    ticking = false;
+  };
+  let ticking = false;
+  track.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(updateFromScroll); ticking = true; }
+  }, { passive: true });
+
+  // Клик по точкам — перейти к соответствующему посту
+  indicators.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      const currentIdx = Math.round(track.scrollLeft / step());
+      const forward = i > currentIdx;
+      track.classList.remove('anim-forward', 'anim-back');
+      track.getBoundingClientRect(); // reflow для рестарта анимации
+      track.classList.add(forward ? 'anim-forward' : 'anim-back');
+      track.scrollTo({ left: i * step(), behavior: 'smooth' });
+      setActiveDot(i);
+      announce();
+      setTimeout(() => track.classList.remove('anim-forward', 'anim-back'), 320);
+    });
+  });
+
+  // init
+  setActiveDot(0);
   announce();
 })();
 
