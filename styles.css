@@ -531,7 +531,8 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
 
 /* Inputs with leading icons */
 .form__group{ position: relative; }
-.input__icon{ position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; z-index: 1; }
+.form__inputWrap{ position: relative; }
+.input__icon{ position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; z-index: 1; display: inline-flex; align-items: center; justify-content: center; }
 .form__input{ padding-left: 42px; }
 
 /* Page background layer: Aurora + Noise (integrated) */
