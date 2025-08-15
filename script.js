@@ -487,8 +487,9 @@ if (form) {
     }
 
     setFieldState(name, true);
-    setFieldState(email, emailOk);
-    setFieldState(phone, phoneOk);
+    // Email и телефон: если поле пустое, не подсвечиваем как ошибку (оно опционально)
+    setFieldState(email, email.value.trim() ? emailOk : true);
+    setFieldState(phone, phone.value.trim() ? phoneOk : true);
 
     const consent = form.querySelector('#consent');
     if (consent && !consent.checked) {
