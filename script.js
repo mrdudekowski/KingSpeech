@@ -532,6 +532,13 @@ if (form) {
 
       if (message) { message.textContent = ''; message.className = 'text-sm'; }
       form.reset();
+      // Clean up focus and validation visuals so no outline remains
+      const inputs = form.querySelectorAll('.form__input');
+      inputs.forEach((el) => {
+        el.blur();
+        el.classList.remove('ring-2','ring-red-400','border-red-300','border-gray-200');
+        el.removeAttribute('aria-invalid');
+      });
       // FX mail animation + success toast
       playMailAnimation();
     } catch (err) {
