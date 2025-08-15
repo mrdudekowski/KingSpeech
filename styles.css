@@ -193,6 +193,9 @@ body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta San
 .card::after { content:""; position:absolute; inset: -1px -1px auto -1px; height: 4px; border-radius: 1rem 1rem 0 0; background: linear-gradient(90deg, #FF7A00, #CC5F00); opacity: .85; }
 .card:hover { box-shadow: 0 12px 28px rgba(16,24,40,.12); transform: translateY(-2px); }
 .card-icon { font-size: 30px; }
+.card-icon{ display: inline-flex; align-items: center; justify-content: center; }
+.icon{ width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; }
+.icon-xl{ width: 30px; height: 30px; }
 .card-title { font-size: 18px; }
 .card-text { font-size: 15px; }
 
@@ -377,6 +380,7 @@ html.dark .fx-success{ background: color-mix(in srgb, var(--card) 85%, rgba(0,0,
 .chip:hover{ border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); transform: translateY(-1px); }
 .chip.is-selected{ background: color-mix(in srgb, var(--accent) 12%, var(--card)); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); color: var(--text); }
 .chip__icon{ font-size: 1rem; line-height: 1; }
+.chip__icon svg{ width: 16px; height: 16px; }
 
 /* Mini cards (goals) */
 .mini-cards{ display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0,1fr)); }
@@ -421,7 +425,7 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
 
 /* Form layout and elements */
 .form{ display: grid; gap: 16px; }
-.form__group{ display: grid; gap: 6px; }
+.form__group{ display: grid; gap: 6px; grid-template-rows: auto auto; position: relative; }
 .form__label{ display: block; font-size: .95rem; font-weight: 700; color: var(--text); }
 .form__label > span[aria-hidden="true"]{ margin-left: 4px; color: var(--accent); }
 .form__input{ width: 100%; border: 1px solid var(--border); background: var(--card); color: var(--text); box-shadow: 0 1px 1px rgba(0,0,0,.02); }
@@ -527,8 +531,8 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
 
 /* Inputs with leading icons */
 .form__group{ position: relative; }
-.input__icon{ position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
-.form__input{ padding-left: 42px; } 
+.input__icon{ grid-row: 2; justify-self: start; align-self: center; margin-left: 12px; color: var(--text-muted); pointer-events: none; z-index: 1; position: relative; }
+.form__input{ grid-row: 2; padding-left: 42px; }
 
 /* Page background layer: Aurora + Noise (integrated) */
 .page-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
