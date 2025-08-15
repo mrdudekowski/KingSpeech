@@ -423,6 +423,7 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
 .form{ display: grid; gap: 16px; }
 .form__group{ display: grid; gap: 6px; }
 .form__label{ display: block; font-size: .95rem; font-weight: 700; color: var(--text); }
+.form__label > span[aria-hidden="true"]{ margin-left: 4px; color: var(--accent); }
 .form__input{ width: 100%; border: 1px solid var(--border); background: var(--card); color: var(--text); box-shadow: 0 1px 1px rgba(0,0,0,.02); }
 .form__input::placeholder{ color: color-mix(in srgb, var(--text-muted) 70%, transparent); }
 .form__hint{ margin-top: .3rem; font-size: .8rem; color: color-mix(in srgb, var(--text-muted) 70%, transparent); }
