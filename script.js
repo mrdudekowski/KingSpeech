@@ -309,6 +309,12 @@ if (toTopBtn) {
   toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
+// Telegram CTA analytics
+document.getElementById('tgCtaBtn')?.addEventListener('click', () => {
+  localStorage.setItem('lead_source', 'telegram_cta');
+  console.info('[lead] telegram_cta_clicked');
+});
+
 // ===== FX: Mail send animation =====
 const supportsMotionPath = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('offset-path', 'path("M0,0 L1,1")');
 
