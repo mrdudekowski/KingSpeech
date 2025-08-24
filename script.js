@@ -310,10 +310,18 @@ if (toTopBtn) {
 }
 
 // Telegram CTA analytics
-document.getElementById('tgCtaBtn')?.addEventListener('click', () => {
-  localStorage.setItem('lead_source', 'telegram_cta');
-  console.info('[lead] telegram_cta_clicked');
-});
+console.log('[DEBUG] Script loaded, looking for tgCtaBtn...');
+const tgBtn = document.getElementById('tgCtaBtn');
+console.log('[DEBUG] tgCtaBtn found:', tgBtn);
+if (tgBtn) {
+  tgBtn.addEventListener('click', () => {
+    localStorage.setItem('lead_source', 'telegram_cta');
+    console.info('[lead] telegram_cta_clicked');
+  });
+  console.log('[DEBUG] Event listener added to tgCtaBtn');
+} else {
+  console.error('[DEBUG] tgCtaBtn NOT FOUND!');
+}
 
 // ===== FX: Mail send animation =====
 const supportsMotionPath = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('offset-path', 'path("M0,0 L1,1")');
