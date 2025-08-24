@@ -394,17 +394,8 @@ html.dark .fx-success{ background: color-mix(in srgb, var(--card) 85%, rgba(0,0,
 /* Trust bar */
 .trustbar{ display: grid; grid-auto-flow: column; gap: 12px; align-items: center; justify-content: center; padding: 8px 0; margin: 10px 0 6px; color: color-mix(in srgb, var(--text) 75%, transparent); }
 
-/* Telegram CTA button - DEBUG VERSION */
-.contact__tg-cta { 
-  display: block !important; 
-  gap: 8px; 
-  margin: 20px 0 !important; 
-  border: 10px solid blue !important; 
-  background: lime !important; 
-  padding: 30px !important; 
-  font-size: 24px !important;
-  color: black !important;
-}
+/* Telegram CTA button */
+.contact__tg-cta { display: grid; gap: 8px; margin: 6px 0 14px; }
 .btn--tg { gap: 10px; padding-block: 14px; }
 .btn--tg .tg-icon svg { width: 18px; height: 18px; }
 .cta__note { margin: 0; font-size: 0.95rem; text-align: center; }
