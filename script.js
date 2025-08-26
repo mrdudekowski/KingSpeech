@@ -523,13 +523,14 @@ class Animations {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
         
-        // Наблюдаем за элементами с классом animate-on-scroll
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        // Наблюдаем за элементами с атрибутом data-animate
+        document.querySelectorAll('[data-animate]').forEach(el => {
             observer.observe(el);
         });
     }
