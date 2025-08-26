@@ -20,7 +20,7 @@ const CONFIG = {
         phone: '#phone',
         messenger: '#messenger',
         goal: '#goal',
-        submit: '#submit-btn'
+        submit: 'button[type="submit"]'
     },
     
     // Настройки уведомлений
@@ -148,8 +148,9 @@ const Utils = {
     
     // Показ загрузки
     showLoading(button, text = 'Отправка...') {
+        if (!button) return;
         button.disabled = true;
-        button.dataset.originalText = button.textContent;
+        button.dataset.originalText = button.textContent || '';
         button.innerHTML = `
             <svg class="spinner" width="16" height="16" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.416" stroke-dashoffset="31.416">
@@ -162,8 +163,9 @@ const Utils = {
     
     // Скрытие загрузки
     hideLoading(button) {
+        if (!button) return;
         button.disabled = false;
-        button.textContent = button.dataset.originalText || 'Отправить';
+        button.textContent = button.dataset?.originalText || 'Отправить';
     },
     
     // Проверка доступности GAS webhook
