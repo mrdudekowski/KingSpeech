@@ -1,0 +1,8 @@
+{
+  "enable_ai_tutor": true,
+  "export_language": "ru",
+  "supported_interface_languages": ["ru", "en", "zh"],
+  "notify_manager": false,
+  "transport": "polling",
+  "logging_level": "INFO"
+}

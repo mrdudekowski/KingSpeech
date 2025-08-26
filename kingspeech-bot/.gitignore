@@ -1,0 +1,50 @@
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Google Sheets credentials
+service-account.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Memory Bank (development only)
+memory-bank/
+cursor-memory-bank/
+
+# Tests (optional - можно включить для CI/CD)
+# tests/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Docker
+.dockerignore
+
+# Render specific
+.render-buildlogs/

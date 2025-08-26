@@ -1,0 +1,18 @@
+{
+  "choose_language": "请选择您的界面语言：",
+  "start_greeting": "你好！我是 KingSpeech Bot 👋\n我会帮助你在 KingSpeech English School 选择最适合的课程。\n让我们先互相了解一下吧？只需要几分钟 😉",
+  "start_button": "开始问卷",
+  "ask_name": "你叫什么名字？",
+  "ask_language": "你好, {user_name}！你想学习哪种语言？请从列表中选择：",
+  "ask_level": "太好了！你目前的语言水平是？请选择一个选项：",
+  "ask_goal": "现在最重要的问题——你为什么想学习这门语言？请选择一个目标：",
+  "ask_format": "请选择学习形式：",
+  "ask_expectations": "你希望通过学习获得什么？请选择一个或多个选项，然后点击完成 🎉",
+  "done": "完成",
+  "ask_start_date": "你准备什么时候开始学习？请选择一个选项：",
+  "ask_phone": "请分享您的联系方式，以便我们的经理与您联系！",
+  "send_phone": "发送电话号码 📱",
+  "invalid_phone": "请使用\"发送电话号码\"📱按钮分享您的联系方式。不接受手动输入。",
+  "thanks": "感谢你, {user_name}! ☀️\n我们的经理会尽快与你联系，讨论细节并提供课程安排！😎",
+  "error": "发生错误。请通过 /start 命令重新开始。"
+} 

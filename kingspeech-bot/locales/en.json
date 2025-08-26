@@ -1,0 +1,17 @@
+{
+  "choose_language": "Please choose your language:",
+  "start_greeting": "Hello! My name is KingSpeech Bot 👋\nI will help you choose the perfect course at KingSpeech English School.\nLet's get to know each other a little? It will only take a couple of minutes 😉",
+  "start_button": "Start survey",
+  "ask_name": "What is your name?",
+  "ask_level": "Great! What is your current level? Please choose the appropriate option:",
+  "ask_goal": "And now the most important — why do you want to learn the language? Please choose one goal:",
+  "ask_format": "Please choose the learning format:",
+  "ask_expectations": "What would you like to get from your learning? Select one or more options and press DONE 🎉",
+  "done": "Done",
+  "ask_start_date": "When are you ready to start learning? Please choose an option:",
+  "ask_phone": "Please share your contact so our manager can contact you!",
+  "send_phone": "Send phone number 📱",
+  "invalid_phone": "Please use the 'Send phone number' 📱 button to share your contact. Manual input is not accepted.",
+  "thanks": "Thank you, {user_name}! ☀️\nOur manager will contact you soon to discuss the details and offer a schedule! 😎",
+  "error": "An error occurred. Please start again with the /start command."
+} 

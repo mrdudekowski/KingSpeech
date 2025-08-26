@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  kingspeech-bot:
+    build: .
+    container_name: kingspeech-bot
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - SPREADSHEET_ID=${SPREADSHEET_ID}
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/service-account.json
+    volumes:
+      - ./service-account.json:/app/service-account.json:ro
+      - ./logs:/app/logs
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8080/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Опционально: Nginx для reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: kingspeech-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - kingspeech-bot
+    profiles:
+      - production

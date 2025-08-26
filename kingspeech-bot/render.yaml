@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: kingspeech-bot
+    env: docker
+    plan: free
+    buildCommand: docker build -t kingspeech-bot .
+    startCommand: python kingspeech_bot.py
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: SPREADSHEET_ID
+        value: 14uUOXdoxXLGZuFOiF9YaFxlblQF9NE8C2IKpSF7eXrI
+      - key: PYTHONUNBUFFERED
+        value: 1
+      - key: GOOGLE_CREDENTIALS
+        sync: false

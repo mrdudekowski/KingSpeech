@@ -1,0 +1,128 @@
+[
+  {
+    "id": "starter_a1",
+    "name": "Starter Pack A1",
+    "goal": [
+      "study",
+      "travel"
+    ],
+    "level": "A1",
+    "format": "online",
+    "duration": "3 месяца",
+    "price": "12,000 ₽/месяц",
+    "description": "Базовый курс для начинающих с нуля",
+    "benefits": [
+      "Говорите с первого урока",
+      "Грамматика простым языком",
+      "Практика с носителями"
+    ],
+    "schedules": [
+      "weekday",
+      "evening",
+      "weekend"
+    ],
+    "available": true,
+    "max_students": 12,
+    "current_students": 0
+  },
+  {
+    "id": "conversational_b1",
+    "name": "Conversational English B1",
+    "goal": [
+      "study",
+      "travel",
+      "business"
+    ],
+    "level": "B1",
+    "format": "online",
+    "duration": "4 месяца",
+    "price": "15,000 ₽/месяц",
+    "description": "Разговорный английский для среднего уровня",
+    "benefits": [
+      "Свободное общение",
+      "Расширение словарного запаса",
+      "Подготовка к путешествиям"
+    ],
+    "schedules": [
+      "weekday",
+      "evening",
+      "weekend"
+    ],
+    "available": true,
+    "max_students": 12,
+    "current_students": 0
+  },
+  {
+    "id": "business_b2",
+    "name": "Business English B2",
+    "goal": [
+      "business"
+    ],
+    "level": "B2",
+    "format": "online",
+    "duration": "6 месяцев",
+    "price": "18,000 ₽/месяц",
+    "description": "Деловой английский для карьеры",
+    "benefits": [
+      "Презентации на английском",
+      "Деловая переписка",
+      "Переговоры с партнерами"
+    ],
+    "schedules": [
+      "weekday",
+      "evening"
+    ],
+    "available": true,
+    "max_students": 12,
+    "current_students": 0
+  },
+  {
+    "id": "ielts_prep",
+    "name": "IELTS Preparation",
+    "goal": [
+      "exams"
+    ],
+    "level": "B2",
+    "format": "online",
+    "duration": "8 месяцев",
+    "price": "20,000 ₽/месяц",
+    "description": "Подготовка к международному экзамену IELTS",
+    "benefits": [
+      "Стратегии сдачи экзамена",
+      "Практические тесты",
+      "Гарантия результата"
+    ],
+    "schedules": [
+      "weekday",
+      "evening",
+      "weekend"
+    ],
+    "available": true,
+    "max_students": 12,
+    "current_students": 0
+  },
+  {
+    "id": "kids_fun",
+    "name": "Kids Fun English",
+    "goal": [
+      "kids"
+    ],
+    "level": "A1",
+    "format": "online",
+    "duration": "12 месяцев",
+    "price": "10,000 ₽/месяц",
+    "description": "Английский для детей 7-12 лет",
+    "benefits": [
+      "Игровая форма обучения",
+      "Интерактивные уроки",
+      "Прогресс для родителей"
+    ],
+    "schedules": [
+      "weekday",
+      "weekend"
+    ],
+    "available": true,
+    "max_students": 12,
+    "current_students": 0
+  }
+]

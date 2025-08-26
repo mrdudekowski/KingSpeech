@@ -1,0 +1,91 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Test files
+test_*.html
+*_test.html
+*_test.js
+*_test.py
+test_*.py
+
+# Backup files
+*.bak
+*.backup
+
+# Node modules (if any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+build/
+dist/
+out/
+
+# Telegram bot specific
+kingspeech-bot/service-account.json
+kingspeech-bot/.env
+kingspeech-bot/connection_test_output.txt
+kingspeech-bot/ai_tutor_test_output.txt
+kingspeech-bot/all_tests_output.txt
+kingspeech-bot/admin_test_output.txt
+
+# Landing page specific - keep these files
+# KingSpeech/script.js
+# KingSpeech/index.html
+# KingSpeech/styles.css
+# KingSpeech/theme-preinit.js

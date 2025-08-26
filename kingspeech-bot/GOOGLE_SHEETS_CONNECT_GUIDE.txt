@@ -1,0 +1,88 @@
+# Гайд: Как подключить Google Sheets к Telegram-боту на Python
+
+---
+
+## 1. Создание проекта и сервисного аккаунта в Google Cloud
+
+1. Перейдите на [Google Cloud Console](https://console.cloud.google.com/).
+2. Создайте новый проект (или выберите существующий).
+3. В меню слева выберите **APIs & Services → Library**.
+4. Найдите и включите API:
+   - Google Sheets API
+   - Google Drive API
+5. В меню слева выберите **APIs & Services → Credentials**.
+6. Нажмите **Create Credentials → Service account**.
+7. Укажите имя, создайте сервисный аккаунт (роль можно не указывать).
+8. После создания выберите сервисный аккаунт, вкладка **Keys** → **Add Key → Create new key** → **JSON**.
+9. Скачайте файл `service-account.json` — он понадобится для бота.
+
+---
+
+## 2. Откройте доступ к Google Sheets для сервисного аккаунта
+
+1. Создайте новую Google Таблицу (или используйте существующую).
+2. Откройте её и нажмите **Share** (Поделиться).
+3. Введите email сервисного аккаунта (из файла `service-account.json`, обычно выглядит как `xxxx@xxxx.iam.gserviceaccount.com`).
+4. Дайте права **Editor** (Редактор).
+
+---
+
+## 3. Установка зависимостей в проекте
+
+В вашем проекте должны быть такие строки в `requirements.txt`:
+```
+google-api-python-client
+google-auth
+google-auth-httplib2
+google-auth-oauthlib
+```
+Или установите через pip:
+```
+pip install google-api-python-client google-auth google-auth-httplib2 google-auth-oauthlib
+```
+
+---
+
+## 4. Пример кода для работы с Google Sheets
+
+```python
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+SERVICE_ACCOUNT_FILE = 'service-account.json'
+SPREADSHEET_ID = 'ваш_ID_таблицы_из_URL'
+SHEET_NAME = 'Лист1'  # или нужный лист
+
+creds = service_account.Credentials.from_service_account_file(
+    SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+service = build('sheets', 'v4', credentials=creds)
+
+# Пример: добавить строку
+values = [["Имя", "Телефон", "Язык", "Уровень"]]
+body = {'values': values}
+service.spreadsheets().values().append(
+    spreadsheetId=SPREADSHEET_ID,
+    range=f'{SHEET_NAME}!A:Z',
+    valueInputOption='USER_ENTERED',
+    body=body
+).execute()
+```
+
+---
+
+## 5. Интеграция с ботом
+- Вынесите работу с Google Sheets в отдельный модуль (например, `sheets_service.py`).
+- Передавайте данные из опроса в функцию, которая добавляет строку в таблицу.
+- Не забудьте добавить файл `service-account.json` в рабочую директорию бота (и не выкладывать его в публичный репозиторий!).
+
+---
+
+## 6. Важно
+- Не забывайте про права доступа сервисного аккаунта к таблице.
+- Не публикуйте файл `service-account.json` в открытом доступе.
+- Для каждого нового проекта/бота можно использовать отдельный сервисный аккаунт.
+
+---
+
+**Если возникнут ошибки — проверьте права доступа, правильность ID таблицы и наличие нужных API в Google Cloud!** 

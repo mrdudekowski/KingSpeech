@@ -1,0 +1,88 @@
+[
+  {
+    "id": "starter_pack_a1",
+    "name": "Starter Pack A1",
+    "goal": [
+      "study",
+      "travel"
+    ],
+    "level": "A1",
+    "file_url": "https://drive.google.com/file/d/1A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6/view",
+    "description": "Базовый набор для начинающих: алфавит, основные фразы, грамматика",
+    "file_type": "pdf",
+    "file_size": "3.2 MB",
+    "downloads": 0,
+    "available": true
+  },
+  {
+    "id": "ielts_writing_task2",
+    "name": "IELTS Writing Task 2 Guide",
+    "goal": [
+      "exams"
+    ],
+    "level": "B2",
+    "file_url": "https://drive.google.com/file/d/2B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7/view",
+    "description": "Полное руководство по написанию эссе для IELTS",
+    "file_type": "pdf",
+    "file_size": "4.1 MB",
+    "downloads": 0,
+    "available": true
+  },
+  {
+    "id": "business_small_talk",
+    "name": "Business Small Talk Phrases",
+    "goal": [
+      "business"
+    ],
+    "level": "B1",
+    "file_url": "https://drive.google.com/file/d/3C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8/view",
+    "description": "100+ фраз для делового общения и нетворкинга",
+    "file_type": "pdf",
+    "file_size": "1.8 MB",
+    "downloads": 0,
+    "available": true
+  },
+  {
+    "id": "top_phrasal_verbs_b1",
+    "name": "Top 50 Phrasal Verbs B1",
+    "goal": [
+      "study",
+      "travel"
+    ],
+    "level": "B1",
+    "file_url": "https://drive.google.com/file/d/4D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9/view",
+    "description": "Самые важные фразовые глаголы с примерами и упражнениями",
+    "file_type": "pdf",
+    "file_size": "2.7 MB",
+    "downloads": 0,
+    "available": true
+  },
+  {
+    "id": "kids_fun_pack",
+    "name": "Kids Fun Learning Pack",
+    "goal": [
+      "kids"
+    ],
+    "level": "A1",
+    "file_url": "https://drive.google.com/file/d/5E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0/view",
+    "description": "Игровые материалы для детей: карточки, раскраски, песни",
+    "file_type": "pdf",
+    "file_size": "5.2 MB",
+    "downloads": 0,
+    "available": true
+  },
+  {
+    "id": "travel_phrases",
+    "name": "Essential Travel Phrases",
+    "goal": [
+      "travel"
+    ],
+    "level": "A2",
+    "file_url": "https://drive.google.com/file/d/6F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0U1/view",
+    "description": "Незаменимые фразы для путешествий: аэропорт, отель, ресторан",
+    "file_type": "pdf",
+    "file_size": "2.1 MB",
+    "downloads": 0,
+    "available": true
+  }
+]
