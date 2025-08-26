@@ -191,6 +191,66 @@ const Utils = {
     // Задержка
     delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    },
+
+    // Анимация «письмо улетает» к правому нижнему слоту
+    flyEnvelope(fromElement) {
+        return new Promise((resolve) => {
+            const anchor = document.getElementById('mailSlotAnchor');
+            const fxLayer = document.getElementById('fxLayer');
+            if (!fromElement || !anchor || !fxLayer) {
+                resolve();
+                return;
+            }
+
+            const start = fromElement.getBoundingClientRect();
+            const end = anchor.getBoundingClientRect();
+
+            const env = document.createElement('div');
+            env.className = 'fx-envelope';
+            const trail = document.createElement('div');
+            trail.className = 'fx-trail';
+
+            fxLayer.appendChild(env);
+            fxLayer.appendChild(trail);
+
+            const pStart = { x: start.left + start.width - 20, y: start.top + start.height / 2 };
+            const pEnd = { x: end.left, y: end.top };
+
+            const duration = 900;
+            const startTs = performance.now();
+            const ease = (t) => 1 - Math.pow(1 - t, 3);
+
+            const raf = (now) => {
+                const t = Math.min(1, (now - startTs) / duration);
+                const k = ease(t);
+                const cx = pStart.x + (pEnd.x - pStart.x) * k;
+                const cy = pStart.y + (pEnd.y - pStart.y) * k;
+                env.style.left = `${cx}px`;
+                env.style.top = `${cy}px`;
+                env.style.position = 'fixed';
+                trail.style.left = `${cx - 12}px`;
+                trail.style.top = `${cy - 8}px`;
+                trail.style.position = 'fixed';
+                if (t < 1) {
+                    requestAnimationFrame(raf);
+                } else {
+                    env.remove();
+                    trail.remove();
+                    resolve();
+                }
+            };
+            requestAnimationFrame(raf);
+        });
+    },
+
+    // Небольшой тост справа внизу
+    showSuccessToast(text = 'Преподаватель скоро с вами свяжется!') {
+        const el = document.createElement('div');
+        el.className = 'fx-success';
+        el.textContent = text;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 5000);
     }
 };
 
@@ -422,9 +482,10 @@ class LeadForm {
             const result = await this.submitLeadWithRetry(formData);
             
             if (result.ok) {
-                Utils.showNotification(CONFIG.NOTIFICATIONS.success);
                 this.form.reset();
                 this.clearValidation();
+                await Utils.flyEnvelope(this.submitBtn);
+                Utils.showSuccessToast('Преподаватель скоро с вами свяжется!');
                 
                 // Аналитика (если настроена)
                 if (typeof gtag !== 'undefined') {
@@ -573,17 +634,165 @@ class Analytics {
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🚀 KingSpeech Landing Page initialized');
-    
+
+    // 1) Тема: переключение и анимация переключателя
+    const root = document.documentElement;
+    const THEME_KEY = 'theme';
+    const getStoredTheme = () => localStorage.getItem(THEME_KEY);
+    const setStoredTheme = (t) => localStorage.setItem(THEME_KEY, t);
+    const applyTheme = (t) => {
+        if (t === 'dark') root.classList.add('dark');
+        else root.classList.remove('dark');
+    };
+    // начальная тема
+    const initTheme = () => {
+        const saved = getStoredTheme();
+        if (saved) applyTheme(saved);
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            applyTheme('dark');
+        }
+    };
+    initTheme();
+    // обработчики
+    const toggles = [document.getElementById('themeToggle'), document.getElementById('themeToggleMobile')].filter(Boolean);
+    toggles.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const next = root.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(next);
+            setStoredTheme(next);
+            // короткая анимация заката
+            const sky = btn.querySelector('.theme-sky');
+            if (sky) {
+                sky.classList.add('sunset-active');
+                setTimeout(() => sky.classList.remove('sunset-active'), 800);
+            }
+        });
+    });
+
+    // 2) Плавные якоря
+    document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // 3) Карусель отзывов + индикаторы
+    (function initCarousel(){
+        const track = document.getElementById('testimonialsTrack');
+        if (!track) return;
+        const items = Array.from(track.children);
+        const dots = Array.from(document.querySelectorAll('.carousel__indicator'));
+        const offsets = items.map(el => el.offsetLeft);
+        const setActive = (idx) => {
+            dots.forEach(d => d.classList.remove('is-active'));
+            if (dots[idx]) dots[idx].classList.add('is-active');
+        };
+        dots.forEach((dot, i) => dot.addEventListener('click', () => {
+            track.scrollTo({ left: offsets[i] || 0, behavior: 'smooth' });
+            setActive(i);
+        }));
+        let rafId = 0;
+        track.addEventListener('scroll', () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(() => {
+                const left = track.scrollLeft;
+                let nearest = 0; let best = Infinity;
+                offsets.forEach((x, i) => { const d = Math.abs(left - x); if (d < best) { best = d; nearest = i; } });
+                setActive(nearest);
+            });
+        });
+        track.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                const left = track.scrollLeft;
+                let idx = 0; let best = Infinity;
+                offsets.forEach((x, i) => { const d = Math.abs(left - x); if (d < best) { best = d; idx = i; } });
+                idx += (e.key === 'ArrowRight' ? 1 : -1);
+                if (idx < 0) idx = items.length - 1;
+                if (idx >= items.length) idx = 0;
+                track.scrollTo({ left: offsets[idx] || 0, behavior: 'smooth' });
+                setActive(idx);
+            }
+        });
+        setActive(0);
+    })();
+
+    // 4) Модалка полного отзыва
+    (function initReviewModal(){
+        const modal = document.getElementById('reviewModal');
+        if (!modal) return;
+        const backdrop = modal.querySelector('[data-close]')?.closest('.modal__backdrop') || modal.querySelector('.modal__backdrop');
+        const btnClose = modal.querySelector('[data-close]') || modal.querySelector('.modal__close');
+        const btnPrev = modal.querySelector('.modal__prev');
+        const btnNext = modal.querySelector('.modal__next');
+        const avatar = modal.querySelector('.modal__avatar');
+        const nameEl = modal.querySelector('#reviewTitle');
+        const quote = modal.querySelector('.modal__quote');
+        const items = Array.from(document.querySelectorAll('.testimonial'));
+        let index = -1;
+        const openAt = (i) => {
+            index = (i + items.length) % items.length;
+            const card = items[index];
+            const img = card.querySelector('.testimonial-avatar');
+            const nm = card.querySelector('.testimonial-name');
+            const short = card.querySelector('.testimonial-quote');
+            const full = short?.getAttribute('data-full') || short?.textContent || '';
+            if (avatar && img) avatar.src = img.src;
+            if (nameEl && nm) nameEl.textContent = nm.textContent || '';
+            if (quote) quote.textContent = full;
+            modal.setAttribute('aria-hidden', 'false');
+        };
+        const close = () => modal.setAttribute('aria-hidden', 'true');
+        items.forEach((card, i) => card.addEventListener('click', () => openAt(i)));
+        btnClose?.addEventListener('click', close);
+        backdrop?.addEventListener('click', close);
+        btnPrev?.addEventListener('click', () => openAt(index - 1));
+        btnNext?.addEventListener('click', () => openAt(index + 1));
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    })();
+
+    // 5) Кнопка «Наверх»
+    (function initToTop(){
+        const toTop = document.getElementById('toTop');
+        if (!toTop) return;
+        const onScroll = () => {
+            if (window.scrollY > 400) toTop.classList.add('is-visible');
+            else toTop.classList.remove('is-visible');
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+        toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    })();
+
+    // 6) Подсветка активного пункта меню
+    (function initActiveSection(){
+        const sections = ['home','about','method','testimonials','faq','contact']
+            .map(id => document.getElementById(id)).filter(Boolean);
+        const links = Array.from(document.querySelectorAll('.nav__link'));
+        const setActive = (id) => {
+            links.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
+        };
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(en => { if (en.isIntersecting) setActive(en.target.id); });
+        }, { threshold: 0.55 });
+        sections.forEach(sec => io.observe(sec));
+    })();
+
     // Инициализация формы
     new LeadForm(CONFIG.FORM_SELECTORS.main);
-    
+
     // Инициализация анимаций
     Animations.init();
-    
+
     // Инициализация аналитики
     Analytics.init();
-    
-    // Проверка конфигурации
+
+    // Проверка конфигурации (dev‑подсказка)
     if (CONFIG.GAS_WEBHOOK_URL.includes('YOUR_SCRIPT_ID')) {
         console.warn('⚠️ Не забудьте заменить YOUR_SCRIPT_ID на реальный ID вашего GAS скрипта!');
         Utils.showNotification({
