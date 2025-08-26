@@ -7,14 +7,14 @@
 // Конфигурация
 const CONFIG = {
     // Замените на ваш реальный URL GAS webhook
-    GAS_WEBHOOK_URL: 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec',
+    GAS_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbyY8wAVsmBFqxgjN_UtnyPX3l2viFn3kuBErJzdrXNYQujvAWYDxrEPfQ7wHNzXOvBFJg/exec',
     
     // Fallback URL (если основной не работает)
     FALLBACK_URL: null, // Можно добавить резервный endpoint
     
     // Настройки форм
     FORM_SELECTORS: {
-        main: '#lead-form',
+        main: '#leadForm',
         name: '#name',
         email: '#email', 
         phone: '#phone',
