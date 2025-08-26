@@ -4,7 +4,7 @@
 import asyncio
 from typing import Dict, Any
 from telegram import Bot
-from config import WORKGROUP_CHAT_ID, TELEGRAM_BOT_TOKEN
+from config import WORKGROUP_CHAT_ID, TELEGRAM_BOT_TOKEN, MANAGER_CHAT_ID
 
 
 class LeadsSenderService:
@@ -12,7 +12,7 @@ class LeadsSenderService:
     
     def __init__(self):
         self.bot = Bot(token=TELEGRAM_BOT_TOKEN)
-        self.workgroup_chat_id = WORKGROUP_CHAT_ID
+        self.workgroup_chat_id = WORKGROUP_CHAT_ID or MANAGER_CHAT_ID
     
     def format_lead_message(self, lead_data: Dict[str, Any]) -> str:
         """Форматирует данные лида в сообщение для отправки"""
@@ -43,7 +43,7 @@ class LeadsSenderService:
         """Асинхронно отправляет лид в чат рабочей группы"""
         try:
             if not self.workgroup_chat_id:
-                print("⚠️ WORKGROUP_CHAT_ID не установлен - лид не отправлен в чат")
+                print("⚠️ WORKGROUP_CHAT_ID/MANAGER_CHAT_ID не установлен - лид не отправлен в чат")
                 return False
             
             message = self.format_lead_message(lead_data)
