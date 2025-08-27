@@ -726,8 +726,8 @@ document.addEventListener('DOMContentLoaded', () => {
     (function initReviewModal(){
         const modal = document.getElementById('reviewModal');
         if (!modal) return;
-        const backdrop = modal.querySelector('[data-close]')?.closest('.modal__backdrop') || modal.querySelector('.modal__backdrop');
-        const btnClose = modal.querySelector('[data-close]') || modal.querySelector('.modal__close');
+        const backdrop = modal.querySelector('.modal__backdrop');
+        const btnClose = modal.querySelector('.modal__close');
         const btnPrev = modal.querySelector('.modal__prev');
         const btnNext = modal.querySelector('.modal__next');
         const avatar = modal.querySelector('.modal__avatar');

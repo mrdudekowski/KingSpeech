@@ -550,10 +550,10 @@ html:not(.dark) .contact-cta:hover svg{ color:#fff; fill:#fff; }
 .form__input{ padding-left: 42px; }
 
 /* Page background layer: Aurora + Noise (integrated) */
-.page-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.page-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; height: 100vh; }
 .page-content { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
 main { flex: 1 0 auto; }
-.footer { flex: 0 0 auto; }
+.footer { flex: 0 0 auto; margin-top: auto; }
 
 /* Base warm gradient for light theme; darker base for dark theme */
 .bg-aurora-noise { background: linear-gradient(180deg, color-mix(in srgb, var(--bg-accent-2) 60%, var(--bg)) 0%, var(--bg) 100%); }
