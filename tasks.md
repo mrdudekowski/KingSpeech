@@ -1,4 +1,4 @@
-# tasks.md (Source of Truth)
+# tasks.md (Source of Truth) - COMPLETED ✅
 
 - [x] Create responsive landing scaffold
 - [x] Implement Hero, About, Method, Testimonials, FAQ, Contact form, Footer
@@ -7,7 +7,7 @@
 - [x] Prepare SEO tags and OG/Twitter
 - [x] Provide deploy instructions for GitHub Pages
 - [x] Create Memory Bank files
-- [ ] Optional: convert images to `.webp` and update sources
+- [x] Optional: convert images to `.webp` and update sources
 
 ## Optimization Roadmap
 
@@ -16,7 +16,7 @@
   - [x] Preload hero image; add canonical and theme-color
   - [x] Remove global transitions; add motion tokens and scoped transitions
   - [x] Passive listeners and rAF throttle for scroll; limit contrast scanner (remove MutationObserver)
-  - [ ] Audit unused heavy assets (Vector Icons.svg, landingscreenshot.jpeg) and remove if unused
+  - [x] Audit unused heavy assets (Vector Icons.svg, landingscreenshot.jpeg) and remove if unused
 - [x] PR2: UI/UX + Animations
   - [x] Testimonials: add prev/next buttons + keyboard
   - [x] content-visibility for sections below the fold
@@ -30,7 +30,7 @@
   - [x] CSP: remove 'unsafe-inline' for styles in meta
 
 ## Assets Audit
-- [ ] Check and remove if unused: `Vector Icons.svg` (~1MB)
-- [ ] Check and remove if unused: `landingscreenshot.jpeg` (~5.8MB)
-- [ ] Consider converting `photo_2023-02-05_21-22-56.jpg` to webp + update `<picture>` fallback
-- [ ] Add `srcset/sizes` for hero/about images 
+- [x] Check and remove if unused: `Vector Icons.svg` (~1MB) - Retained per request
+- [x] Check and remove if unused: `landingscreenshot.jpeg` (~5.8MB) - Retained per request
+- [x] Consider converting `photo_2023-02-05_21-22-56.jpg` to webp + update `<picture>` fallback
+- [x] Add `srcset/sizes` for hero/about images 
