@@ -7,7 +7,7 @@ class GASIntegration {
   constructor() {
     this.config = {
       // Замените на ваш реальный URL GAS webhook
-      GAS_WEBHOOK_URL: 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec',
+      GAS_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbyJKbFN2XXobtZskHRUCIHwNBGSPpKn05rLt_KpRkIpulK2_l78ISWq_t-jhQW91aqM/exec',
       
       // Fallback URL (если основной не работает)
       FALLBACK_URL: null,
