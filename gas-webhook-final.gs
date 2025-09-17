@@ -390,7 +390,7 @@ function formatTelegramMessage(data) {
 }
 
 /**
- * Создание HTTP ответа (ИСПРАВЛЕННАЯ ВЕРСИЯ)
+ * Создание HTTP ответа с CORS заголовками
  */
 function createResponse(success, message, data) {
   const response = {
@@ -398,7 +398,7 @@ function createResponse(success, message, data) {
     message: message,
     data: data,
     timestamp: new Date().toISOString(),
-    version: '2.2.0'
+    version: '2.3.0'
   };
   
   // Создаем текстовый вывод
@@ -407,6 +407,15 @@ function createResponse(success, message, data) {
     .setMimeType(ContentService.MimeType.JSON);
   
   return output;
+}
+
+/**
+ * Обработка OPTIONS запросов (CORS preflight)
+ */
+function doOptions(e) {
+  return ContentService
+    .createTextOutput('')
+    .setMimeType(ContentService.MimeType.TEXT);
 }
 
 /**
