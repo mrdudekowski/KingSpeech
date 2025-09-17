@@ -130,7 +130,8 @@ class GASIntegration {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: this.encodeFormData(data),
-        signal: controller.signal
+        signal: controller.signal,
+        mode: 'no-cors'  // Добавляем no-cors для GAS
       });
 
       clearTimeout(timeoutId);

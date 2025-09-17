@@ -28,13 +28,21 @@ const CONFIG = {
  */
 function doPost(e) {
   try {
+    console.log('📥 Получен POST запрос, параметры e:', e);
+    
     // Проверяем наличие данных
-    if (!e || !e.postData) {
+    if (!e) {
+      console.log('❌ Нет параметра e');
+      return createResponse(false, 'No request parameter e', null);
+    }
+    
+    if (!e.postData) {
       console.log('❌ Нет данных POST запроса');
       return createResponse(false, 'No POST data received', null);
     }
     
-    console.log('📥 Получен POST запрос:', e.postData.contents);
+    console.log('📥 POST данные:', e.postData.contents);
+    console.log('📥 POST тип:', e.postData.type);
     
     const formData = parseFormData(e.postData.contents);
     console.log('📋 Данные формы:', formData);
