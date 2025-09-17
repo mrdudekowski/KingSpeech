@@ -2,7 +2,7 @@
  * KingSpeech GAS Webhook - Properties Version
  * Обработка заявок с лендинга и отправка в Telegram + Google Sheets
  * Использует свойства скрипта для конфигурации
- * Version: 2.3.0
+ * Version: 2.3.1
  */
 
 /**
@@ -103,7 +103,7 @@ function doGet(e) {
       config: configCheck,
       stats: stats,
       timestamp: new Date().toISOString(),
-      version: '2.3.0'
+      version: '2.3.1'
     });
     
   } catch (error) {
@@ -122,14 +122,21 @@ function doOptions(e) {
 }
 
 /**
- * Парсинг данных формы
+ * Парсинг данных формы (совместимо с GAS)
  */
 function parseFormData(postData) {
-  const params = new URLSearchParams(postData);
   const data = {};
   
-  for (const [key, value] of params.entries()) {
-    data[key] = value.trim();
+  // Парсим application/x-www-form-urlencoded данные
+  const pairs = postData.split('&');
+  
+  for (let i = 0; i < pairs.length; i++) {
+    const pair = pairs[i].split('=');
+    if (pair.length === 2) {
+      const key = decodeURIComponent(pair[0].replace(/\+/g, ' '));
+      const value = decodeURIComponent(pair[1].replace(/\+/g, ' '));
+      data[key] = value.trim();
+    }
   }
   
   return data;
@@ -414,7 +421,7 @@ function createResponse(success, message, data) {
     message: message,
     data: data,
     timestamp: new Date().toISOString(),
-    version: '2.3.0'
+    version: '2.3.1'
   };
   
   // Создаем текстовый вывод
