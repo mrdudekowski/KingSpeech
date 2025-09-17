@@ -1,0 +1,393 @@
+/* ========================================
+   KINGSPEECH LANDING - MAIN STYLESHEET
+   ======================================== */
+
+/* ========================================
+   IMPORT BASE MODULES
+   ======================================== */
+
+@import url('./base/reset.css');
+@import url('./base/variables.css');
+@import url('./base/typography.css');
+@import url('./base/keyframes.css');
+
+/* ========================================
+   IMPORT COMPONENTS
+   ======================================== */
+
+@import url('./components/button.css');
+@import url('./components/header.css');
+@import url('./components/hero.css');
+@import url('./components/about.css');
+@import url('./components/cards.css');
+@import url('./components/carousel.css');
+@import url('./components/testimonials.css');
+@import url('./components/modal.css');
+@import url('./components/faq.css');
+@import url('./components/forms.css');
+@import url('./components/footer.css');
+
+/* ========================================
+   LAYOUT & UTILITIES
+   ======================================== */
+
+/* Container */
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* Sections - оптимизированные отступы */
+.section {
+  padding: var(--section-padding-lg) 0;
+}
+
+.section--alt {
+  background: transparent;
+}
+
+/* Testimonials Section */
+/* Testimonials - упрощенные селекторы */
+.testimonials-section {
+  overflow: hidden;
+}
+
+.testimonials-section .container {
+  overflow: visible;
+}
+
+.section-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--text);
+  margin-bottom: var(--title-margin-lg);
+  text-align: center;
+}
+
+.section-subtitle {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--text-muted);
+  margin-bottom: var(--content-gap-lg);
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Text Utilities */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-light {
+  color: var(--text-light);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+/* Text Sizes */
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+.text-base { font-size: var(--text-base); }
+.text-lg { font-size: var(--text-lg); }
+.text-xl { font-size: var(--text-xl); }
+.text-2xl { font-size: var(--text-2xl); }
+.text-3xl { font-size: var(--text-3xl); }
+.text-4xl { font-size: var(--text-4xl); }
+
+/* Text Weights */
+.font-normal { font-weight: var(--font-normal); }
+.font-medium { font-weight: var(--font-medium); }
+.font-semibold { font-weight: var(--font-semibold); }
+.font-bold { font-weight: var(--font-bold); }
+.font-extrabold { font-weight: var(--font-extrabold); }
+
+/* Spacing Utilities - удалены неиспользуемые классы */
+
+/* ========================================
+   ACCESSIBILITY & UTILITIES
+   ======================================== */
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  z-index: var(--z-modal);
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* ========================================
+   PAGE BACKGROUND & AURORA
+   ======================================== */
+
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-background);
+  pointer-events: none;
+}
+
+
+
+/* ========================================
+   PAGE CONTENT
+   ======================================== */
+
+.page-content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+
+main {
+  padding-top: var(--header-height);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Responsive Design - оптимизированная система отступов */
+@media (max-width: 1024px) {
+  .section {
+    padding: var(--section-padding-md) 0;
+  }
+  
+  .section-title {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--title-margin-md);
+  }
+  
+  .section-subtitle {
+    font-size: var(--text-base);
+    margin-bottom: var(--content-gap-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--section-padding-sm) 0;
+  }
+  
+  .section-title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--title-margin-sm);
+  }
+  
+  .section-subtitle {
+    font-size: var(--text-sm);
+    margin-bottom: var(--content-gap-sm);
+  }
+  
+  .container {
+    padding: 0 var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: var(--space-10) 0; /* 40px для очень маленьких экранов */
+  }
+  
+  .section-title {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+  
+  .section-subtitle {
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+  }
+  
+  .container {
+    padding: 0 var(--space-3);
+  }
+}
+
+/* ========================================
+   AURORA BACKGROUND
+   ======================================== */
+
+/* Base page background layer */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg);
+}
+
+/* Aurora WebGL container */
+.aurora-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Aurora canvas styling */
+.aurora-container canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Fallback gradient for Aurora if WebGL not supported */
+.aurora-container:empty::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 179, 102, 0.08) 0%, 
+    rgba(255, 140, 66, 0.04) 50%, 
+    rgba(255, 173, 73, 0.02) 100%
+  );
+  filter: blur(20px);
+  opacity: 0.4;
+  z-index: 1;
+}
+
+html.dark .aurora-container:empty::before {
+  background: linear-gradient(135deg, 
+    rgba(255, 140, 66, 0.12) 0%, 
+    rgba(255, 122, 51, 0.08) 50%, 
+    rgba(229, 111, 34, 0.04) 100%
+  );
+  opacity: 0.6;
+}
+
+/* ========================================
+   DARK THEME ADJUSTMENTS
+   ======================================== */
+
+html.dark .section--alt {
+  background: transparent;
+}
+
+
+/* ========================================
+   ANIMATION UTILITIES
+   ======================================== */
+
+[data-animate] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+[data-animate].animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Анимации удалены - не используются в проекте */
+
+/* Animation keyframes перенесены в keyframes.css */
+
+/* Animation delays */
+[data-delay="100"] { animation-delay: 0.1s; }
+[data-delay="200"] { animation-delay: 0.2s; }
+[data-delay="300"] { animation-delay: 0.3s; }
+[data-delay="400"] { animation-delay: 0.4s; }
+[data-delay="500"] { animation-delay: 0.5s; }
+[data-delay="600"] { animation-delay: 0.6s; }
+[data-delay="700"] { animation-delay: 0.7s; }
+[data-delay="800"] { animation-delay: 0.8s; }
+[data-delay="900"] { animation-delay: 0.9s; }
+[data-delay="1000"] { animation-delay: 1s; }
+
+/* Loading states и Form validation states удалены - не используются */
+
+/* .form-message--success и .form-message--error удалены - не используются */
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+  .site-header,
+  .site-footer,
+  .aurora-container,
+  .btn,
+  .carousel__nav {
+    display: none !important;
+  }
+  
+  .page-content {
+    padding: 0;
+  }
+  
+  .section {
+    padding: var(--space-4) 0;
+    page-break-inside: avoid;
+  }
+  
+  .hero {
+    min-height: auto;
+    padding: var(--space-4) 0;
+  }
+  
+  .card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid var(--border);
+  }
+}

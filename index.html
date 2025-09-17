@@ -1,495 +1,648 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Изучение английского легко и интересно — KingSpeech</title>
-    <meta name="description" content="Онлайн-уроки английского языка: индивидуально и в мини‑группах. Бесплатное вводное занятие. Гибкий график, интерактивные занятия и поддержка между уроками." />
-    <meta name="keywords" content="английский язык, онлайн-уроки, репетитор, преподаватель английского, индивидуальные занятия, мини-группы, бизнес английский, английский для путешествий, ЕГЭ/ОГЭ" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Изучение английского легко и интересно — KingSpeech</title>
+  <meta name="description" content="Онлайн-уроки английского языка: индивидуально и в мини‑группах. Бесплатное вводное занятие. Гибкий график, интерактивные занятия и поддержка между уроками." />
+  <meta name="keywords" content="английский язык, онлайн-уроки, репетитор, преподаватель английского, индивидуальные занятия, мини-группы, бизнес английский, английский для путешествий, ЕГЭ/ОГЭ" />
 
-    <!-- Open Graph / Twitter for SEO -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Твой единственный онлайн тьютор — KingSpeech" />
-    <meta property="og:description" content="Увлекательные интерактивные занятия, тёплый подход и много практики." />
-    <meta property="og:image" content="Vector_clean_KingSpeech.png" />
-    <meta property="og:url" content="." />
-    <meta name="twitter:card" content="summary_large_image" />
+  <!-- Open Graph / Twitter for SEO -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Твой единственный онлайн тьютор — KingSpeech" />
+  <meta property="og:description" content="Увлекательные интерактивные занятия, тёплый подход и много практики." />
+  <meta property="og:image" content="assets/images/logo.png" />
+  <meta property="og:url" content="." />
+  <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Local Fonts: Plus Jakarta Sans (woff2 subsets) -->
-    <link rel="preload" as="font" type="font/woff2" href="fonts/plus-jakarta-sans/PlusJakartaSans-700-cyrillic.woff2" crossorigin>
-    <link rel="preload" as="font" type="font/woff2" href="fonts/plus-jakarta-sans/PlusJakartaSans-700-latin.woff2" crossorigin>
-    <link rel="preload" as="font" type="font/woff2" href="fonts/plus-jakarta-sans/PlusJakartaSans-800-cyrillic.woff2" crossorigin>
-    <link rel="preload" as="font" type="font/woff2" href="fonts/plus-jakarta-sans/PlusJakartaSans-800-latin.woff2" crossorigin>
-    <link rel="stylesheet" href="fonts/plus-jakarta-sans/fonts.css">
+  <!-- Pre-init theme before CSS to avoid FOUC -->
+  <script src="js/modules/theme-preinit.js"></script>
+  
+  <!-- Structured data for SEO -->
+  <script src="js/modules/structured-data.js"></script>
 
-    <!-- Baseline CSP (meta) -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
-    <meta name="referrer" content="no-referrer">
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/main.css" />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" />
 
-    <!-- Pre-init theme before CSS to avoid FOUC/flashes (now external to drop inline scripts in CSP) -->
-    <script src="theme-preinit.js"></script>
+  <!-- Canonical & theme-color -->
+  <link rel="canonical" href="https://kingspeech.com/" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121212" />
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a class="skip-link" href="#main">Перейти к основному контенту</a>
+  
+  <!-- Aurora background container -->
+  <div class="page-bg aurora-container"></div>
+  
+  <!-- Main page content -->
+  <div class="page-content">
+    
+    <!-- Header / Navigation -->
+    <header class="site-header">
+      <nav class="nav container" aria-label="Основная навигация">
+        <div class="nav__bar">
+          <!-- Brand/Logo -->
+          <a href="#home" class="nav__brand" aria-label="На главный экран">
+            <picture>
+              <source type="image/webp" srcset="assets/images/logo.webp" />
+              <img src="assets/images/logo.png" alt="Логотип KingSpeech" width="40" height="40" />
+            </picture>
+            <span class="nav__brandText">
+              <span class="nav__name">KING SPEECH</span>
+              <span class="nav__tagline">курсы английского языка</span>
+            </span>
+            <span class="sr-only">KingSpeech</span>
+          </a>
+          
+          <!-- Mobile menu button -->
+          <button id="mobileMenuBtn" class="nav__toggle" data-mobile-toggle aria-label="Открыть меню" aria-controls="primary-menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+          
+          <!-- Desktop navigation -->
+          <ul id="primary-menu" class="nav__list">
+            <li>
+              <button id="themeToggle" tabindex="0" data-theme-toggle aria-label="Переключить тему" aria-pressed="true" class="theme-toggle" title="Переключить тему">
+                <span class="sr-only">Переключить тему</span>
+                <span class="theme-sky">
+                  <span class="theme-stars" aria-hidden="true"></span>
+                  <span class="theme-sunset" aria-hidden="true"></span>
+                  <span class="theme-ground" aria-hidden="true"></span>
+                  <svg class="theme-sun" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <circle cx="12" cy="12" r="5"/>
+                  </svg>
+                  <svg class="theme-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"/>
+                  </svg>
+                </span>
+              </button>
+            </li>
+            <li><a href="#about" class="nav__link" data-nav-link>О преподавателе</a></li>
+            <li><a href="#method" class="nav__link" data-nav-link>Методика</a></li>
+            <li><a href="#testimonials" class="nav__link" data-nav-link>Отзывы</a></li>
+            <li><a href="#faq" class="nav__link" data-nav-link>Частые вопросы</a></li>
+            <li><a href="#contact" class="btn btn--primary">Записаться</a></li>
+          </ul>
+        </div>
+        
+        <!-- Mobile navigation -->
+        <div id="mobileMenu" class="nav__mobile" data-mobile-menu aria-hidden="true">
+          <a href="#about" class="mobile-link" data-nav-link>О преподавателе</a>
+          <a href="#method" class="mobile-link" data-nav-link>Методика</a>
+          <a href="#testimonials" class="mobile-link" data-nav-link>Отзывы</a>
+          <a href="#faq" class="mobile-link" data-nav-link>Частые вопросы</a>
+          <a href="#contact" class="mobile-link mobile-link--cta">Записаться</a>
+        </div>
+      </nav>
+    </header>
 
-    <!-- Стили: обновлённая палитра и компоненты с упором на WCAG AA -->
-    <link rel="stylesheet" href="styles.css?v=2.2" />
-    <link rel="preload" as="image" href="Vector_clean_KingSpeech.png" />
-    <!-- Preload hero visual for faster LCP -->
-          <link rel="preload" as="image" href="assets/hero/hero-a-plus-800.webp" imagesrcset="assets/hero/hero-a-plus-560.webp 560w, assets/hero/hero-a-plus-800.webp 800w" imagesizes="(min-width: 1280px) 640px, (min-width: 768px) 560px, 92vw" />
-
-    <!-- Favicon -->
-    <link rel="icon" href="Vector_clean_KingSpeech.png" />
-
-    <!-- Canonical & theme-color (light/dark) -->
-    <link rel="canonical" href="https://mrdudekowski.github.io/KingSpeech/" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121212" />
-
-    <!-- Structured data (Organization/Person) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "KingSpeech",
-        "url": "https://mrdudekowski.github.io/KingSpeech/",
-        "logo": "Vector_clean_KingSpeech.png",
-        "sameAs": [
-          "https://t.me/",
-          "https://wa.me/"
-        ]
-      }
-    </script>
-    <!-- Structured data (FAQPage) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {"@type": "Question", "name": "Как проходит пробное занятие?", "acceptedAnswer": {"@type": "Answer", "text": "Знакомство, определение целей и уровня, мини‑урок с практикой. После — персональный план обучения."}},
-          {"@type": "Question", "name": "Сколько длится урок?", "acceptedAnswer": {"@type": "Answer", "text": "Как правило, 50 минут индивидуально и 60 минут в группе. По договорённости возможен другой формат."}},
-          {"@type": "Question", "name": "Какие материалы используются?", "acceptedAnswer": {"@type": "Answer", "text": "Современные учебники, интерактивные платформы, видео/подкасты, карточки слов и собственные разработки."}},
-          {"@type": "Question", "name": "С какого уровня можно начинать?", "acceptedAnswer": {"@type": "Answer", "text": "С любого: от нуля до продвинутого. План строится под ваши задачи."}},
-          {"@type": "Question", "name": "Есть ли домашние задания?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Они помогают закрепить материал, но всегда остаются посильными и интересными."}}
-        ]
-      }
-    </script>
-  </head>
-  <body>
-    <div class="page-bg bg-aurora bg-aurora-noise"></div>
-    <div class="page-content">
-      <!-- Навигация: фиксированная шапка с блюром и активным пунктом меню -->
-      <header class="site-header">
-        <nav class="nav container" aria-label="Основная навигация">
-          <div class="nav__bar">
-            <a href="#home" class="nav__brand" aria-label="На главный экран">
-              <picture>
-                <source type="image/webp" srcset="Vector_clean_KingSpeech.webp" />
-                <img src="Vector_clean_KingSpeech.png" alt="Логотип KingSpeech" />
-              </picture>
-              <span class="nav__brandText">
-                <span class="nav__name">KING SPEECH</span>
-                <span class="nav__tagline">курсы английского языка</span>
-              </span>
-              <span class="sr-only">KingSpeech</span>
-            </a>
-            <button id="mobileMenuBtn" class="nav__toggle" aria-label="Открыть меню" aria-controls="primary-menu" aria-expanded="false">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-            </button>
-            <ul id="primary-menu" class="nav__list" role="menu">
-              <li>
-                <button id="themeToggle" tabindex="0" aria-label="Переключить тему" aria-pressed="true" class="theme-toggle" title="Переключить тему">
-                  <span class="sr-only">Переключить тему</span>
-                  <span class="theme-sky">
-                    <span class="theme-stars" aria-hidden="true"></span>
-                    <span class="theme-sunset" aria-hidden="true"></span>
-                    <span class="theme-ground" aria-hidden="true"></span>
-                    <svg class="theme-sun" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>
-                    <svg class="theme-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"/></svg>
-                  </span>
-                </button>
-              </li>
-              <li><a href="#about" class="nav__link">О преподавателе</a></li>
-              <li><a href="#method" class="nav__link">Методика</a></li>
-              <li><a href="#testimonials" class="nav__link">Отзывы</a></li>
-              <li><a href="#faq" class="nav__link">Частые вопросы</a></li>
-              <li><a href="#contact" class="btn btn--primary">Записаться</a></li>
-            </ul>
-          </div>
-          <div id="mobileMenu" class="nav__mobile" role="menu" aria-hidden="true">
-            <button id="themeToggleMobile" tabindex="0" aria-label="Переключить тему" aria-pressed="true" class="theme-toggle" title="Переключить тему">
-              <span class="sr-only">Переключить тему</span>
-              <span class="theme-sky">
-                <span class="theme-stars" aria-hidden="true"></span>
-                <span class="theme-sunset" aria-hidden="true"></span>
-                <span class="theme-ground" aria-hidden="true"></span>
-                <svg class="theme-sun" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>
-                <svg class="theme-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"/></svg>
-              </span>
-            </button>
-            <a href="#about" class="mobile-link">О преподавателе</a>
-            <a href="#method" class="mobile-link">Методика</a>
-            <a href="#testimonials" class="mobile-link">Отзывы</a>
-            <a href="#faq" class="mobile-link">Частые вопросы</a>
-            <a href="#contact" class="mobile-link mobile-link--cta">Записаться</a>
-          </div>
-        </nav>
-      </header>
-
-      <main id="home">
-        <!-- Hero: увеличены контрасты, добавлены тени и более плотный вертикальный ритм -->
-        <section class="hero section">
-          <div class="container">
-            <div class="hero__grid">
-              <div data-animate class="hero__content">
-                <h1 class="hero__title hglow-base hglow-1">Вам больше не нужно зубрить английский</h1>
-                <p class="hero__subtitle">Индивидуальные и групповые онлайн‑занятия. Живые разговоры, интерактивные упражнения и поддержка между уроками.</p>
-                <div class="hero__actions">
-                  <a href="#contact" class="btn btn--primary" aria-label="Записаться на бесплатное занятие">Записаться на бесплатное занятие</a>
-                  <a href="#method" class="btn btn--ghost" aria-label="Узнать о методике">Как проходят занятия</a>
-                </div>
-                <ul class="hero__bullets" aria-label="Краткие преимущества">
-                  <li class="bullet"><span class="i-dot" aria-hidden="true"></span>Пробное занятие 30 мин</li>
-                  <li class="bullet"><span class="i-dot" aria-hidden="true"></span>Любые задачи</li>
-                  <li class="bullet"><span class="i-dot" aria-hidden="true"></span>Любой уровень</li>
-                </ul>
+    <!-- Main Content -->
+    <main id="main">
+      <!-- Hero Section -->
+      <section id="home" class="hero section">
+        <div class="container">
+          <div class="hero__grid">
+            <!-- Hero Content -->
+            <div class="hero__content" data-animate>
+              <h1 class="hero__title hglow-base hglow-1">
+                Вам больше не нужно зубрить английский
+              </h1>
+              <p class="hero__subtitle">
+                Индивидуальные и групповые онлайн‑занятия. Живые разговоры, интерактивные упражнения и поддержка между уроками.
+              </p>
+              <div class="hero__actions">
+                <a href="#contact" class="btn btn--primary" aria-label="Записаться на бесплатное занятие">
+                  Записаться на бесплатное занятие
+                </a>
+                <a href="#method" class="btn btn--ghost" aria-label="Узнать о методике">
+                  Как проходят занятия
+                </a>
               </div>
-              <div class="hero__media" data-animate>
-                <div class="media-frame">
-                  <picture>
-                    <source type="image/webp" srcset="assets/hero/hero-a-plus-800.webp 1x" />
-                    <img src="assets/hero/hero-a-plus-800.webp" alt="Иллюстрация онлайн‑занятий по английскому" decoding="async" fetchpriority="high" width="800" height="600" sizes="(min-width: 1280px) 640px, (min-width: 768px) 560px, 92vw" srcset="assets/hero/hero-a-plus-560.webp 560w, assets/hero/hero-a-plus-800.webp 800w" />
-                  </picture>
-                </div>
-              </div>
+              <ul class="hero__bullets" aria-label="Краткие преимущества">
+                <li class="bullet">
+                  <span class="i-dot" aria-hidden="true"></span>
+                  Пробное занятие 30 мин
+                </li>
+                <li class="bullet">
+                  <span class="i-dot" aria-hidden="true"></span>
+                  Любые задачи
+                </li>
+                <li class="bullet">
+                  <span class="i-dot" aria-hidden="true"></span>
+                  Любой уровень
+                </li>
+              </ul>
             </div>
-          </div>
-        </section>
-
-        <!-- О преподавателе -->
-        <section id="about" class="section">
-          <div class="container">
-            <div class="about__grid">
-              <div class="about__photo" data-animate>
-                <img src="photo_2023-02-05_21-22-56-600.webp" alt="Фото преподавателя английского" loading="lazy" decoding="async" width="600" height="600" sizes="(min-width: 768px) 420px, 80vw" srcset="photo_2023-02-05_21-22-56-320.webp 320w, photo_2023-02-05_21-22-56-420.webp 420w, photo_2023-02-05_21-22-56-600.webp 600w" />
+            
+            <!-- Hero Media -->
+            <div class="hero__media" data-animate>
+              <div class="media-frame">
+                <picture>
+                  <source type="image/webp" srcset="assets/hero/hero-a-plus-800.webp 1x" />
+                  <img src="assets/hero/hero-a-plus-800.webp" 
+                       alt="Иллюстрация онлайн‑занятий по английскому" 
+                       decoding="async" 
+                       fetchpriority="high" 
+                       width="800" 
+                       height="600" 
+                       sizes="(min-width: 1280px) 640px, (min-width: 768px) 560px, 92vw" 
+                       srcset="assets/hero/hero-a-plus-560.webp 560w, assets/hero/hero-a-plus-800.webp 800w" />
+                </picture>
               </div>
-              <div class="about__content" data-animate>
-                <h2 class="section-title hglow-base hglow-2">О преподавателе</h2>
-                <p class="text-muted text-md-plus">Привет! Я Никита и более 9 лет я помогаю детям и взрослым понимать и уверенно общаться на английском. В основе занятий — разговорная практика, актуальная лексика, высокие технологии и индивидуальный курс  под ваши цели.</p>
-                <ul class="about__list text-muted">
-                  <li class="li-check">Сертификация Cambridge</li>
-                  <li class="li-check">Бакалавр Психологии Hunter College, New York</li>
-                  <li class="li-check">Персональные материалы под интересы ученика</li>
-                  <li class="li-check">Поддержка между уроками</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Методика обучения -->
-        <section id="method" class="section section--alt">
-          <div class="container">
-            <h2 class="section-title text-center hglow-base hglow-2" data-animate>Методика обучения</h2>
-            <p class="section-subtitle text-center" data-animate>Короткие и динамичные уроки, разговорная практика и понятные результаты.</p>
-            <div class="cards">
-              <article class="card" data-animate>
-                <div class="card-icon"><svg class="icon icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H7l-4 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z"/></svg></div>
-                <h3 class="card-title">Интерактивные занятия</h3>
-                <p class="card-text">Ролевые игры, квизы, видео и только актуальный практический язык.</p>
-              </article>
-              <article class="card" data-animate>
-                <div class="card-icon"><svg class="icon icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 12h8M12 8v8"/></svg></div>
-                <h3 class="card-title">Технологии</h3>
-                <p class="card-text">Интеграция ИИ в занятия, интерактивная доска и игровые ресурсы.</p>
-              </article>
-              <article class="card" data-animate>
-                <div class="card-icon"><svg class="icon icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
-                <h3 class="card-title">Индивидуальный подход</h3>
-                <p class="card-text">Создаю персональные курсы, проявляю гуманность и заботу о ваших успехах и спокойствии</p>
-              </article>
-              <article class="card" data-animate>
-                <div class="card-icon"><svg class="icon icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 14s1-4 6-4l3 3 3-3c5 0 6 4 6 4"/><path d="M8 13l4 4 4-4"/></svg></div>
-                <h3 class="card-title">Поддержка между занятиями</h3>
-                <p class="card-text">Домашние задания, обратная связь и поддержка между уроками.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- Отзывы -->
-        <section id="testimonials" class="section">
-          <div class="container">
-            <h2 class="section-title text-center hglow-base hglow-2" data-animate>Отзывы учеников</h2>
-            <div id="testimonialsCarousel" class="carousel" data-animate>
-              <div id="testimonialsTrack" class="carousel__track" role="region" aria-label="Лента отзывов" tabindex="0">
-                <figure class="testimonial">
-                  <img class="testimonial-avatar" src="https://ui-avatars.com/api/?name=Алиса&background=FF7A00&color=fff" alt="Аватар Алиса" width="64" height="64" loading="lazy" decoding="async" />
-                  <div class="testimonial-body">
-                    <figcaption class="testimonial-name">Алиса</figcaption>
-                    <div class="testimonial-text"><blockquote class="testimonial-quote" data-full="Прекрасный преподаватель: знает, как доходчиво объяснить любые темы, использует разные подходы к обучению, позволяющие вникнуть в материал и запомнить его. Подтянула знания английского языка и стала увереннее в разговоре.">«Стала увереннее говорить — объяснения простые и понятные.»</blockquote></div>
-                  </div>
-                </figure>
-                <figure class="testimonial">
-                  <img class="testimonial-avatar" src="https://ui-avatars.com/api/?name=Пётр&background=0F172A&color=fff" alt="Аватар Пётр" width="64" height="64" loading="lazy" decoding="async" />
-                  <div class="testimonial-body">
-                    <figcaption class="testimonial-name">Пётр</figcaption>
-                    <div class="testimonial-text"><blockquote class="testimonial-quote" data-full="Я очень рад, что могу учиться у Никиты. Он очень терпеливый и отзывчивый учитель. На занятиях мы пользуемся как учебниками, так и интерактивными инструментами: изучаем грамматику и практикуем общение.">«Терпеливый и отзывчивый — грамматика и практика в балансе.»</blockquote></div>
-                  </div>
-                </figure>
-                <figure class="testimonial">
-                  <img class="testimonial-avatar" src="https://ui-avatars.com/api/?name=Ирина&background=2563EB&color=fff" alt="Аватар Ирина" width="64" height="64" loading="lazy" decoding="async" />
-                  <div class="testimonial-body">
-                    <figcaption class="testimonial-name">Ирина</figcaption>
-                    <div class="testimonial-text"><blockquote class="testimonial-quote" data-full="Напишу со слов сына, который занимается в группе у этого преподавателя уже несколько лет. Результатом очень доволен: качество преподавания, подача материала и контакт с учениками — великолепные. Занятия интересные, ребёнок с удовольствием ходит.">«Сын с удовольствием ходит — результатом очень довольны.»</blockquote></div>
-                  </div>
-                </figure>
-                <figure class="testimonial">
-                  <img class="testimonial-avatar" src="https://ui-avatars.com/api/?name=Алина&background=22C55E&color=fff" alt="Аватар Алина" width="64" height="64" loading="lazy" decoding="async" />
-                  <div class="testimonial-body">
-                    <figcaption class="testimonial-name">Алина</figcaption>
-                    <div class="testimonial-text"><blockquote class="testimonial-quote" data-full="После одного занятия с ним рушатся все стереотипы об учителях. Доходчиво объясняет даже сложную информацию. На уроках не тянется «миллион часов» на грамматику — обсуждаем интересные темы и совершенствуем английский. Помогает перестать бояться ошибок и достигнуть желаемого уровня.">«Сложное объясняет просто — страх ошибок ушёл.»</blockquote></div>
-                  </div>
-                </figure>
-                <figure class="testimonial">
-                  <img class="testimonial-avatar" src="https://ui-avatars.com/api/?name=София&background=F472B6&color=fff" alt="Аватар София" width="64" height="64" loading="lazy" decoding="async" />
-                  <div class="testimonial-body">
-                    <figcaption class="testimonial-name">София</figcaption>
-                    <div class="testimonial-text"><blockquote class="testimonial-quote" data-full="Очень хороший преподаватель: объясняет всё доходчиво, терпелив и бережно относится к ученикам. Быстро находит подход к человеку любого возраста, помогает отточить материал и снимает волнение из‑за уровня английского.">«Терпеливый и внимательный — нашёл подход и снял волнение.»</blockquote></div>
-                  </div>
-                </figure>
-              </div>
-              <!-- Индикаторы (точки) -->
-              <div class="carousel__indicators" role="tablist" aria-label="Навигация по отзывам">
-                <button class="carousel__indicator is-active" role="tab" aria-selected="true" aria-label="Отзыв 1 из 5" data-index="0"></button>
-                <button class="carousel__indicator" role="tab" aria-selected="false" aria-label="Отзыв 2 из 5" data-index="1"></button>
-                <button class="carousel__indicator" role="tab" aria-selected="false" aria-label="Отзыв 3 из 5" data-index="2"></button>
-                <button class="carousel__indicator" role="tab" aria-selected="false" aria-label="Отзыв 4 из 5" data-index="3"></button>
-                <button class="carousel__indicator" role="tab" aria-selected="false" aria-label="Отзыв 5 из 5" data-index="4"></button>
-              </div>
-              <p id="carouselStatus" class="sr-only" aria-live="polite"></p>
-            </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Modal: full testimonial reader -->
-        <div id="reviewModal" class="modal" aria-hidden="true">
-          <div class="modal__backdrop" data-close></div>
-          <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="reviewTitle">
-            <button class="modal__close" aria-label="Закрыть" data-close>
-              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6l-12 12"/></svg>
-            </button>
-            <button class="modal__nav modal__prev" aria-label="Предыдущий отзыв">
-              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-            </button>
-            <button class="modal__nav modal__next" aria-label="Следующий отзыв">
-              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <div class="modal__content">
-              <div class="modal__header">
-                <img class="modal__avatar" alt="Аватар" />
-                <div class="modal__meta">
-                  <h3 id="reviewTitle" class="modal__name"></h3>
-                </div>
-              </div>
-              <blockquote class="modal__quote"></blockquote>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- FAQ: добавлены стрелки и плавное раскрытие -->
-        <section id="faq" class="section section--alt">
-          <div class="container">
-            <h2 class="section-title text-center hglow-base hglow-2" data-animate>Частые вопросы</h2>
-            <div class="faq__list" data-animate>
-              <details class="faq">
-                <summary>Как проходит пробное занятие?</summary>
-                <p>Знакомство, определение целей и уровня, мини‑урок с практикой. После — персональный план обучения.</p>
-              </details>
-              <details class="faq">
-                <summary>Сколько длится урок?</summary>
-                <p>Как правило, 60 минут, но можно и больше в зависимости от ваших целей</p>
-              </details>
-              <details class="faq">
-                <summary>Какие материалы используются?</summary>
-                <p>Современные учебники, интерактивные платформы, видео/подкасты, карточки слов и собственные разработки.</p>
-              </details>
-              <details class="faq">
-                <summary>С какого уровня можно начинать?</summary>
-                <p>С любого: от нуля до продвинутого. План строится под ваши задачи.</p>
-              </details>
-              <details class="faq">
-                <summary>Есть ли домашние задания?</summary>
-                <p>Да. Они помогают закрепить материал, поддерживают стабильный прогресс, но всегда остаются посильными и интересными.</p>
-              </details>
+      <!-- About Section -->
+      <section id="about" class="section">
+        <div class="container">
+          <div class="about__grid">
+            <!-- About Photo -->
+            <div class="about__photo" data-animate>
+                          <img src="assets/images/teacher-photo.webp"
+                 alt="Фото преподавателя английского" 
+                 loading="lazy" 
+                 decoding="async" 
+                 width="600" 
+                 height="600" 
+                 sizes="(min-width: 768px) 420px, 80vw" 
+                 srcset="assets/images/teacher-photo-320.webp 320w, assets/images/teacher-photo-420.webp 420w, assets/images/teacher-photo.webp 600w" />
+            </div>
+            
+            <!-- About Content -->
+            <div class="about__content" data-animate>
+              <h2 class="section-title hglow-base hglow-2">О преподавателе</h2>
+              <p class="text-muted text-md-plus">
+                Привет! Я Никита и более 9 лет я помогаю детям и взрослым понимать и уверенно общаться на английском. 
+                В основе занятий — разговорная практика, актуальная лексика, высокие технологии и индивидуальный курс под ваши цели.
+              </p>
+              <ul class="about__list text-muted">
+                <li class="li-check">Сертификация Cambridge</li>
+                <li class="li-check">Бакалавр Психологии Hunter College, New York</li>
+                <li class="li-check">Персональные материалы под интересы ученика</li>
+                <li class="li-check">Поддержка между уроками</li>
+              </ul>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Контакты / Форма: современная форма и inline‑валидация -->
-        <section id="contact" class="section">
-          <div class="container">
-            <div class="contact__grid">
-              <div data-animate>
-                <h2 class="section-title hglow-base hglow-5">📅 Запишитесь на пробное занятие</h2>
-                <p class="text-muted mb-6 text-md-plus">Оставьте контакты — мы свяжемся с вами в течение дня.</p>
-                <div class="contact__formBox panel" data-animate>
-                  <div class="contact__tg-cta" data-animate>
-                    <a id="tgCtaBtn" class="btn btn--primary btn--tg pulse-glow" href="https://t.me/kingspeechwelcomebot?start=from_site" target="_blank" rel="noopener noreferrer" aria-label="Записаться через Telegram бота (откроется в новой вкладке)" title="Откроется Telegram">
-                      <span class="tg-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M21.5 3.5 2.7 10.6c-.8.3-.8 1.4.1 1.6l4.9 1.3c.4.1.8 0 1.1-.3l7.5-6.1c.2-.2.5.1.3.3l-6 6.4c-.3.3-.3.8 0 1.1l3.9 3.9c.7.7 1.9.4 2.2-.6l3.9-14.8c.2-.8-.6-1.5-1.4-1.2Z"/>
+      <!-- Method Section -->
+      <section id="method" class="section section--alt">
+        <div class="container">
+          <h2 class="section-title text-center hglow-base hglow-2">Методика</h2>
+          <p class="section-subtitle text-center" data-animate>
+            Короткие и динамичные уроки, разговорная практика и понятные результаты.
+          </p>
+          
+          <div class="cards">
+            <!-- Card 1: Interactive Classes -->
+            <article class="card" data-animate>
+              <div class="card-icon">
+                <svg class="icon icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path d="M21 15a4 4 0 0 1-4 4H7l-4 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z"/>
+                </svg>
+              </div>
+              <h3 class="card-title">Интерактивные занятия</h3>
+              <p class="card-text">Ролевые игры, квизы, видео и только актуальный практический язык.</p>
+            </article>
+            
+            <!-- Card 2: Technology -->
+            <article class="card" data-animate>
+              <div class="card-icon">
+                <svg class="icon icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="16" rx="2"/>
+                  <path d="M8 12h8M12 8v8"/>
+                </svg>
+              </div>
+              <h3 class="card-title">Технологии</h3>
+              <p class="card-text">Интеграция ИИ в занятия, интерактивная доска и игровые ресурсы.</p>
+            </article>
+            
+            <!-- Card 3: Individual Approach -->
+            <article class="card" data-animate>
+              <div class="card-icon">
+                <svg class="icon icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path d="M9 12l2 2 4-4"/>
+                  <circle cx="12" cy="12" r="9"/>
+                </svg>
+              </div>
+              <h3 class="card-title">Индивидуальный подход</h3>
+              <p class="card-text">Создаю персональные курсы, проявляю гуманность и заботу о ваших успехах и спокойствии</p>
+            </article>
+            
+            <!-- Card 4: Support -->
+            <article class="card" data-animate>
+              <div class="card-icon">
+                <svg class="icon icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path d="M3 14s1-4 6-4l3 3 3-3c5 0 6 4 6 4"/>
+                  <path d="M8 13l4 4 4-4"/>
+                </svg>
+              </div>
+              <h3 class="card-title">Поддержка между занятиями</h3>
+              <p class="card-text">Домашние задания, обратная связь и поддержка между уроками.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section class="section testimonials-section">
+        <div class="container">
+          <h2 class="section-title text-center hglow-base hglow-2">Отзывы учеников</h2>
+          
+          <div id="testimonialsCarousel" class="carousel" data-carousel data-animate>
+            <!-- Navigation Buttons -->
+            <button class="carousel__nav carousel__nav--prev" data-carousel-prev aria-label="Предыдущий отзыв">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+              </svg>
+            </button>
+            
+            <button class="carousel__nav carousel__nav--next" data-carousel-next aria-label="Следующий отзыв">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+              </svg>
+            </button>
+            
+            <!-- Testimonials Track -->
+            <div id="testimonialsTrack" class="carousel__track" data-carousel-track role="region" aria-label="Лента отзывов" tabindex="0">
+              <!-- Testimonial 1 -->
+              <div class="testimonial active" data-carousel-slide role="group" aria-label="Отзыв 1 из 5">
+                <div class="testimonial-body">
+                  <div class="testimonial-name">Алиса</div>
+                  <blockquote class="testimonial-quote" data-full="Прекрасный преподаватель: знает, как доходчиво объяснить любые темы, использует разные подходы к обучению, позволяющие вникнуть в материал и запомнить его. Подтянула знания английского языка и стала увереннее в разговоре.">
+                    «Стала увереннее говорить — объяснения простые и понятные.»
+                  </blockquote>
+                </div>
+              </div>
+              
+              <!-- Testimonial 2 -->
+              <div class="testimonial" data-carousel-slide role="group" aria-label="Отзыв 2 из 5">
+                <div class="testimonial-body">
+                  <div class="testimonial-name">Пётр</div>
+                  <blockquote class="testimonial-quote" data-full="Я очень рад, что могу учиться у Никиты. Он очень терпеливый и отзывчивый учитель. На занятиях мы пользуемся как учебниками, так и интерактивными инструментами: изучаем грамматику и практикуем общение.">
+                    «Терпеливый и отзывчивый — грамматика и практика в балансе.»
+                  </blockquote>
+                </div>
+              </div>
+              
+              <!-- Testimonial 3 -->
+              <div class="testimonial" data-carousel-slide role="group" aria-label="Отзыв 3 из 5">
+                <div class="testimonial-body">
+                  <div class="testimonial-name">Ирина</div>
+                  <blockquote class="testimonial-quote" data-full="Напишу со слов сына, который занимается в группе у этого преподавателя уже несколько лет. Результатом очень доволен: качество преподавания, подача материала и контакт с учениками — великолепные. Занятия интересные, ребёнок с удовольствием ходит.">
+                    «Сын с удовольствием ходит — результатом очень довольны.»
+                  </blockquote>
+                </div>
+              </div>
+              
+              <!-- Testimonial 4 -->
+              <div class="testimonial" data-carousel-slide role="group" aria-label="Отзыв 4 из 5">
+                <div class="testimonial-body">
+                  <div class="testimonial-name">Алина</div>
+                  <blockquote class="testimonial-quote" data-full="После одного занятия с ним рушатся все стереотипы об учителях. Доходчиво объясняет даже сложную информацию. На уроках не тянется «миллион часов» на грамматику — обсуждаем интересные темы и совершенствуем английский. Помогает перестать бояться ошибок и достигнуть желаемого уровня.">
+                    «Сложное объясняет просто — страх ошибок ушёл.»
+                  </blockquote>
+                </div>
+              </div>
+              
+              <!-- Testimonial 5 -->
+              <div class="testimonial" data-carousel-slide role="group" aria-label="Отзыв 5 из 5">
+                <div class="testimonial-body">
+                  <div class="testimonial-name">София</div>
+                  <blockquote class="testimonial-quote" data-full="Очень хороший преподаватель: объясняет всё доходчиво, терпелив и бережно относится к ученикам. Быстро находит подход к человеку любого возраста, помогает отточить материал и снимает волнение из‑за уровня английского.">
+                    «Терпеливый и внимательный — нашёл подход и снял волнение.»
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Carousel Indicators -->
+            <div class="carousel__indicators" role="tablist" aria-label="Навигация по отзывам">
+              <button class="carousel__indicator active" role="tab" aria-selected="true" aria-controls="testimonialsTrack" data-carousel-indicator data-slide="0">
+                <span class="sr-only">Отзыв 1</span>
+              </button>
+              <button class="carousel__indicator" role="tab" aria-selected="false" aria-controls="testimonialsTrack" data-carousel-indicator data-slide="1">
+                <span class="sr-only">Отзыв 2</span>
+              </button>
+              <button class="carousel__indicator" role="tab" aria-selected="false" aria-controls="testimonialsTrack" data-carousel-indicator data-slide="2">
+                <span class="sr-only">Отзыв 3</span>
+              </button>
+              <button class="carousel__indicator" role="tab" aria-selected="false" aria-controls="testimonialsTrack" data-carousel-indicator data-slide="3">
+                <span class="sr-only">Отзыв 4</span>
+              </button>
+              <button class="carousel__indicator" role="tab" aria-selected="false" aria-controls="testimonialsTrack" data-carousel-indicator data-slide="4">
+                <span class="sr-only">Отзыв 5</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modal: full testimonial reader -->
+      <div id="reviewModal" class="modal" aria-hidden="true">
+        <div class="modal__backdrop" data-close></div>
+        <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="reviewTitle">
+          <button class="modal__close" aria-label="Закрыть" data-close>
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6l-12 12"/></svg>
+          </button>
+          <button class="modal__nav modal__prev" aria-label="Предыдущий отзыв">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="modal__nav modal__next" aria-label="Следующий отзыв">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <div class="modal__content">
+            <div class="modal__header">
+              <h3 id="reviewTitle" class="modal__name"></h3>
+            </div>
+            <blockquote class="modal__quote"></blockquote>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <section id="faq" class="section section--alt">
+        <div class="container">
+          <h2 class="section-title text-center hglow-base hglow-2">Частые вопросы</h2>
+          
+          <div class="faq-list">
+            <!-- FAQ Item 1 -->
+            <details class="faq" data-animate>
+              <summary class="faq__question">
+                <span>Как проходит первое занятие?</span>
+                <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="faq__answer">
+                <p>
+                  Первое занятие — это 30-минутное знакомство. Мы определим ваш уровень, обсудим цели и составим план обучения. 
+                  Вы попробуете формат занятий и поймете, подходит ли вам мой подход.
+                </p>
+              </div>
+            </details>
+            
+            <!-- FAQ Item 2 -->
+            <details class="faq" data-animate>
+              <summary class="faq__question">
+                <span>Сколько нужно времени для результата?</span>
+                <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="faq__answer">
+                <p>
+                  Первые результаты видны уже через 2-3 недели регулярных занятий. Для уверенного общения на базовом уровне 
+                  нужно 3-6 месяцев. Все зависит от вашей цели и частоты занятий.
+                </p>
+              </div>
+            </details>
+            
+            <!-- FAQ Item 3 -->
+            <details class="faq" data-animate>
+              <summary class="faq__question">
+                <span>Какие материалы используются на занятиях?</span>
+                <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="faq__answer">
+                <p>
+                  Я использую современные учебники, интерактивные приложения, видео и аудио материалы. 
+                  Все материалы подбираются индивидуально под ваши интересы и цели.
+                </p>
+              </div>
+            </details>
+            
+            <!-- FAQ Item 4 -->
+            <details class="faq" data-animate>
+              <summary class="faq__question">
+                <span>Можно ли заниматься в группе?</span>
+                <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="faq__answer">
+                <p>
+                  Да! У нас есть мини-группы по 2-4 человека. Групповые занятия дешевле индивидуальных, 
+                  но при этом сохраняют эффективность благодаря небольшому количеству участников.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="section">
+        <div class="container">
+          <!-- Contact Hero -->
+          <div class="contact__hero" data-animate>
+            <h2 class="section-title text-left hglow-base hglow-5">Записаться на занятие</h2>
+          </div>
+          
+          
+          <div class="contact__grid">
+                          <!-- Contact Form -->
+              <div class="contact__form" data-animate>
+                <!-- Bot Button -->
+                <button type="button" class="btn btn--bot" data-bot-button>
+                  <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                  </svg>
+                  <span class="btn__text">Записаться через бота</span>
+                </button>
+                
+                <p class="form__divider-text">или заполните форму ниже</p>
+                
+                <div class="form__divider-line"></div>
+                
+                <form id="leadForm" class="form form--minimal" data-form novalidate>
+                <div class="form__field">
+                  <div class="form__input-row">
+                    <svg class="form__field-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <input type="text" id="name" name="name" class="form__input" placeholder="Ваше имя" required />
+                  </div>
+                  <div id="name-error" class="form__error" role="alert" aria-live="polite"></div>
+                </div>
+                
+                <div class="form__field">
+                  <div class="form__input-row">
+                    <svg class="form__field-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <input type="email" id="email" name="email" class="form__input" placeholder="you@example.com (необязательно)" />
+                  </div>
+                  <div id="email-error" class="form__error" role="alert" aria-live="polite"></div>
+                </div>
+                
+                <div class="form__field">
+                  <div class="form__input-row">
+                    <svg class="form__field-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                    <input type="tel" id="phone" name="phone" class="form__input" placeholder="+7 999 123-45-67" required />
+                  </div>
+                  <div id="phone-error" class="form__error" role="alert" aria-live="polite"></div>
+                </div>
+                
+                <!-- Messenger Selection -->
+                <div class="form__field">
+                  <label class="form__label form__label--static">Удобнее связаться через</label>
+                  <div class="messenger__options">
+                    <label class="messenger__option">
+                      <input type="radio" name="messenger" value="telegram" class="messenger__input" checked />
+                      <span class="messenger__button messenger__button--telegram">
+                        <svg class="messenger__icon" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                         </svg>
                       </span>
-                      <span>Записаться через бота</span>
-                    </a>
-                    <p class="cta__note text-muted">или заполните форму ниже</p>
+                    </label>
+                    
+                    <label class="messenger__option">
+                      <input type="radio" name="messenger" value="whatsapp" class="messenger__input" />
+                      <span class="messenger__button messenger__button--whatsapp">
+                        <svg class="messenger__icon" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                        </svg>
+                      </span>
+                    </label>
                   </div>
-                  <form id="leadForm" novalidate class="form" aria-labelledby="contactTitle">
-                    <input type="hidden" name="messenger" id="messenger" value="Telegram" />
-                    <input type="hidden" name="goal" id="goal" value="" />
-                    <input type="text" name="website" id="website" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
-                    <div class="form__group">
-                      <label for="name" class="form__label">Имя<span aria-hidden="true">*</span></label>
-                      <div class="form__inputWrap">
-                        <span class="input__icon" aria-hidden="true">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5Z"/><path d="M2 22c0-4.418 3.582-8 8-8h4c4.418 0 8 3.582 8 8"/></svg>
-                        </span>
-                        <input id="name" name="name" type="text" autocomplete="given-name" class="form__input" placeholder="Ваше имя" required aria-required="true" aria-describedby="nameHelp" />
-                      </div>
-                      <p id="nameHelp" class="form__hint">Как к вам обращаться</p>
-                    </div>
-                    <div class="form__group">
-                      <label for="email" class="form__label">Email</label>
-                      <div class="form__inputWrap">
-                        <span class="input__icon" aria-hidden="true">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="m22 6-10 7L2 6"/></svg>
-                        </span>
-                        <input id="email" name="email" type="email" autocomplete="email" class="form__input" placeholder="you@example.com" />
-                      </div>
-                    </div>
-                    <div class="form__group">
-                      <label for="phone" class="form__label">Телефон<span aria-hidden="true">*</span></label>
-                      <div class="form__inputWrap">
-                        <span class="input__icon" aria-hidden="true">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.89.3 1.76.52 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.48a2 2 0 0 1 2.11-.45c.84.22 1.71.4 2.6.52A2 2 0 0 1 22 16.92z"/></svg>
-                        </span>
-                        <input id="phone" name="phone" type="tel" inputmode="tel" class="form__input" placeholder="+7 999 123-45-67" required aria-required="true" />
-                      </div>
-                    </div>
-
-                    <div class="form__group">
-                      <span class="form__label">Удобнее связаться через</span>
-                      <div class="chips" role="group" aria-label="Предпочтительный мессенджер">
-                        <button type="button" class="chip is-selected" data-value="Telegram" aria-pressed="true" aria-label="Выбрать Telegram">
-                          <span class="chip__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M21.5 3.5 2.7 10.6c-.8.3-.8 1.4.1 1.6l4.9 1.3c.4.1.8 0 1.1-.3l7.5-6.1c.2-.2.5.1.3.3l-6 6.4c-.3.3-.3.8 0 1.1l3.9 3.9c.7.7 1.9.4 2.2-.6l3.9-14.8c.2-.8-.6-1.5-1.4-1.2Z"/></svg></span> Telegram
-                        </button>
-                        <button type="button" class="chip" data-value="WhatsApp" aria-pressed="false" aria-label="Выбрать WhatsApp">
-                          <span class="chip__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M2 21l1.6-5.9A9 9 0 1 1 12 21a9.2 9.2 0 0 1-4.1-1L2 21Z"/><path d="M15.5 16.5c-.7.3-3.3-.4-5.3-2.4-2-2-2.7-4.6-2.4-5.3.1-.3.5-.4.8-.3l1.6.6c.3.1.5.4.5.7l.1 1c0 .2 0 .4-.2.5l-.5.5c.7 1.2 1.7 2.2 2.9 2.9l.5-.5c.1-.1.3-.2.5-.2l1 .1c.3 0 .6.2.7.5l.6 1.6c.1.3 0 .7-.3.8Z"/></svg></span> WhatsApp
-                        </button>
-
-                      </div>
-                      <p class="form__hint">Ответим в течение дня</p>
-                    </div>
-
-                    <div class="form__group">
-                      <label class="form__label" for="consent">
-                        <input id="consent" type="checkbox" required />
-                        Я согласен(а) с <a href="privacy.html" target="_blank" class="footer__link">политикой конфиденциальности</a>
-                      </label>
-                    </div>
-
-                    <button type="submit" class="btn btn--primary btn--block" aria-label="Отправить заявку">Отправить заявку</button>
-                    <p id="formMessage" class="form__message" role="status" aria-live="polite"></p>
-                  </form>
                 </div>
-              </div>
-              <div class="contact__side" data-animate>
-                <div class="panel" data-animate>
-                  <h3 class="panel__title hglow-base hglow-2">Часто выбирают</h3>
-                  <div class="mini-cards">
-                    <article class="mini-card">
-                      <div class="mini-card__icon">💼</div>
-                      <h4 class="mini-card__title">Работа</h4>
-                      <p class="mini-card__text">Специализированный и бизнес английский</p>
-                    </article>
-                    <article class="mini-card">
-                      <div class="mini-card__icon">✈️</div>
-                      <h4 class="mini-card__title">Путешествия</h4>
-                      <p class="mini-card__text">Уверенное общение в поездках</p>
-                    </article>
-                    <article class="mini-card">
-                      <div class="mini-card__icon">🧒</div>
-                      <h4 class="mini-card__title">Дети 8–14</h4>
-                      <p class="mini-card__text">Интересные занятия без стресса</p>
-                    </article>
+                
+                <!-- Honeypot field (защита от спама) -->
+                <input type="text" name="website" style="display: none !important; position: absolute; left: -9999px;" tabindex="-1" autocomplete="off" />
+                
+                <div class="form__actions">
+                  <button type="submit" class="btn btn--primary btn--block" data-form-submit>
+                    <span class="btn__text">Отправить заявку</span>
+                    <span class="btn__loading" aria-hidden="true">
+                      <svg class="btn__spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" stroke-dasharray="31.416" stroke-dashoffset="31.416">
+                          <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
+                          <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
+                        </circle>
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </form>
+            </div>
+            
+            <!-- Popular Choices -->
+            <div class="popular-choices" data-animate>
+              <h3 class="popular-choices__title">Часто выбирают</h3>
+              <div class="popular-choices__grid">
+                <div class="popular-choice">
+                  <div class="popular-choice__icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20 6h-2l-2-2H8L6 6H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/>
+                    </svg>
                   </div>
+                  <h4 class="popular-choice__title">Работа</h4>
+                  <p class="popular-choice__description">Специализированный и бизнес английский</p>
+                </div>
+                
+                <div class="popular-choice">
+                  <div class="popular-choice__icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                    </svg>
+                  </div>
+                  <h4 class="popular-choice__title">Путешествия</h4>
+                  <p class="popular-choice__description">Уверенное общение в поездках</p>
+                </div>
+                
+                <div class="popular-choice">
+                  <div class="popular-choice__icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                  </div>
+                  <h4 class="popular-choice__title">Дети 8–14</h4>
+                  <p class="popular-choice__description">Интересные занятия без стресса</p>
                 </div>
               </div>
             </div>
-
-            <div class="trustbar" aria-label="Доверие">
-              <div class="trustbar__item">🏅 Cambridge сертификация</div>
-              <div class="trustbar__item">🕘 9 лет опыта</div>
-              <div class="trustbar__item">👥 100+ учеников</div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer class="footer">
-        <div class="container">
-          <!-- Переработанный футер: 3 колонки + соцсети для лучшей навигации и UX -->
-          <div class="footer__grid">
-            <div>
-              <a href="#home" class="footer__brand" aria-label="К началу страницы">
-                <img src="Vector_clean_KingSpeech.png" alt="Логотип KingSpeech" loading="lazy" decoding="async" />
-              </a>
-              <p class="text-muted mt-3">Онлайн‑уроки английского: разговорная практика, гибкий график и поддержка между занятиями.</p>
-            </div>
-            <nav aria-label="Быстрые ссылки">
-              <p class="footer__title">Меню</p>
-              <div class="footer__links">
-                <a href="#about" class="footer__link">О преподавателе</a>
-                <a href="#method" class="footer__link">Методика</a>
-                <a href="#testimonials" class="footer__link">Отзывы</a>
-                <a href="#faq" class="footer__link">FAQ</a>
-                <a href="#contact" class="footer__link">Записаться</a>
-              </div>
-            </nav>
-            <div>
-              <p class="footer__title">Мы на связи</p>
-              <div class="footer__socials">
-                <a class="footer__link" href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M21.5 3.5 2.7 10.6c-.8.3-.8 1.4.1 1.6l4.9 1.3c.4.1.8 0 1.1-.3l7.5-6.1c.2-.2.5.1.3.3l-6 6.4c-.3.3-.3.8 0 1.1l3.9 3.9c.7.7 1.9.4 2.2-.6l3.9-14.8c.2-.8-.6-1.5-1.4-1.2Z"/></svg>
-                  Telegram
-                </a>
-                <a class="footer__link" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M2 21l1.6-5.9A9 9 0 1 1 12 21a9.2 9.2 0 0 1-4.1-1L2 21Z"/><path d="M15.5 16.5c-.7.3-3.3-.4-5.3-2.4-2-2-2.7-4.6-2.4-5.3.1-.3.5-.4.8-.3l1.6.6c.3.1.5.4.5.7l.1 1c0 .2 0 .4-.2.5l-.5.5c.7 1.2 1.7 2.2 2.9 2.9l.5-.5c.1-.1.3-.2.5-.2l1 .1c.3 0 .6.2.7.5l.6 1.6c.1.3 0 .7-.3.8Z"/></svg>
-                  WhatsApp
-                </a>
-                <a class="footer__link" href="mailto:hello@kingspeech.example" aria-label="Email">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm0 2v.2l8 5 8-5V8l-8 5-8-5z"/></svg>
-                  Email
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="footer__bar">
-            <p class="footer__copy">© <span id="year"></span> KingSpeech. Все права защищены.</p>
-            <p class="footer__madeby">Made by <a href="https://t.me/mrdudekowski" class="footer__link" target="_blank" rel="noopener">@mrdudekowski</a></p>
-            <a href="privacy.html" id="privacyLink" class="footer__link">Политика конфиденциальности</a>
           </div>
         </div>
-      </footer>
+      </section>
+    </main>
 
-      <!-- FX layer and anchor for mail slot -->
-      <div id="fxLayer" class="fx-layer" aria-hidden="true"></div>
-      <div id="mailSlotAnchor" class="mail-slot-anchor" aria-hidden="true"></div>
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer__content">
+          <div class="footer__brand">
+            <img src="assets/images/logo.png" alt="KingSpeech" class="footer__logo" width="32" height="32" />
+            <div class="footer__brand-text">
+              <div class="footer__name">KING SPEECH</div>
+              <div class="footer__tagline">Курсы английского языка</div>
+            </div>
+          </div>
+          
+          <div class="footer__links">
+            <div class="footer__column">
+              <h4 class="footer__title">Услуги</h4>
+              <ul class="footer__list">
+                <li><a href="#method" class="footer__link">Индивидуальные занятия</a></li>
+                <li><a href="#method" class="footer__link">Групповые занятия</a></li>
+                <li><a href="#method" class="footer__link">Подготовка к экзаменам</a></li>
+                <li><a href="#method" class="footer__link">Бизнес английский</a></li>
+              </ul>
+            </div>
+            
+            <div class="footer__column">
+              <h4 class="footer__title">Информация</h4>
+              <ul class="footer__list">
+                <li><a href="#about" class="footer__link">О преподавателе</a></li>
+                <li><a href="#testimonials" class="footer__link">Отзывы</a></li>
+                <li><a href="#faq" class="footer__link">FAQ</a></li>
+                <li><a href="#contact" class="footer__link">Контакты</a></li>
+              </ul>
+            </div>
+            
+            <div class="footer__column">
+              <h4 class="footer__title">Контакты</h4>
+              <ul class="footer__list">
+                <li><a href="tel:+79001234567" class="footer__link">+7 (900) 123-45-67</a></li>
+                <li><a href="mailto:hello@kingspeech.com" class="footer__link">hello@kingspeech.com</a></li>
+                <li><a href="https://t.me/kingspeech" class="footer__link">Telegram</a></li>
+                <li><a href="https://wa.me/79001234567" class="footer__link">WhatsApp</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer__bottom">
+          <div class="footer__copyright">
+            © 2025 KingSpeech. Все права защищены.
+          </div>
+          <div class="footer__legal">
+            <a href="#privacy" class="footer__link">Политика конфиденциальности</a>
+            <a href="#terms" class="footer__link">Условия использования</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
 
-      <button id="toTop" aria-label="Наверх" class="to-top" hidden>
-        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" /></svg>
-      </button>
-
-      <script defer src="script.js"></script>
-    </div>
-  </body>
-</html> 
+  <!-- JavaScript -->
+  <!-- Aurora Background (WebGL) -->
+  <script defer src="aurora.js"></script>
+  
+  <script src="js/main.js" type="module"></script>
+</body>
+</html>

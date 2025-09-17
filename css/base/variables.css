@@ -1,0 +1,319 @@
+/* ========================================
+   KINGSPEECH LANDING - CSS VARIABLES
+   ======================================== */
+
+:root {
+  /* ========================================
+     COLOR SCHEME - LIGHT THEME
+     ======================================== */
+  
+  /* Light theme background - теплый градиент */
+  background: linear-gradient(135deg, #FFF8F0 0%, #FFE8D6 25%, #FFF0E6 50%, #FFE8D6 75%, #FFF8F0 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  
+  /* Primary Colors */
+  --accent: #FF7A00;
+  --accent-600: #E66D00;
+  --accent-700: #CC5F00;
+  
+  /* Background Colors */
+  --bg: #FFFFFF;
+  --surface: #F5F5F5;
+  --surface-2: #F0F0F0;
+  --bg-elevated: #FFFFFF;
+  
+  /* Text Colors */
+  --text: #1A202C;
+  --text-muted: #4A5568;
+  --text-light: #718096;
+  
+  /* Border Colors */
+  --border: #E2E8F0;
+  --border-dark: #CBD5E0;
+  
+  /* Header Colors */
+  --header-bg: rgba(255, 255, 255, 0.96);
+  --header-border: #E2E8F0;
+  
+  /* Button Colors */
+  --text-on-accent: #FFFFFF;
+  
+  /* Card Colors - удалены неиспользуемые */
+  
+  /* Form Colors - удалены неиспользуемые */
+  
+  /* Status Colors */
+  --success: #38A169;
+  --warning: #D69E2E;
+  --error: #E53E3E;
+  
+  /* Text on Status Colors */
+  --text-on-success: #FFFFFF;
+  --text-on-warning: #FFFFFF;
+  --text-on-error: #FFFFFF;
+  /* Hover States */
+  --bg-hover: #F7FAFC;
+  
+  /* Status Color Variants */
+  --success-600: #2F855A;
+  --error-600: #C53030;
+  --warning-600: #B7791F;
+  
+  
+  /* Background Patterns */
+  --bg-pattern: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e2e8f0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  --bg-pattern-dark: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23374151" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  
+  /* Accent Alpha */
+  --accent-alpha: rgba(255, 122, 0, 0.1);
+  --accent-alpha-dark: rgba(255, 140, 0, 0.15);
+  
+  /* ========================================
+     TYPOGRAPHY
+     ======================================== */
+  
+  /* Font Families */
+  --font-primary: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  
+  /* Font Sizes */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+  /* Удалены неиспользуемые размеры текста */
+  
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
+  
+  /* ========================================
+     SPACING - OPTIMIZED SYSTEM
+     ======================================== */
+  
+  /* Base spacing scale */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  
+  /* Section spacing - оптимизированные отступы */
+  --section-padding-sm: var(--space-12);  /* 48px - мобильные */
+  --section-padding-md: var(--space-16);  /* 64px - планшеты */
+  --section-padding-lg: var(--space-20);  /* 80px - десктоп */
+  
+  /* Title spacing - равномерные отступы заголовков */
+  --title-margin-sm: var(--space-4);      /* 16px - мобильные */
+  --title-margin-md: var(--space-5);      /* 20px - планшеты */
+  --title-margin-lg: var(--space-6);      /* 24px - десктоп */
+  
+  /* Content spacing - внутренние отступы */
+  --content-gap-sm: var(--space-4);       /* 16px - мобильные */
+  --content-gap-md: var(--space-5);       /* 20px - планшеты */
+  --content-gap-lg: var(--space-6);       /* 24px - десктоп */
+  
+  /* ========================================
+     LAYOUT
+     ======================================== */
+  
+  /* Container */
+  --container-max-width: 1280px;
+  --container-padding: 2rem;
+  
+  /* Header */
+  --header-height: 72px;
+  /* Section Spacing - удалены неиспользуемые */
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
+  --radius-2xl: 1.5rem;    /* 24px */
+  --radius-full: 9999px;
+  
+  /* ========================================
+     SHADOWS
+     ======================================== */
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* ========================================
+     TRANSITIONS & ANIMATIONS
+     ======================================== */
+  
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --transition-fast: var(--duration-fast) var(--easing-out);
+  --transition-slow: var(--duration-slow) var(--easing-out);
+  
+  --easing-out: cubic-bezier(0, 0, 0.2, 1);
+  
+  /* ========================================
+     Z-INDEX SCALE
+     ======================================== */
+  
+  --z-fixed: 1030;
+  --z-modal: 1050;
+  --z-background: -1;
+  --z-content: 1;
+  
+  /* ========================================
+     BREAKPOINTS - удалены неиспользуемые
+     ======================================== */
+}
+
+/* ========================================
+   DARK THEME OVERRIDES
+   ======================================== */
+
+/* Dark theme using .dark class (modern approach) */
+html.dark {
+  /* Global gradient background */
+  background: linear-gradient(135deg, #0B0B0D 0%, #0F1216 50%, #151922 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  
+  /* Background Colors */
+  --bg: #121212;
+  --surface: #1E1E1E;
+  --surface-2: #232323;
+  --bg-elevated: #1A1A1A;
+  
+  /* Text Colors */
+  --text: #F2F4F8;
+  --text-muted: #A5ADBA;
+  --text-light: #C9D1D9;
+  
+  /* Surface Colors */
+  --surface: #0F1216;
+  --surface-alt: #151922;
+  --surface-elevated: #1B2430;
+  
+  /* Border Colors */
+  --border: #1F2732;
+  --border-light: #293241;
+  --border-dark: #334155;
+  --border-subtle: #1A212B;
+  --border-subtle-dark: #293241;
+  
+  /* Header Colors */
+  --header-bg: rgba(11, 11, 13, 0.96);
+  --header-border: #1F2732;
+  --header-bg-scrolled: rgba(11, 11, 13, 0.98);
+  --header-bg-dark: rgba(11, 11, 13, 0.96);
+  --header-border-dark: #1F2732;
+  --header-bg-scrolled-dark: rgba(11, 11, 13, 0.98);
+  
+  /* Card Colors */
+  --card-bg: #0F1216;
+  --card-border: #1F2732;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.45);
+  
+  /* Form Colors */
+  --input-bg: #0F1216;
+  --input-border: #1F2732;
+  --bg-dark: #0B0B0D;
+  --text-dark: #F2F4F8;
+  
+  /* Button Colors */
+  --btn-ghost-bg: rgba(255, 122, 0, 0.15);
+  --btn-ghost-border: rgba(255, 122, 0, 0.4);
+  --bg-hover-dark: #1A212B;
+  --border-hover-dark: #334155;
+  
+  /* Elevated Surfaces */
+  --bg-elevated-dark: #1B2430;
+  
+}
+
+/* System theme preference fallback */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    /* Background Colors */
+    --bg: #0B0B0D;
+    --bg-alt: #0F1216;
+    --bg-elevated: #151922;
+    
+    /* Text Colors */
+    --text: #F3F4F6;
+    --text-muted: #AAB2BD;
+    --text-light: #D0D7DE;
+    
+    /* Surface Colors */
+    --surface: #0F1216;
+    --surface-alt: #151922;
+    --surface-elevated: #1B2430;
+    
+    /* Border Colors */
+    --border: #1F2732;
+    --border-light: #293241;
+    --border-dark: #334155;
+    
+    /* Header Colors */
+    --header-bg: rgba(11, 11, 13, 0.96);
+    --header-border: #1F2732;
+    
+    /* Card Colors */
+    --card-bg: #0F1216;
+    --card-border: #1F2732;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.45);
+    
+    /* Form Colors */
+    --input-bg: #0F1216;
+    --input-border: #1F2732;
+    
+    /* Button Colors */
+    --btn-ghost-bg: rgba(255, 122, 0, 0.15);
+    --btn-ghost-border: rgba(255, 122, 0, 0.4);
+  }
+}
+
+/* ========================================
+   THEME TRANSITIONS (OPTIMIZED)
+   ======================================== */
+
+/* Disable transitions during theme change to prevent flashing */
+.theme-transitioning * {
+  transition: none !important;
+}
+
+/* Allow only essential theme toggle animations */
+.theme-transitioning .theme-sun,
+.theme-transitioning .theme-moon {
+  transition: transform var(--duration-normal) var(--easing-out), 
+              opacity var(--duration-normal) var(--easing-out), 
+              filter var(--duration-normal) var(--easing-out), 
+              z-index var(--duration-fast) var(--easing-out) !important;
+}

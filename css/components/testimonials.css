@@ -1,0 +1,219 @@
+/* ========================================
+   TESTIMONIALS COMPONENT
+   ======================================== */
+
+/* Testimonials Grid */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Testimonial Card */
+.testimonial-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 122, 0, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(255, 122, 0, 0.1);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(255, 122, 0, 0.25);
+  border-color: var(--accent);
+}
+
+/* Testimonial Avatar */
+.testimonial-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: var(--space-2);
+}
+
+.avatar-initials {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: white;
+  text-transform: uppercase;
+}
+
+/* Цвета аватаров */
+.testimonial-card:nth-child(1) .testimonial-avatar {
+  background: #3B82F6; /* Синий */
+}
+
+.testimonial-card:nth-child(2) .testimonial-avatar {
+  background: #10B981; /* Зеленый */
+}
+
+.testimonial-card:nth-child(3) .testimonial-avatar {
+  background: #EC4899; /* Розовый */
+}
+
+/* Testimonial Content */
+.testimonial-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex-grow: 1;
+}
+
+/* Testimonial Name */
+.testimonial-name {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--text);
+  margin: 0;
+}
+
+/* Testimonial Quote */
+.testimonial-quote {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--text);
+  font-style: italic;
+  margin: 0;
+  position: relative;
+  padding: 0;
+  text-align: left;
+}
+
+/* Кавычки - REMOVED */
+
+/* Dark Theme Adjustments */
+html.dark .testimonial-card {
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(10px);
+  border-color: rgba(255, 122, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 122, 0, 0.15);
+}
+
+html.dark .testimonial-card:hover {
+  box-shadow: 0 12px 35px rgba(255, 122, 0, 0.3);
+  border-color: var(--accent);
+}
+
+html.dark .testimonial-name {
+  color: var(--text-dark);
+}
+
+html.dark .testimonial-quote {
+  color: var(--text-dark);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+  
+  .testimonial-card {
+    padding: var(--space-5);
+  }
+  
+  .testimonial-avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .avatar-initials {
+    font-size: var(--text-base);
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    max-width: 500px;
+  }
+  
+  .testimonial-card {
+    padding: var(--space-5);
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  
+  .testimonial-avatar {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  
+  .avatar-initials {
+    font-size: var(--text-lg);
+  }
+  
+  .testimonial-content {
+    flex-grow: 1;
+  }
+  
+  .testimonial-quote {
+    font-size: var(--text-sm);
+  }
+  
+  /* .testimonial-quote::before, .testimonial-quote::after removed */
+}
+
+@media (max-width: 480px) {
+  .testimonials-grid {
+    gap: var(--space-3);
+  }
+  
+  .testimonial-card {
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+  
+  .testimonial-avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .avatar-initials {
+    font-size: var(--text-base);
+  }
+  
+  .testimonial-name {
+    font-size: var(--text-sm);
+  }
+  
+  .testimonial-quote {
+    font-size: var(--text-sm);
+  }
+  
+  /* .testimonial-quote::before, .testimonial-quote::after removed */
+}
+
+/* Animation Classes */
+.testimonials-grid[data-animate] {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

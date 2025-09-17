@@ -1,0 +1,428 @@
+/* ========================================
+   CAROUSEL COMPONENT
+   ======================================== */
+
+.carousel {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+  overflow: visible;
+  padding: 0 80px; /* Добавляем отступы для стрелок */
+}
+
+/* Carousel Track */
+.carousel__track {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+}
+
+.testimonial {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: var(--content-gap-lg);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-2xl);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--content-gap-sm);
+  opacity: 0;
+  transform: translateX(50%) scale(0.9);
+  filter: blur(5px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  z-index: 1;
+}
+
+.testimonial.active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  filter: blur(0px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  z-index: 3;
+}
+
+.testimonial.active:hover {
+  transform: translateX(0) scale(1.02);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--accent);
+  box-shadow: 0 16px 48px rgba(255, 122, 0, 0.2);
+}
+
+.testimonial.prev {
+  transform: translateX(-50%) scale(0.9);
+  filter: blur(5px);
+  opacity: 0.3;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.testimonial.prev:hover {
+  transform: translateX(-50%) scale(0.95);
+  filter: blur(3px);
+  opacity: 0.5;
+}
+
+.testimonial.next {
+  transform: translateX(50%) scale(0.9);
+  filter: blur(5px);
+  opacity: 0.3;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.testimonial.next:hover {
+  transform: translateX(50%) scale(0.95);
+  filter: blur(3px);
+  opacity: 0.5;
+}
+
+/* Первый слайд активен по умолчанию - убираем это правило */
+
+/* Testimonial Avatar - REMOVED */
+
+/* Testimonial Body */
+.testimonial-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  flex-grow: 1;
+  justify-content: center;
+}
+
+/* Testimonial Name */
+.testimonial-name {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--text);
+  margin: 0;
+}
+
+/* Testimonial Level */
+.testimonial-level {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Testimonial Quote */
+.testimonial-quote {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--text);
+  font-style: italic;
+  margin: 0;
+  position: relative;
+  padding: 0 var(--space-2);
+  text-align: center;
+}
+
+/* Кавычки - REMOVED */
+
+/* Testimonial Hover Effects - только для активных карточек */
+
+/* Navigation Buttons */
+.carousel__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform var(--transition-fast), opacity var(--transition-fast), color var(--transition-fast);
+  z-index: 2;
+}
+
+.carousel__nav:hover {
+  color: var(--accent-600);
+  transform: translateY(-50%) scale(1.2);
+}
+
+.carousel__nav:focus {
+  outline: none;
+}
+
+.carousel__nav:active {
+  transform: translateY(-50%) scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+.carousel__nav svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.5;
+}
+
+.carousel__nav--prev {
+  left: -60px;
+}
+
+.carousel__nav--next {
+  right: -60px;
+}
+
+/* Carousel Indicators */
+.carousel__indicators {
+  display: none;
+}
+
+.carousel__indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--border-subtle);
+  border: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  padding: 0;
+}
+
+.carousel__indicator:hover {
+  background: var(--accent);
+  transform: scale(1.2);
+}
+
+.carousel__indicator.active {
+  background: var(--accent);
+  transform: scale(1.2);
+}
+
+.carousel__indicator:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Responsive Design - объединенные медиа-запросы */
+@media (max-width: 1024px) {
+  .carousel {
+    max-width: 500px;
+  }
+  
+  .testimonial {
+    padding: var(--space-5);
+    backdrop-filter: blur(15px);
+  }
+  
+  .testimonial-quote {
+    font-size: var(--text-base);
+    padding: 0 var(--space-3);
+  }
+  
+  /* .testimonial-quote::before, .testimonial-quote::after removed */
+}
+
+@media (max-width: 768px) {
+  .carousel {
+    max-width: 100%;
+    padding: 0 60px;
+  }
+  
+  .carousel__track {
+    height: 280px;
+  }
+  
+  .carousel__nav {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .carousel__nav svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .carousel__nav--prev {
+    left: -50px;
+  }
+  
+  .carousel__nav--next {
+    right: -50px;
+  }
+  
+  .testimonial {
+    padding: var(--space-6);
+    backdrop-filter: blur(12px);
+  }
+  
+  .testimonial-quote {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-4);
+  }
+  
+  .testimonial-author {
+    gap: var(--space-3);
+  }
+  
+  /* .testimonial-avatar removed */
+  
+  .testimonial-name {
+    font-size: var(--text-sm);
+  }
+  
+  .testimonial-level {
+    font-size: var(--text-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel {
+    padding: 0 var(--space-4);
+  }
+  
+  .carousel__track {
+    height: 240px;
+  }
+  
+  .carousel__nav {
+    display: none;
+  }
+  
+  .testimonial {
+    padding: var(--space-4);
+  }
+  
+  .testimonial-quote {
+    font-size: var(--text-sm);
+    padding: 0 var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+  
+  /* .testimonial-quote::before, .testimonial-quote::after removed */
+  
+  .testimonial-author {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  
+  .testimonial-info {
+    text-align: center;
+  }
+  
+  /* .testimonial-avatar removed */
+  
+  .carousel__indicators {
+    margin-top: var(--space-4);
+  }
+  
+  .carousel__indicator {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Responsive Design - Carousel адаптивные отступы */
+@media (max-width: 1024px) {
+  .testimonial {
+    padding: var(--content-gap-md);
+    gap: var(--content-gap-sm);
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonial {
+    padding: var(--content-gap-sm);
+    gap: var(--space-3);
+  }
+  
+  .carousel {
+    padding: 0 60px; /* Уменьшаем отступы для стрелок */
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial {
+    padding: var(--space-4);
+    gap: var(--space-2);
+    backdrop-filter: blur(10px);
+  }
+  
+  .carousel {
+    padding: 0 40px; /* Еще меньше отступы для стрелок */
+  }
+}
+
+/* Dark Theme Adjustments */
+html.dark .testimonial {
+  background: rgba(30, 30, 30, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+}
+
+html.dark .testimonial.active {
+  background: rgba(30, 30, 30, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .testimonial.active:hover {
+  background: rgba(30, 30, 30, 0.25);
+  border-color: var(--accent);
+  box-shadow: 0 16px 48px rgba(255, 122, 0, 0.3);
+}
+
+html.dark .testimonial.prev,
+html.dark .testimonial.next {
+  background: rgba(30, 30, 30, 0.05);
+}
+
+html.dark .carousel__nav {
+  background: transparent;
+  border: none;
+}
+
+html.dark .carousel__indicator {
+  background: var(--border-subtle-dark);
+}
+
+/* Animation Classes */
+.carousel[data-animate] {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Carousel States */
+.carousel__track.sliding {
+  transition: transform var(--transition-fast);
+}
+
+.carousel__nav:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.carousel__nav:disabled:hover {
+  transform: translateY(-50%);
+  background: transparent;
+  color: var(--text);
+  border: none;
+}

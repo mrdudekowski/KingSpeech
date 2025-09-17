@@ -1,0 +1,257 @@
+/* ========================================
+   KINGSPEECH LANDING - TYPOGRAPHY
+   ======================================== */
+
+/* ========================================
+   BASE TYPOGRAPHY
+   ======================================== */
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+  color: var(--text);
+  letter-spacing: var(--tracking-normal);
+}
+
+/* ========================================
+   HEADING SCALE
+   ======================================== */
+
+/* Hero Title - Main Headline */
+.hero__title {
+  font-size: clamp(2.5rem, 6vw, 4rem); /* 40px - 64px */
+  font-weight: var(--font-extrabold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tighter);
+  color: var(--text);
+}
+
+/* Section Titles */
+.section-title {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem); /* 28px - 40px */
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text);
+  margin-bottom: var(--space-2);
+}
+
+/* Card Titles */
+.card-title {
+  font-size: var(--text-xl); /* 20px */
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+  color: var(--text);
+  margin-bottom: var(--space-3);
+}
+
+/* Subsection Titles */
+.subsection-title {
+  font-size: var(--text-lg); /* 18px */
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-normal);
+  color: var(--text);
+  margin-bottom: var(--space-4);
+}
+
+/* ========================================
+   TEXT VARIATIONS
+   ======================================== */
+
+/* Hero Subtitle */
+.hero__subtitle {
+  font-size: clamp(1.125rem, 1.8vw, 1.25rem); /* 18px - 20px */
+  font-weight: var(--font-normal);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-normal);
+  color: var(--text-muted);
+  margin-bottom: var(--space-6);
+}
+
+/* Section Subtitle */
+.section-subtitle {
+  font-size: var(--text-lg); /* 18px */
+  font-weight: var(--font-normal);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-normal);
+  color: var(--text-muted);
+  margin-bottom: var(--space-8);
+  max-width: 60ch;
+}
+
+/* Body Text */
+.text-body {
+  font-size: var(--text-base); /* 16px */
+  font-weight: var(--font-normal);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-normal);
+  color: var(--text);
+}
+
+/* Card Text */
+.card-text {
+  font-size: var(--text-base); /* 16px */
+  font-weight: var(--font-normal);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-normal);
+  color: var(--text-muted);
+}
+
+/* Testimonial Quote */
+.testimonial-quote {
+  font-size: var(--text-lg); /* 18px */
+  font-weight: var(--font-normal);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-normal);
+  color: var(--text);
+  font-style: italic;
+}
+
+/* FAQ Text */
+.faq > p {
+  font-size: var(--text-base); /* 16px */
+  font-weight: var(--font-normal);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-normal);
+  color: var(--text-muted);
+}
+
+/* ========================================
+   UTILITY TEXT CLASSES
+   ======================================== */
+
+/* Утилитарные классы удалены - не используются в проекте */
+
+/* ========================================
+   SPECIAL TEXT EFFECTS
+   ======================================== */
+
+/* Glow Effects for Headlines */
+.hglow-base {
+  text-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
+}
+
+.hglow-1 {
+  text-shadow: 
+    0 0 20px rgba(255, 122, 0, 0.3),
+    0 0 40px rgba(255, 122, 0, 0.2),
+    0 0 60px rgba(255, 122, 0, 0.1);
+}
+
+.hglow-2 {
+  text-shadow: 
+    0 0 15px rgba(255, 122, 0, 0.4),
+    0 0 30px rgba(255, 122, 0, 0.3),
+    0 0 45px rgba(255, 122, 0, 0.2);
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========================================
+   RESPONSIVE TYPOGRAPHY
+   ======================================== */
+
+/* Mobile First Approach - объединенные медиа-запросы */
+@media (min-width: 640px) {
+  .hero__title {
+    font-size: clamp(3rem, 6vw, 4rem);
+  }
+  
+  .section-title {
+    font-size: clamp(2rem, 3.2vw, 2.5rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .hero__title {
+    font-size: clamp(3.5rem, 6vw, 4rem);
+  }
+  
+  .section-title {
+    font-size: clamp(2.25rem, 3.2vw, 2.5rem);
+  }
+  
+  .hero__subtitle {
+    font-size: clamp(1.125rem, 1.8vw, 1.25rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero__title {
+    font-size: clamp(4rem, 6vw, 4.5rem);
+  }
+  
+  .section-title {
+    font-size: clamp(2.5rem, 3.2vw, 3rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero__title {
+    font-size: clamp(4.5rem, 6vw, 5rem);
+  }
+  
+  .section-title {
+    font-size: clamp(3rem, 3.2vw, 3.5rem);
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .text-muted {
+    color: var(--text);
+  }
+  
+  .hglow-base,
+  .hglow-1,
+  .hglow-2 {
+    text-shadow: none;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .text-gradient {
+    background: var(--accent);
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    background-clip: unset;
+  }
+}
+
+/* ========================================
+   PRINT OPTIMIZATION
+   ======================================== */
+
+@media print {
+  .hero__title,
+  .section-title,
+  .card-title {
+    color: black !important;
+    text-shadow: none !important;
+  }
+  
+  .text-muted {
+    color: #666 !important;
+  }
+  
+  .hglow-base,
+  .hglow-1,
+  .hglow-2 {
+    text-shadow: none !important;
+  }
+}

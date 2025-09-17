@@ -1,0 +1,32 @@
+{
+  "name": "kingspeech-landing",
+  "version": "1.0.0",
+  "description": "KingSpeech Landing Page with CSS Linting",
+  "scripts": {
+    "lint:css": "stylelint css/**/*.css",
+    "lint:css:fix": "stylelint 'css/**/*.css' --fix",
+    "lint:css:report": "stylelint 'css/**/*.css' --formatter json > css-lint-report.json",
+    "analyze:css": "node scripts/css-analyzer.js",
+    "check:variables": "node scripts/check-variables.js",
+    "check:duplicates": "node scripts/check-duplicates.js",
+    "check:dead-code": "node scripts/check-dead-code.js",
+    "css:audit": "npm run lint:css && npm run analyze:css && npm run check:variables && npm run check:duplicates && npm run check:dead-code"
+  },
+  "devDependencies": {
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-config-standard-scss": "^11.1.0",
+    "stylelint-scss": "^5.3.1",
+    "postcss": "^8.4.31",
+    "postcss-custom-properties": "^13.3.0",
+    "css-tree": "^2.3.1"
+  },
+  "keywords": [
+    "css",
+    "linting",
+    "stylelint",
+    "landing-page"
+  ],
+  "author": "KingSpeech Team",
+  "license": "MIT"
+}
